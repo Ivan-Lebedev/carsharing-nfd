@@ -54,7 +54,7 @@ const SideBar = () => {
                 onClick={() => setBurgerState(true)}>
                 <span></span>
             </button>
-            <button className="lang">Eng</button>
+            <button className="lang lang--hidden">Eng</button>
         </div>
     )
 

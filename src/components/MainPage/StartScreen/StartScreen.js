@@ -18,7 +18,7 @@ const StartScreen = () => {
                 <button className="button hero-block__btn">Забронировать</button>
             </div>
 
-            <footer className="footer">
+            <footer className="start-screen__footer">
                 <div className="footer__copyright">© 2016-2019 «Need for drive»</div>
                 <a href="tel:84952342244" className="footer__tel">8 (495) 234-22-44</a>
             </footer>

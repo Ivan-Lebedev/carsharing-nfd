@@ -28,7 +28,7 @@
     width: 250px;
     height: 48px;
 }
-.footer {
+.start-screen__footer {
     display: flex;
     justify-content: space-between;
 }
@@ -51,5 +51,39 @@
 @media screen and (max-width: 1439px) {
     .start-screen {
         padding: 32px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .start-screen {
+        padding: 0;
+    }
+    .hero-block__title {
+        font-size: 32px;
+        line-height: 100%;
+        margin-left: 16px;
+    }
+    .hero-block__subtitle {
+        margin-top: 6px;
+        font-size: 18px;
+        line-height: 21px;
+        margin-left: 16px;
+    }
+    .hero-block__btn {
+        width: 100%;
+        border-radius: 0%;
+    }
+    .start-screen__footer {
+        background-color: #151b1f;
+        flex-direction: column-reverse;
+        align-items: flex-end;
+        min-height: 72px;
+        padding: 16px;
+    }
+    .footer__tel {
+        color: #0ec261;
+    }
+    .footer__copyright {
+        color: #eeeeee;
     }
 }

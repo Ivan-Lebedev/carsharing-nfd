@@ -132,7 +132,7 @@
 .social-items {
     width: 144px;
     display: flex;
-    justify-content: space-between;    
+    justify-content: space-between;
 }
 .social-items svg:hover path {
     fill: #0ec261;
@@ -155,5 +155,49 @@
 @media screen and (max-width: 1023px) {
     .opened-menu {
         width: 100vw;
+    }
+    .items-list__item {
+        font-size: 28px;
+        line-height: 33px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .side-bar {
+        background-color: transparent;
+        position: absolute;
+        height: 100vh;
+    }
+    .burger-menu {
+        margin-top: 16px;
+    }
+    .burger-menu span,
+    .burger-menu::before,
+    .burger-menu::after {
+        background-color: black;
+    }
+    .burger-menu--active.burger-menu span,
+    .burger-menu--active.burger-menu::before,
+    .burger-menu--active.burger-menu::after {
+        background-color: white;
+    }
+    .opened-menu {
+        justify-content: flex-start;
+    }
+    .opened-menu__items {
+        margin-top: 15vh;
+    }
+    .lang {
+        z-index: 2;
+    }
+    .lang--hidden {
+        display: none;
+    }
+    .opened-menu__items {
+        padding-left: 28px;
+    }
+    .items-list__item {
+        font-size: 22px;
+        line-height: 26px;
     }
 }
