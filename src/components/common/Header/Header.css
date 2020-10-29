@@ -1,0 +1,24 @@
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.main-header__logo {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 35px;
+    color: #0ec261;
+}
+.main-header__location {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: #999999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 94px;
+    height: 18px;
+}
