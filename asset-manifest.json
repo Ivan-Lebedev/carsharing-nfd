@@ -1,23 +1,25 @@
 {
   "files": {
-    "main.css": "/carsharing-nfd/static/css/main.ab7136cd.chunk.css",
-    "main.js": "/carsharing-nfd/static/js/main.6f89a3f8.chunk.js",
-    "main.js.map": "/carsharing-nfd/static/js/main.6f89a3f8.chunk.js.map",
-    "runtime-main.js": "/carsharing-nfd/static/js/runtime-main.3143c570.js",
-    "runtime-main.js.map": "/carsharing-nfd/static/js/runtime-main.3143c570.js.map",
-    "static/js/2.f857e701.chunk.js": "/carsharing-nfd/static/js/2.f857e701.chunk.js",
-    "static/js/2.f857e701.chunk.js.map": "/carsharing-nfd/static/js/2.f857e701.chunk.js.map",
-    "static/js/3.61a91d47.chunk.js": "/carsharing-nfd/static/js/3.61a91d47.chunk.js",
-    "static/js/3.61a91d47.chunk.js.map": "/carsharing-nfd/static/js/3.61a91d47.chunk.js.map",
+    "main.css": "/carsharing-nfd/static/css/main.92a30bff.chunk.css",
+    "main.js": "/carsharing-nfd/static/js/main.dc6eb665.chunk.js",
+    "main.js.map": "/carsharing-nfd/static/js/main.dc6eb665.chunk.js.map",
+    "runtime-main.js": "/carsharing-nfd/static/js/runtime-main.35ed25dc.js",
+    "runtime-main.js.map": "/carsharing-nfd/static/js/runtime-main.35ed25dc.js.map",
+    "static/js/2.c20855d8.chunk.js": "/carsharing-nfd/static/js/2.c20855d8.chunk.js",
+    "static/js/2.c20855d8.chunk.js.map": "/carsharing-nfd/static/js/2.c20855d8.chunk.js.map",
     "index.html": "/carsharing-nfd/index.html",
-    "static/css/main.ab7136cd.chunk.css.map": "/carsharing-nfd/static/css/main.ab7136cd.chunk.css.map",
-    "static/js/2.f857e701.chunk.js.LICENSE.txt": "/carsharing-nfd/static/js/2.f857e701.chunk.js.LICENSE.txt",
-    "static/media/logo.103b5fa1.svg": "/carsharing-nfd/static/media/logo.103b5fa1.svg"
+    "static/css/main.92a30bff.chunk.css.map": "/carsharing-nfd/static/css/main.92a30bff.chunk.css.map",
+    "static/js/2.c20855d8.chunk.js.LICENSE.txt": "/carsharing-nfd/static/js/2.c20855d8.chunk.js.LICENSE.txt",
+    "static/media/Group.dd9d4bed.svg": "/carsharing-nfd/static/media/Group.dd9d4bed.svg",
+    "static/media/App.css": "/carsharing-nfd/static/media/Roboto-Regular.03523cf5.ttf",
+    "static/media/Slider.css": "/carsharing-nfd/static/media/Slider_4.2cc2a6fa.jpg",
+    "static/media/slider-left-arr.dd0226d1.svg": "/carsharing-nfd/static/media/slider-left-arr.dd0226d1.svg",
+    "static/media/slider-right-arr.9d87137d.svg": "/carsharing-nfd/static/media/slider-right-arr.9d87137d.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.3143c570.js",
-    "static/js/2.f857e701.chunk.js",
-    "static/css/main.ab7136cd.chunk.css",
-    "static/js/main.6f89a3f8.chunk.js"
+    "static/js/runtime-main.35ed25dc.js",
+    "static/js/2.c20855d8.chunk.js",
+    "static/css/main.92a30bff.chunk.css",
+    "static/js/main.dc6eb665.chunk.js"
   ]
 }
