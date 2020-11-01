@@ -65,20 +65,17 @@ const Slider = () => {
           <p className='slider-item__desc'>{slide.desc}</p>
           <button className={slide.btn}>Подробнее</button>
         </div>
-
         <div className='radio'>
-          {slides.map((item, index) => {
-            return index === slideIndex ? (
-              <button
-                className='radio__btn radio__btn--active'
-                key={index}></button>
-            ) : (
-              <button
-                onClick={(e) => onDotClick(e, index)}
-                className='radio__btn'
-                key={index}></button>
-            )
-          })}
+          {slides.map((item, index) => (
+            <button
+              onClick={(e) => onDotClick(e, index)}
+              className={
+                index === slideIndex
+                  ? 'radio__btn radio__btn--active'
+                  : 'radio__btn'
+              }
+              key={index}></button>
+          ))}
         </div>
       </div>
       <button
