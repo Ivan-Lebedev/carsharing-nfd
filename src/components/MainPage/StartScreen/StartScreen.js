@@ -10,7 +10,7 @@ const StartScreen = () => {
       <div className='hero-block'>
         <h1 className='hero-block__title'>
           Каршеринг <br />
-          <span>Need for drive</span>
+          <span className='title__app-name'>Need for drive</span>
         </h1>
         <div className='hero-block__subtitle'>
           Поминутная аренда авто твоего города

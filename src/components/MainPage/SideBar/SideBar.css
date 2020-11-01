@@ -22,7 +22,7 @@
   outline: none;
   z-index: 2;
 }
-.burger-menu span {
+.burger-menu__line {
   background: transparent;
   display: block;
   background-color: white;
@@ -51,7 +51,7 @@
   bottom: 4px;
   transition: all 0.3s ease 0s;
 }
-.burger-menu span.burger-menu--active {
+.burger-menu__line.burger-menu--active {
   display: block;
   background-color: white;
   width: 100%;
@@ -59,7 +59,7 @@
   border-radius: 2px;
   transition: all 0.3s ease 0s;
 }
-.burger-menu.burger-menu--active span {
+.burger-menu.burger-menu--active .burger-menu__line {
   display: none;
 }
 .burger-menu.burger-menu--active:before {
@@ -171,12 +171,12 @@
   .burger-menu {
     margin-top: 16px;
   }
-  .burger-menu span,
+  .burger-menu__line,
   .burger-menu::before,
   .burger-menu::after {
     background-color: black;
   }
-  .burger-menu--active.burger-menu span,
+  .burger-menu--active.burger-menu__line,
   .burger-menu--active.burger-menu::before,
   .burger-menu--active.burger-menu::after {
     background-color: white;

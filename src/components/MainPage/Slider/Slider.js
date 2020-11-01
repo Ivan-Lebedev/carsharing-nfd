@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './Slider.css'
-import PrevArrow from '../../../assets/icons/slider-left-arr.svg'
-import NextArrow from '../../../assets/icons/slider-right-arr.svg'
+import SliderLeftArr from '../../common/icons/SliderLeftArr'
+import SliderRightArr from '../../common/icons/SliderRightArr'
 
 const slides = [
   {
@@ -57,7 +57,7 @@ const Slider = () => {
       <button
         onClick={() => onPrevArrowClick()}
         className='control-button btn-left'>
-        <img src={PrevArrow} alt='PrevArrow' />
+        <SliderLeftArr />
       </button>
       <div className='slider-wrapper'>
         <div className={slide.img}>
@@ -84,7 +84,7 @@ const Slider = () => {
       <button
         onClick={() => onNextArrowClick()}
         className='control-button btn-right'>
-        <img src={NextArrow} alt='NextArrow' />
+        <SliderRightArr />
       </button>
     </div>
   )

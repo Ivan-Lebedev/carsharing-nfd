@@ -12,7 +12,7 @@
   line-height: 66px;
   color: #121212;
 }
-.hero-block__title > span {
+.title__app-name {
   color: #0ec261;
 }
 .hero-block__subtitle {

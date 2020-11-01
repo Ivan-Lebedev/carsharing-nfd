@@ -17,7 +17,7 @@ const SideBar = () => {
     return (
       <div className='side-bar'>
         <button className={burgerClasses} onClick={() => setBurgerState(false)}>
-          <span></span>
+          <span className='burger-menu__line' />
         </button>
         <button className='lang'>Eng</button>
 
@@ -55,7 +55,7 @@ const SideBar = () => {
   return (
     <div className='side-bar'>
       <button className={burgerClasses} onClick={() => setBurgerState(true)}>
-        <span></span>
+        <span className='burger-menu__line' />
       </button>
       <button className='lang lang--hidden'>Eng</button>
     </div>
