@@ -5,13 +5,13 @@ import Slider from './Slider/Slider'
 import SideBar from './BurgerMenu/SideBar'
 
 const MainPage = () => {
-    return (
-        <div className='main-page'>
-            <SideBar />
-            <StartScreen />
-            <Slider />
-        </div>
-    )
+  return (
+    <div className='main-page'>
+      <SideBar />
+      <StartScreen />
+      <Slider />
+    </div>
+  )
 }
 
 export default MainPage

@@ -1,136 +1,172 @@
 .slider {
-    display: flex;
-    flex: 1 2 50%;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+  display: flex;
+  flex: 1 2 50%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .slider-wrapper {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .control-button {
-    cursor: pointer;
-    position: absolute;
-    width: 64px;
-    height: 100%;
-    border: none;
-    outline: none;
-    background-color: transparent;
+  cursor: pointer;
+  position: absolute;
+  width: 64px;
+  height: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
 }
 .control-button:hover {
-    background-color: rgba(14, 194, 97, 0.2);
+  background-color: rgba(14, 194, 97, 0.2);
 }
 .btn-left {
-    left: 0;
+  left: 0;
 }
 .btn-right {
-    right: 0;
+  right: 0;
 }
 
 .slider-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
 }
 .slider-item__header {
-    margin: 0 96px;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 40px;
-    line-height: 47px;
-    color: #ffffff;
+  margin: 0 96px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 47px;
+  color: #ffffff;
 }
 .slider-item__desc {
-    margin: 0 96px;
-    margin-top: 8px;
-    font-style: normal;
-    font-weight: 300;
-    font-size: 24px;
-    line-height: 90%;
-    color: #eeeeee;
+  margin: 0 96px;
+  margin-top: 8px;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 90%;
+  color: #eeeeee;
 }
 .slider-item__btn {
-    width: 164px;
-    height: 48px;
-    margin: 0 96px;
-    margin-top: 32px;
-    border-radius: 4px;
+  width: 164px;
+  height: 48px;
+  margin: 0 96px;
+  margin-top: 32px;
+  border-radius: 4px;
 }
 
 .btn1 {
-    background: linear-gradient(90deg, hsl(169, 59%, 18%) 0%, hsl(128, 82%, 26%) 100%);
+  background: linear-gradient(
+    90deg,
+    hsl(169, 59%, 18%) 0%,
+    hsl(128, 82%, 26%) 100%
+  );
 }
 .btn2 {
-    background: linear-gradient(90deg, hsl(216, 59%, 18%) 0%, hsl(169, 82%, 26%) 100%);
+  background: linear-gradient(
+    90deg,
+    hsl(216, 59%, 18%) 0%,
+    hsl(169, 82%, 26%) 100%
+  );
 }
 .btn3 {
-    background: linear-gradient(90deg, hsl(32, 59%, 18%) 0%, hsl(335, 82%, 26%) 100%);
+  background: linear-gradient(
+    90deg,
+    hsl(32, 59%, 18%) 0%,
+    hsl(335, 82%, 26%) 100%
+  );
 }
 .btn4 {
-    background: linear-gradient(90deg, hsl(263, 59%, 18%) 0%, hsl(295, 82%, 26%) 100%);
+  background: linear-gradient(
+    90deg,
+    hsl(263, 59%, 18%) 0%,
+    hsl(295, 82%, 26%) 100%
+  );
 }
 
 .radio {
-    position: absolute;
-    bottom: 32px;
-    right: 50%;
-    transform: translateX(50%);
+  position: absolute;
+  bottom: 32px;
+  right: 50%;
+  transform: translateX(50%);
 }
 .radio__btn {
-    cursor: pointer;
-    margin-left: 8px;
-    width: 12px;
-    height: 12px;
-    border: none;
-    border-radius: 50%;
+  cursor: pointer;
+  margin-left: 8px;
+  width: 12px;
+  height: 12px;
+  border: none;
+  border-radius: 50%;
 }
 .radio__btn:nth-child(1) {
-    margin-left: 0;
+  margin-left: 0;
 }
 .radio__btn--active {
-    background-color: #0ec261;
+  background-color: #0ec261;
 }
 
 .slide__1 {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 0.01%, #000000 100%),
-        url(../../../assets/images/Slider_1.jpg) center/cover;
+  background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 0.01%,
+      #000000 100%
+    ),
+    url(../../../assets/images/Slider_1.jpg) center/cover;
 }
 .slide__2 {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 0.01%, #000000 100%),
-        url(../../../assets/images/Slider_2.jpg) center/cover;
+  background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 0.01%,
+      #000000 100%
+    ),
+    url(../../../assets/images/Slider_2.jpg) center/cover;
 }
 .slide__3 {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 0.01%, #000000 100%),
-        url(../../../assets/images/Slider_3.jpg) center/cover;
+  background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 0.01%,
+      #000000 100%
+    ),
+    url(../../../assets/images/Slider_3.jpg) center/cover;
 }
 .slide__4 {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 0.01%, #000000 100%),
-        url(../../../assets/images/Slider_4.jpg) center/cover;
+  background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 0.01%,
+      #000000 100%
+    ),
+    url(../../../assets/images/Slider_4.jpg) center/cover;
 }
 
 @media screen and (max-width: 1439px) {
-    .control-button {
-        width: 32px;
-    }
-    .slider-item__header {
-        margin: 0 64px;
-    }
-    .slider-item__desc {
-        margin: 0 64px;
-        margin-top: 8px;
-    }
-    .slider-item__btn {
-        margin: 32px 64px;
-    }
+  .control-button {
+    width: 32px;
+  }
+  .slider-item__header {
+    margin: 0 64px;
+  }
+  .slider-item__desc {
+    margin: 0 64px;
+    margin-top: 8px;
+  }
+  .slider-item__btn {
+    margin: 32px 64px;
+  }
 }
 
 @media screen and (max-width: 1023px) {
-    .slider {
-        display: none;
-    }
+  .slider {
+    display: none;
+  }
 }
