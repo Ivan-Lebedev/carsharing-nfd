@@ -64,7 +64,6 @@ const Slider = () => {
           img.src = slide.img
         })}
       </div>
-
       <button
         onClick={() => onPrevArrowClick()}
         className='control-button btn-left'>

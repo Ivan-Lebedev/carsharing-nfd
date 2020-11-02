@@ -9,6 +9,7 @@
   font-size: 30px;
   line-height: 35px;
   color: #0ec261;
+  text-decoration: none;
 }
 .main-header__location {
   font-style: normal;
@@ -21,6 +22,7 @@
   align-items: center;
   width: 94px;
   height: 18px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 767px) {

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import './SideBar.css'
-import Telegramm from '../../common/icons/Telegram'
-import Facebook from '../../common/icons/Facebook'
-import Instagram from '../../common/icons/Instagram'
+import Telegramm from '../common/icons/Telegram'
+import Facebook from '../common/icons/Facebook'
+import Instagram from '../common/icons/Instagram'
 
 const SideBar = () => {
   const [burgerState, setBurgerState] = useState(false)

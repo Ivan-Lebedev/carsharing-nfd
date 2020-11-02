@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../../common/Header/Header'
 import './StartScreen.css'
+import { Link } from 'react-router-dom'
 
 const StartScreen = () => {
   return (
@@ -15,7 +16,7 @@ const StartScreen = () => {
         <div className='hero-block__subtitle'>
           Поминутная аренда авто твоего города
         </div>
-        <button className='button hero-block__btn'>Забронировать</button>
+        <Link to='/order' className='button hero-block__btn'>Забронировать</Link>
       </div>
 
       <footer className='start-screen__footer'>
