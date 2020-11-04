@@ -14,19 +14,19 @@
   text-align: right;
   color: #121212;
 }
-.status__location {
+.status__item {
   display: flex;
   justify-content: space-between;
   margin-top: 26px;
 }
-.status__location-title {
+.status__item-title {
   font-style: normal;
   font-weight: 300;
   font-size: 14px;
   line-height: 16px;
   color: #121212;
 }
-.status__location-dash {
+.status__item-dash {
   min-width: 96px;
   flex-grow: 1;
   flex-basis: auto;
@@ -34,7 +34,7 @@
   margin-left: 12px;
   margin-right: 12px;
 }
-.status__location-place {
+.status__item-place {
   text-align: right;
   font-style: normal;
   font-weight: 300;

@@ -20,9 +20,9 @@ const OrderPage = () => {
       <div className='order'>
         <div className='order__content-container'>
           <div className='order__content'>
-            <Location />
+            <Model />
             <div style={{ display: 'none' }}>
-              <Model />
+              <Location />
               <Addition />
               <Total />
             </div>
@@ -42,11 +42,11 @@ const OrderPage = () => {
 const Steps = () => (
   <section className='steps'>
     <div className='steps__items'>
-      <div className='steps__item steps__item--active'>
+      <div className='steps__item'>
         <span className='steps__item-name'>Местоположение</span>
         <StepsTriangle />
       </div>
-      <div className='steps__item'>
+      <div className='steps__item steps__item--active'>
         <span className='steps__item-name'>Модель</span>
         <StepsTriangle />
       </div>
