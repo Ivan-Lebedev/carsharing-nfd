@@ -2,19 +2,18 @@ import React, { useState } from 'react'
 import CrossIcon from '../../common/icons/CrossIcon'
 import './Location.css'
 import Map from '../../../assets/images/Map.png'
-import classNames from "classnames"
+import classNames from 'classnames'
 
 const Location = () => {
   const [city, setCity] = useState('')
   const [location, setLocation] = useState('')
-  const clearCity =
-    city.length > 0
-      ? 'location__input-cancel'
-      : 'location__input-cancel--hidden'
-  const clearLocation =
-    location.length > 0
-      ? 'location__input-cancel'
-      : 'location__input-cancel--hidden'
+
+  const clearCity = classNames('location__input-cancel', {
+    'location__input-cancel--hidden': city.length === 0,
+  })
+  const clearLocation = classNames('location__input-cancel', {
+    'location__input-cancel--hidden': location.length === 0,
+  })
 
   return (
     <div className='location'>

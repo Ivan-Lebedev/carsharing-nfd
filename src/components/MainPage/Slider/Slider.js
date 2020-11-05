@@ -6,6 +6,7 @@ import Image1 from '../../../assets/images/Slider_1.jpg'
 import Image2 from '../../../assets/images/Slider_2.jpg'
 import Image3 from '../../../assets/images/Slider_3.jpg'
 import Image4 from '../../../assets/images/Slider_4.jpg'
+import classNames from 'classnames'
 
 const slides = [
   {
@@ -88,11 +89,9 @@ const Slider = () => {
           {slides.map((item, index) => (
             <button
               onClick={(e) => onDotClick(e, index)}
-              className={
-                index === slideIndex
-                  ? 'radio__btn radio__btn--active'
-                  : 'radio__btn'
-              }
+              className={classNames('radio__btn', {
+                'radio__btn--active': index === slideIndex,
+              })}
               key={index}></button>
           ))}
         </div>

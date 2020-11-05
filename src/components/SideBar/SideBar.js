@@ -3,15 +3,17 @@ import './SideBar.css'
 import Telegramm from '../common/icons/Telegram'
 import Facebook from '../common/icons/Facebook'
 import Instagram from '../common/icons/Instagram'
+import classNames from 'classnames'
 
 const SideBar = () => {
   const [burgerState, setBurgerState] = useState(false)
-  const burgerClasses = burgerState
-    ? 'burger-menu burger-menu--active'
-    : 'burger-menu'
-  const menuClasses = burgerState
-    ? 'opened-menu opened-menu--active'
-    : 'opened-menu'
+  
+  const burgerClasses = classNames('burger-menu', {
+    'burger-menu burger-menu--active': burgerState,
+  })
+  const menuClasses = classNames('opened-menu', {
+    'opened-menu opened-menu--active': burgerState,
+  })
 
   if (burgerState) {
     return (
