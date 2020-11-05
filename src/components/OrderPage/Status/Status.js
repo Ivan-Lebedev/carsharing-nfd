@@ -17,13 +17,39 @@ const Status = () => {
         <div className='status__item-place'>Hyndai, i30 N</div>
       </div>
 
-      <div className='status__price'>
-        <span className='status__price-header'>Цена: </span>
-        от <span className='status__price-digits'> 8 000 </span>
-        до <span className='status__price-digits'> 12 000 </span>₽
+      <div className='status__item'>
+        <div className='status__item-title'>Цвет</div>
+        <div className='status__item-dash'></div>
+        <div className='status__item-place'>Голубой</div>
       </div>
 
-      <button className='button status__price-btn'>Дополнительно</button>
+      <div className='status__item'>
+        <div className='status__item-title'>Длительность аренды</div>
+        <div className='status__item-dash'></div>
+        <div className='status__item-place'>1д 2ч</div>
+      </div>
+
+      <div className='status__item'>
+        <div className='status__item-title'>Тариф</div>
+        <div className='status__item-dash'></div>
+        <div className='status__item-place'>На сутки</div>
+      </div>
+
+      <div className='status__item'>
+        <div className='status__item-title'>Полный бак</div>
+        <div className='status__item-dash'></div>
+        <div className='status__item-place'>Да</div>
+      </div>
+
+      <div className='status__price'>
+        <span className='status__price-header'>Цена: </span>
+        <span className='status__price-digits'> 16 000 </span>₽
+      </div>
+
+      {/* <button className='button status__price-btn'>Выбрать модель</button>
+      <button className='button status__price-btn'>Дополнительно</button> */}
+
+      <button className='button status__price-btn'>Итого</button>
     </div>
   )
 }

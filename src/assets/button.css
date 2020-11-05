@@ -76,8 +76,6 @@
   background: #eeeeee;
 }
 
-@media screen and (max-width: 767px) {
-  .status__price-btn {
-    width: 100%;
-  }
+.status__price-btn {
+  width: 100%;
 }
