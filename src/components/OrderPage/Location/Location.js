@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import CrossIcon from '../../common/icons/CrossIcon'
 import './Location.css'
 import Map from '../../../assets/images/Map.png'
+import classNames from "classnames"
 
 const Location = () => {
   const [city, setCity] = useState('')
