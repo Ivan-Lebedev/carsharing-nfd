@@ -33,7 +33,7 @@
 .steps__item-triangle {
   margin-right: 16px;
 }
-.steps__item--active > .steps__item-name {
+.steps__item-name--active {
   color: #0ec261;
 }
 

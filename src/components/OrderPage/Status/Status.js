@@ -3,11 +3,16 @@ import './Status.css'
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 
-const Status = ({ isFinished }) => {
+const Status = ({ isFinished, step, setStep }) => {
   const [modal, setModal] = useState(false)
   const statusBtnClasses = classNames('button status__price-btn', {
     'button--cancel': isFinished === true,
   })
+
+  const onModalConfirm = () => {
+    if (isFinished) setStep(1)
+    setModal(false)
+  }
 
   return (
     <div className='status'>
@@ -15,15 +20,19 @@ const Status = ({ isFinished }) => {
         <div className='modal'>
           <div className='modal__overlay' />
           <div className='modal__container'>
-            <div className='modal__title'>Подтвердить заказ</div>
+            <div className='modal__title'>
+              {isFinished ? 'Отменить заказ' : 'Подтвердить заказ'}
+            </div>
             <div className='modal__buttons'>
               <Link
-                to='/order/finished'
-                onClick={() => setModal(false)}
+                to={isFinished ? '/order' : '/order/finished'}
+                onClick={() => onModalConfirm()}
                 className='button'>
                 Подтвердить
               </Link>
-              <button onClick={() => setModal(false)} className='button button--cancel'>
+              <button
+                onClick={() => setModal(false)}
+                className='button button--cancel'>
                 Вернуться
               </button>
             </div>
@@ -72,14 +81,14 @@ const Status = ({ isFinished }) => {
         <span className='status__price-digits'> 16 000 </span>₽
       </div>
 
-      {/* <button className='button status__price-btn'>Выбрать модель</button>
-      <button className='button status__price-btn'>Дополнительно</button>
-      <button className='button status__price-btn'>Итого</button> */}
-
       <button
         className={statusBtnClasses}
-        onClick={() => (isFinished ? '' : setModal(!modal))}>
-        {isFinished ? 'Отменить' : 'Заказать'}
+        onClick={() => (step === 4 ? setModal(!modal) : setStep(step + 1))}>
+        {step === 1 && 'Выбрать модель'}
+        {step === 2 && 'Дополнительно'}
+        {step === 3 && 'Итого'}
+        {step === 4 && !isFinished && 'Заказать'}
+        {step === 4 && isFinished && 'Отменить'}
       </button>
     </div>
   )

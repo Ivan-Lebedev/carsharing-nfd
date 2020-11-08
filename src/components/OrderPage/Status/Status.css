@@ -58,10 +58,6 @@
   line-height: 16px;
   color: #121212;
 }
-.status__price-btn {
-  width: 287px;
-  height: 48px;
-}
 
 @media screen and (max-width: 1023px) {
   .status {
