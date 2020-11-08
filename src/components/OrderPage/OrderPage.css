@@ -49,6 +49,9 @@
 .order__content {
   padding-top: 32px;
 }
+.order__content-container {
+  width: 60%;
+}
 .order__status-container {
   border-left: 1px solid #eeeeee;
 }
@@ -58,6 +61,9 @@
     flex-direction: column;
     justify-content: flex-start;
     padding: 0 32px;
+  }
+  .order__content-container {
+    width: 100%;
   }
   .order__status-container {
     border-left: none;

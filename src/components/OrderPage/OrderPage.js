@@ -20,11 +20,11 @@ const OrderPage = () => {
       <div className='order'>
         <div className='order__content-container'>
           <div className='order__content'>
-            <Addition />
+            <Total />
             <div style={{ display: 'none' }}>
+              <Addition />
               <Location />
               <Model />
-              <Total />
             </div>
           </div>
         </div>
