@@ -65,9 +65,7 @@ const Slider = () => {
           img.src = slide.img
         })}
       </div>
-      <button
-        onClick={() => onPrevArrowClick()}
-        className='control-button btn-left'>
+      <button onClick={() => onPrevArrowClick()} className='control-button btn-left'>
         <SliderLeftArr />
       </button>
       <div className='slider-wrapper'>
@@ -96,9 +94,7 @@ const Slider = () => {
           ))}
         </div>
       </div>
-      <button
-        onClick={() => onNextArrowClick()}
-        className='control-button btn-right'>
+      <button onClick={() => onNextArrowClick()} className='control-button btn-right'>
         <SliderRightArr />
       </button>
     </div>

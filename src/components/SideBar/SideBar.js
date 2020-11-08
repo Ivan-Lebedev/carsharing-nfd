@@ -7,7 +7,7 @@ import classNames from 'classnames'
 
 const SideBar = () => {
   const [burgerState, setBurgerState] = useState(false)
-  
+
   const burgerClasses = classNames('burger-menu', {
     'burger-menu burger-menu--active': burgerState,
   })
@@ -36,14 +36,10 @@ const SideBar = () => {
               <a href='https://telegram.org/' className='social-items__link'>
                 <Telegramm />
               </a>
-              <a
-                href='https://ru-ru.facebook.com/'
-                className='social-items__link'>
+              <a href='https://ru-ru.facebook.com/' className='social-items__link'>
                 <Facebook />
               </a>
-              <a
-                href='https://www.instagram.com/'
-                className='social-items__link'>
+              <a href='https://www.instagram.com/' className='social-items__link'>
                 <Instagram />
               </a>
             </div>
