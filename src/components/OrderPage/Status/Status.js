@@ -47,9 +47,10 @@ const Status = () => {
       </div>
 
       {/* <button className='button status__price-btn'>Выбрать модель</button>
-      <button className='button status__price-btn'>Дополнительно</button> */}
+      <button className='button status__price-btn'>Дополнительно</button>
+      <button className='button status__price-btn'>Итого</button> */}
 
-      <button className='button status__price-btn'>Итого</button>
+      <button className='button status__price-btn'>Заказать</button>
     </div>
   )
 }
