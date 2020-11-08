@@ -1,9 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Status.css'
+import { Link } from 'react-router-dom'
+import classNames from 'classnames'
 
-const Status = () => {
+const Status = ({ isFinished }) => {
+  const [modal, setModal] = useState(false)
+  const statusBtnClasses = classNames('button status__price-btn', {
+    'button--cancel': isFinished === true,
+  })
+
   return (
     <div className='status'>
+      {modal && (
+        <div className='modal'>
+          <div className='modal__overlay' />
+          <div className='modal__container'>
+            <div className='modal__title'>Подтвердить заказ</div>
+            <div className='modal__buttons'>
+              <Link
+                to='/order/finished'
+                onClick={() => setModal(false)}
+                className='button'>
+                Подтвердить
+              </Link>
+              <button onClick={() => setModal(false)} className='button button--cancel'>
+                Вернуться
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className='status__header'>Ваш заказ:</div>
       <div className='status__item'>
         <div className='status__item-title'>Пункт выдачи</div>
@@ -50,7 +76,11 @@ const Status = () => {
       <button className='button status__price-btn'>Дополнительно</button>
       <button className='button status__price-btn'>Итого</button> */}
 
-      <button className='button status__price-btn'>Заказать</button>
+      <button
+        className={statusBtnClasses}
+        onClick={() => (isFinished ? '' : setModal(!modal))}>
+        {isFinished ? 'Отменить' : 'Заказать'}
+      </button>
     </div>
   )
 }

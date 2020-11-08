@@ -56,6 +56,14 @@
   border-left: 1px solid #eeeeee;
 }
 
+.steps__finished {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 16px;
+  color: #121212;
+}
+
 @media screen and (max-width: 1023px) {
   .order {
     flex-direction: column;

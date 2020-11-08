@@ -12,6 +12,7 @@ function App() {
       <Switch>
         <Route exact path='/carsharing-nfd' render={() => <MainPage />} />
         <Route exact path='/order' render={() => <OrderPage />} />
+        <Route path='/order/finished' render={() => <OrderPage isFinished={true} />} />
       </Switch>
     </div>
   )
