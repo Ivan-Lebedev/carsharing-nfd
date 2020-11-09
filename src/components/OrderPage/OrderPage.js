@@ -9,21 +9,39 @@ import Total from './Total/Total'
 import Status from './Status/Status'
 import { Finished } from './Finished/Finished'
 import classNames from 'classnames'
+import { useFormik } from 'formik'
 
 const OrderPage = ({ isFinished }) => {
   const [step, setStep] = useState(1)
+
+  const formik = useFormik({
+    initialValues: {
+      locationCity: '',
+      locationPlace: '',
+      modelFilter: 'all',
+      color: 'any',
+      dateFrom: '',
+      dateTo: '',
+      plan: 'day',
+      fullFuel: false,
+      childSeat: false,
+      rightHand: false,
+    },
+  })
+  console.log(formik.values)
+
   const renderStep = () => {
     switch (step) {
       case 1:
-        return <Location />
+        return <Location formik={formik} />
       case 2:
-        return <Model />
+        return <Model formik={formik} />
       case 3:
-        return <Addition />
+        return <Addition formik={formik} />
       case 4:
-        return <Total />
+        return <Total formik={formik} />
       default:
-        return <Location />
+        return <Location formik={formik} />
     }
   }
   return (

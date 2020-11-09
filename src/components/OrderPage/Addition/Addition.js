@@ -2,7 +2,7 @@ import React from 'react'
 import './Addition.css'
 import { InputItem, InputText } from '../../common/Forms/Forms'
 
-const Addition = () => {
+const Addition = ({ formik }) => {
   return (
     <div className='addition'>
       <div className='addition__option'>
@@ -17,7 +17,7 @@ const Addition = () => {
               inputItemClass: 'input__radio-item',
               label: 'Любой',
               value: 'any',
-              defaultChecked: true,
+              checked: formik.values.color === 'any',
             },
             {
               inputItemLabelClass: 'radio-item__label',
@@ -26,6 +26,7 @@ const Addition = () => {
               inputItemClass: 'input__radio-item',
               label: 'Красный',
               value: 'red',
+              checked: formik.values.color === 'red',
             },
             {
               inputItemLabelClass: 'radio-item__label',
@@ -34,21 +35,31 @@ const Addition = () => {
               inputItemClass: 'input__radio-item',
               label: 'Голубой',
               value: 'blue',
+              checked: formik.values.color === 'blue',
             },
           ]}
+          onChange={formik.handleChange}
         />
       </div>
 
       <div className='addition__option'>
         <div className='addition__title'>Дата аренды</div>
         <InputText
-          name='date'
-          item={{
-            label1: 'C',
-            placeholder1: 'Введите дату и время',
-            label2: 'По',
-            placeholder2: 'Введите дату и время',
-          }}
+          items={[
+            {
+              name: 'dateFrom',
+              label: 'C',
+              placeholder: 'Введите дату и время',
+              value: formik.values.dateFrom,
+            },
+            {
+              name: 'dateTo',
+              label: 'По',
+              placeholder: 'Введите дату и время',
+              value: formik.values.dateTo,
+            },
+          ]}
+          onChange={formik.handleChange}
         />
       </div>
 
@@ -65,6 +76,7 @@ const Addition = () => {
               inputItemClass: 'input__radio-item',
               label: 'Поминутно, 7₽/мин',
               value: 'minute',
+              checked: formik.values.plan === 'minute',
             },
             {
               inputItemLabelClass: 'radio-item__label',
@@ -73,16 +85,16 @@ const Addition = () => {
               inputItemClass: 'input__radio-item',
               label: 'На сутки, 1999 ₽/сутки',
               value: 'day',
-              defaultChecked: true,
+              checked: formik.values.plan === 'day',
             },
           ]}
+          onChange={formik.handleChange}
         />
       </div>
 
       <div className='addition__option'>
         <div className='addition__title'>Доп услуги</div>
         <InputItem
-          name='extra-options'
           direction='column'
           items={[
             {
@@ -91,7 +103,8 @@ const Addition = () => {
               inputStyle: 'checkbox-item__input',
               inputItemClass: 'input__checkbox-item',
               label: 'Полный бак, 500р',
-              value: 'fuel',
+              value: 'fullFuel',
+              checked: formik.values.fullFuel === true,
             },
             {
               inputItemLabelClass: 'checkbox-item__label',
@@ -99,7 +112,8 @@ const Addition = () => {
               inputStyle: 'checkbox-item__input',
               inputItemClass: 'input__checkbox-item',
               label: 'Детское кресло, 200р',
-              value: 'chair',
+              value: 'childSeat',
+              checked: formik.values.childSeat === true,
             },
             {
               inputItemLabelClass: 'checkbox-item__label',
@@ -107,9 +121,11 @@ const Addition = () => {
               inputStyle: 'checkbox-item__input',
               inputItemClass: 'input__checkbox-item',
               label: 'Правый руль, 1600р',
-              value: 'wheel',
+              value: 'rightHand',
+              checked: formik.values.rightHand === true,
             },
           ]}
+          onChange={formik.handleChange}
         />
       </div>
     </div>

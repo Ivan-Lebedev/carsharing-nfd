@@ -39,39 +39,42 @@ const carList = [
   },
 ]
 
-const Model = () => {
+const Model = ({ formik }) => {
   return (
     <div className='model'>
       <InputItem
-          name='color'
-          items={[
-            {
-              inputItemLabelClass: 'radio-item__label',
-              inputItemStyle: 'radio',
-              inputStyle: 'radio-item__input',
-              inputItemClass: 'input__radio-item',
-              label: 'Все модели',
-              value: 'all',
-              defaultChecked: true,
-            },
-            {
-              inputItemLabelClass: 'radio-item__label',
-              inputItemStyle: 'radio',
-              inputStyle: 'radio-item__input',
-              inputItemClass: 'input__radio-item',
-              label: 'Эконом',
-              value: 'econom',
-            },
-            {
-              inputItemLabelClass: 'radio-item__label',
-              inputItemStyle: 'radio',
-              inputStyle: 'radio-item__input',
-              inputItemClass: 'input__radio-item',
-              label: 'Премиум',
-              value: 'premium',
-            },
-          ]}
-        />
+        name='modelFilter'
+        items={[
+          {
+            inputItemLabelClass: 'radio-item__label',
+            inputItemStyle: 'radio',
+            inputStyle: 'radio-item__input',
+            inputItemClass: 'input__radio-item',
+            label: 'Все модели',
+            value: 'all',
+            checked: formik.values.modelFilter === 'all',
+          },
+          {
+            inputItemLabelClass: 'radio-item__label',
+            inputItemStyle: 'radio',
+            inputStyle: 'radio-item__input',
+            inputItemClass: 'input__radio-item',
+            label: 'Эконом',
+            value: 'econom',
+            checked: formik.values.modelFilter === 'econom',
+          },
+          {
+            inputItemLabelClass: 'radio-item__label',
+            inputItemStyle: 'radio',
+            inputStyle: 'radio-item__input',
+            inputItemClass: 'input__radio-item',
+            label: 'Премиум',
+            value: 'premium',
+            checked: formik.values.modelFilter === 'premium',
+          },
+        ]}
+        onChange={formik.handleChange}
+      />
       <div className='catalog'>
         {carList.map((car, i) => (
           <div className='catalog__car' key={i}>
