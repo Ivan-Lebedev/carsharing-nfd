@@ -45,12 +45,12 @@ export const InputText = ({ item }) => {
   })
 
   return (
-    <div className='location'>
-      <label className='location__input'>
-        <div className='location__input-type'>{item.label1}</div>
+    <div className='text'>
+      <label className='text__input'>
+        <div className='text__input-type'>{item.label1}</div>
         <input
           type='text'
-          className='location__input-value'
+          className='text__input-value'
           value={text1}
           onChange={(e) => setText1(e.target.value)}
           placeholder={item.placeholder1}
@@ -59,11 +59,11 @@ export const InputText = ({ item }) => {
           <CrossIcon />
         </button>
       </label>
-      <label className='location__input'>
-        <div className='location__input-type'>{item.label2}</div>
+      <label className='text__input'>
+        <div className='text__input-type'>{item.label2}</div>
         <input
           type='text'
-          className='location__input-value'
+          className='text__input-value'
           value={text2}
           onChange={(e) => setText2(e.target.value)}
           placeholder={item.placeholder2}
