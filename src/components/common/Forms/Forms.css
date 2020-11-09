@@ -155,4 +155,12 @@
   .text__input-value {
     width: 170px;
   }
+  .input {
+    flex-direction: column;
+    margin-left: 36px;
+    margin-bottom: 16px;
+  }
+  .input__radio-item:not(:last-child) {
+    margin-bottom: 8px;
+  }
 }

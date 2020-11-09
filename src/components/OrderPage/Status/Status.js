@@ -3,7 +3,13 @@ import './Status.css'
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 
-const Status = ({ isFinished, step, setStep }) => {
+const Status = ({
+  isFinished,
+  step,
+  setStep,
+  stepDisabled,
+  setStepDisabled,
+}) => {
   const [modal, setModal] = useState(false)
   const statusBtnClasses = classNames('button status__price-btn', {
     'button--cancel': isFinished === true,
@@ -12,6 +18,19 @@ const Status = ({ isFinished, step, setStep }) => {
   const onModalConfirm = () => {
     if (isFinished) setStep(1)
     setModal(false)
+  }
+
+  const onButtonClick = () => {
+    if (step === 4 || isFinished) {
+      setModal(!modal)
+    } else {
+      const nextStep = step + 1
+      setStepDisabled({
+        ...stepDisabled,
+        [nextStep]: false,
+      })
+      setStep(nextStep)
+    }
   }
 
   return (
@@ -46,35 +65,45 @@ const Status = ({ isFinished, step, setStep }) => {
         <div className='status__item-place'>Ульяновск, Нариманова 42</div>
       </div>
 
-     {step > 1 && <div className='status__item'>
-        <div className='status__item-title'>Модель</div>
-        <div className='status__item-dash'></div>
-        <div className='status__item-place'>Hyndai, i30 N</div>
-      </div>}
+      {step > 1 && (
+        <div className='status__item'>
+          <div className='status__item-title'>Модель</div>
+          <div className='status__item-dash'></div>
+          <div className='status__item-place'>Hyndai, i30 N</div>
+        </div>
+      )}
 
-      {step > 2 && <div className='status__item'>
-        <div className='status__item-title'>Цвет</div>
-        <div className='status__item-dash'></div>
-        <div className='status__item-place'>Голубой</div>
-      </div>}
+      {step > 2 && (
+        <div className='status__item'>
+          <div className='status__item-title'>Цвет</div>
+          <div className='status__item-dash'></div>
+          <div className='status__item-place'>Голубой</div>
+        </div>
+      )}
 
-      {step > 2 && <div className='status__item'>
-        <div className='status__item-title'>Длительность аренды</div>
-        <div className='status__item-dash'></div>
-        <div className='status__item-place'>1д 2ч</div>
-      </div>}
+      {step > 2 && (
+        <div className='status__item'>
+          <div className='status__item-title'>Длительность аренды</div>
+          <div className='status__item-dash'></div>
+          <div className='status__item-place'>1д 2ч</div>
+        </div>
+      )}
 
-      {step > 2 && <div className='status__item'>
-        <div className='status__item-title'>Тариф</div>
-        <div className='status__item-dash'></div>
-        <div className='status__item-place'>На сутки</div>
-      </div>}
+      {step > 2 && (
+        <div className='status__item'>
+          <div className='status__item-title'>Тариф</div>
+          <div className='status__item-dash'></div>
+          <div className='status__item-place'>На сутки</div>
+        </div>
+      )}
 
-      {step > 2 && <div className='status__item'>
-        <div className='status__item-title'>Полный бак</div>
-        <div className='status__item-dash'></div>
-        <div className='status__item-place'>Да</div>
-      </div>}
+      {step > 2 && (
+        <div className='status__item'>
+          <div className='status__item-title'>Полный бак</div>
+          <div className='status__item-dash'></div>
+          <div className='status__item-place'>Да</div>
+        </div>
+      )}
 
       <div className='status__price'>
         <span className='status__price-header'>Цена: </span>
@@ -83,7 +112,7 @@ const Status = ({ isFinished, step, setStep }) => {
 
       <button
         className={statusBtnClasses}
-        onClick={() => (step === 4 ? setModal(!modal) : setStep(step + 1))}>
+        onClick={() => onButtonClick()}>
         {step === 1 && 'Выбрать модель'}
         {step === 2 && 'Дополнительно'}
         {step === 3 && 'Итого'}

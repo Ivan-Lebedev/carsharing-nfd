@@ -27,8 +27,16 @@
   font-weight: bold;
   font-size: 14px;
   line-height: 16px;
-  color: #999999;
+  color: #121212;
   cursor: pointer;
+  background-color: #ffffff;
+  border: none;
+}
+.steps__item-name:focus {
+  outline: none;
+}
+.steps__item-name:disabled {
+  color: #999999;
 }
 .steps__item-triangle {
   margin-right: 16px;
@@ -98,4 +106,7 @@
   .steps__item-triangle {
     display: none;
   }
+  .order__content {
+    padding-top: 16px;
+}
 }

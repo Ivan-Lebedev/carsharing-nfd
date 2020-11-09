@@ -120,3 +120,12 @@
   border-radius: 4px;
   width: 170px;
 }
+
+@media screen and (max-width: 767px) {
+  .modal__buttons {
+    display: flex;
+    flex-direction: column;
+    width: 180px;
+    height: 115px;
+  }
+}

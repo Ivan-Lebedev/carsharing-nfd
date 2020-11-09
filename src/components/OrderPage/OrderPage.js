@@ -12,6 +12,13 @@ import classNames from 'classnames'
 import { useFormik } from 'formik'
 
 const OrderPage = ({ isFinished }) => {
+  const [stepDisabled, setStepDisabled] = useState({
+    1: false,
+    2: true,
+    3: true,
+    4: true,
+  })
+
   const [step, setStep] = useState(1)
 
   const formik = useFormik({
@@ -19,6 +26,7 @@ const OrderPage = ({ isFinished }) => {
       locationCity: '',
       locationPlace: '',
       modelFilter: 'all',
+      model: '',
       color: 'any',
       dateFrom: '',
       dateTo: '',
@@ -44,13 +52,19 @@ const OrderPage = ({ isFinished }) => {
         return <Location formik={formik} />
     }
   }
+
   return (
     <div className='order-page'>
       <div className='order-page__header'>
         <Header />
       </div>
       <div className='order-page__steps'>
-        <Steps isFinished={isFinished} step={step} setStep={setStep} />
+        <Steps
+          isFinished={isFinished}
+          step={step}
+          setStep={setStep}
+          stepDisabled={stepDisabled}
+        />
       </div>
       <div className='order'>
         <div className='order__content-container'>
@@ -60,7 +74,13 @@ const OrderPage = ({ isFinished }) => {
         </div>
         <div className='order__status-container'>
           <div className='order__status'>
-            <Status isFinished={isFinished} step={step} setStep={setStep} />
+            <Status
+              isFinished={isFinished}
+              step={step}
+              setStep={setStep}
+              stepDisabled={stepDisabled}
+              setStepDisabled={setStepDisabled}
+            />
           </div>
         </div>
       </div>
@@ -68,7 +88,7 @@ const OrderPage = ({ isFinished }) => {
   )
 }
 
-const Steps = ({ isFinished, step, setStep }) => {
+const Steps = ({ isFinished, step, setStep, stepDisabled }) => {
   const stepNames = ['Местоположение', 'Модель', 'Дополнительно', 'Итого']
   const stepClass = (index) => {
     return classNames('steps__item-name', {
@@ -83,11 +103,12 @@ const Steps = ({ isFinished, step, setStep }) => {
         ) : (
           stepNames.map((name, index) => (
             <div className='steps__item' key={name}>
-              <span
+              <button
                 className={stepClass(index)}
-                onClick={() => setStep(index + 1)}>
+                onClick={() => setStep(index + 1)}
+                disabled={stepDisabled[index + 1]}>
                 {name}
-              </span>
+              </button>
               {index !== stepNames.length - 1 && <StepsTriangle />}
             </div>
           ))
