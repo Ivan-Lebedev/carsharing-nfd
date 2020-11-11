@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/carsharing-nfd/static/css/main.9d6b4e51.chunk.css",
-    "main.js": "/carsharing-nfd/static/js/main.cc20953e.chunk.js",
-    "main.js.map": "/carsharing-nfd/static/js/main.cc20953e.chunk.js.map",
+    "main.css": "/carsharing-nfd/static/css/main.518db2bf.chunk.css",
+    "main.js": "/carsharing-nfd/static/js/main.7f4f5f1c.chunk.js",
+    "main.js.map": "/carsharing-nfd/static/js/main.7f4f5f1c.chunk.js.map",
     "runtime-main.js": "/carsharing-nfd/static/js/runtime-main.35ed25dc.js",
     "runtime-main.js.map": "/carsharing-nfd/static/js/runtime-main.35ed25dc.js.map",
-    "static/js/2.cc5fffdd.chunk.js": "/carsharing-nfd/static/js/2.cc5fffdd.chunk.js",
-    "static/js/2.cc5fffdd.chunk.js.map": "/carsharing-nfd/static/js/2.cc5fffdd.chunk.js.map",
+    "static/js/2.2f863eda.chunk.js": "/carsharing-nfd/static/js/2.2f863eda.chunk.js",
+    "static/js/2.2f863eda.chunk.js.map": "/carsharing-nfd/static/js/2.2f863eda.chunk.js.map",
     "index.html": "/carsharing-nfd/index.html",
-    "static/css/main.9d6b4e51.chunk.css.map": "/carsharing-nfd/static/css/main.9d6b4e51.chunk.css.map",
-    "static/js/2.cc5fffdd.chunk.js.LICENSE.txt": "/carsharing-nfd/static/js/2.cc5fffdd.chunk.js.LICENSE.txt",
+    "static/css/main.518db2bf.chunk.css.map": "/carsharing-nfd/static/css/main.518db2bf.chunk.css.map",
+    "static/js/2.2f863eda.chunk.js.LICENSE.txt": "/carsharing-nfd/static/js/2.2f863eda.chunk.js.LICENSE.txt",
     "static/media/Map.3bb9f4a1.png": "/carsharing-nfd/static/media/Map.3bb9f4a1.png",
     "static/media/index.css": "/carsharing-nfd/static/media/Roboto-Regular.03523cf5.ttf",
     "static/media/Slider_1.99555a72.jpg": "/carsharing-nfd/static/media/Slider_1.99555a72.jpg",
@@ -23,8 +23,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.35ed25dc.js",
-    "static/js/2.cc5fffdd.chunk.js",
-    "static/css/main.9d6b4e51.chunk.css",
-    "static/js/main.cc20953e.chunk.js"
+    "static/js/2.2f863eda.chunk.js",
+    "static/css/main.518db2bf.chunk.css",
+    "static/js/main.7f4f5f1c.chunk.js"
   ]
 }
