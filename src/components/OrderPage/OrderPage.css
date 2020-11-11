@@ -37,6 +37,7 @@
 }
 .steps__item-name:disabled {
   color: #999999;
+  cursor: default;
 }
 .steps__item-triangle {
   margin-right: 16px;

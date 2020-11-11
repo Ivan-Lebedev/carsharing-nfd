@@ -9,6 +9,7 @@ const Status = ({
   setStep,
   stepDisabled,
   setStepDisabled,
+  formData,
 }) => {
   const [modal, setModal] = useState(false)
   const statusBtnClasses = classNames('button status__price-btn', {
@@ -59,60 +60,75 @@ const Status = ({
         </div>
       )}
       <div className='status__header'>Ваш заказ:</div>
-      <div className='status__item'>
-        <div className='status__item-title'>Пункт выдачи</div>
-        <div className='status__item-dash'></div>
-        <div className='status__item-place'>Ульяновск, Нариманова 42</div>
-      </div>
-
-      {step > 1 && (
+      {formData.locationPlace !== '' && formData.locationCity !== '' && (
+        <div className='status__item'>
+          <div className='status__item-title'>Пункт выдачи</div>
+          <div className='status__item-dash'></div>
+          <div className='status__item-value'>
+            {formData.locationCity}, {formData.locationPlace}
+          </div>
+        </div>
+      )}
+      {!stepDisabled[2] && (
         <div className='status__item'>
           <div className='status__item-title'>Модель</div>
           <div className='status__item-dash'></div>
-          <div className='status__item-place'>Hyndai, i30 N</div>
+          <div className='status__item-value'>{formData.model}</div>
         </div>
       )}
-
-      {step > 2 && (
+      {!stepDisabled[3] && (
         <div className='status__item'>
           <div className='status__item-title'>Цвет</div>
           <div className='status__item-dash'></div>
-          <div className='status__item-place'>Голубой</div>
+          <div className='status__item-value'>{formData.color}</div>
         </div>
       )}
-
-      {step > 2 && (
+      {!stepDisabled[3] && formData.dateFrom && formData.dateTo && (
         <div className='status__item'>
           <div className='status__item-title'>Длительность аренды</div>
           <div className='status__item-dash'></div>
-          <div className='status__item-place'>1д 2ч</div>
+          <div className='status__item-value'>
+            {formData.dateFrom} {formData.dateTo}
+          </div>
         </div>
       )}
-
-      {step > 2 && (
+      {!stepDisabled[3] && (
         <div className='status__item'>
           <div className='status__item-title'>Тариф</div>
           <div className='status__item-dash'></div>
-          <div className='status__item-place'>На сутки</div>
+          <div className='status__item-value'>
+            {formData.plan === 'day' ? 'На сутки' : 'Поминутно'}
+          </div>
         </div>
       )}
-
-      {step > 2 && (
+      {!stepDisabled[3] && formData.fullFuel && (
         <div className='status__item'>
           <div className='status__item-title'>Полный бак</div>
           <div className='status__item-dash'></div>
-          <div className='status__item-place'>Да</div>
+          <div className='status__item-value'>Да</div>
+        </div>
+      )}
+      {!stepDisabled[3] && formData.childSeat && (
+        <div className='status__item'>
+          <div className='status__item-title'>Детское кресло</div>
+          <div className='status__item-dash'></div>
+          <div className='status__item-value'>Да</div>
+        </div>
+      )}
+      {!stepDisabled[3] && formData.rightHand && (
+        <div className='status__item'>
+          <div className='status__item-title'>Правый руль</div>
+          <div className='status__item-dash'></div>
+          <div className='status__item-value'>Да</div>
         </div>
       )}
 
       <div className='status__price'>
         <span className='status__price-header'>Цена: </span>
-        <span className='status__price-digits'> 16 000 </span>₽
+        <span className='status__price-digits'>от 8 000 до 12 000 ₽</span>
       </div>
 
-      <button
-        className={statusBtnClasses}
-        onClick={() => onButtonClick()}>
+      <button className={statusBtnClasses} onClick={() => onButtonClick()}>
         {step === 1 && 'Выбрать модель'}
         {step === 2 && 'Дополнительно'}
         {step === 3 && 'Итого'}

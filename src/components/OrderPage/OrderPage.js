@@ -26,8 +26,8 @@ const OrderPage = ({ isFinished }) => {
       locationCity: '',
       locationPlace: '',
       modelFilter: 'all',
-      model: '',
-      color: 'any',
+      model: 'Hyndai, i30 N',
+      color: 'Любой',
       dateFrom: '',
       dateTo: '',
       plan: 'day',
@@ -47,7 +47,7 @@ const OrderPage = ({ isFinished }) => {
       case 3:
         return <Addition formik={formik} />
       case 4:
-        return <Total formik={formik} />
+        return <Total formData={formik.values} />
       default:
         return <Location formik={formik} />
     }
@@ -69,7 +69,7 @@ const OrderPage = ({ isFinished }) => {
       <div className='order'>
         <div className='order__content-container'>
           <div className='order__content'>
-            {isFinished ? <Finished /> : renderStep()}
+            {isFinished ? <Finished formData={formik.values} /> : renderStep()}
           </div>
         </div>
         <div className='order__status-container'>
@@ -80,6 +80,7 @@ const OrderPage = ({ isFinished }) => {
               setStep={setStep}
               stepDisabled={stepDisabled}
               setStepDisabled={setStepDisabled}
+              formData={formik.values}
             />
           </div>
         </div>

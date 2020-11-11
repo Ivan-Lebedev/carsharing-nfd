@@ -2,14 +2,17 @@ import React from 'react'
 import './Total.css'
 import car_2 from '../../../assets/images/car_2.png'
 
-const Total = () => {
+const Total = ({ formData }) => {
   return (
     <div className='total'>
       <div className='total__info'>
-        <p className='total__model'>Hyndai, i30 N</p>
+        <p className='total__model'>{formData.model}</p>
         <p className='total__number'>K 761 HA 73</p>
         <p className='total__fuel'>
-          Топливо <span className='total__fuel-count'>100%</span>
+          Топливо{' '}
+          <span className='total__fuel-count'>
+            {formData.fuel ? '100%' : '50%'}
+          </span>
         </p>
         <p className='total__access'>
           Доступна с{' '}

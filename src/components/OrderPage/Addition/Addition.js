@@ -16,8 +16,8 @@ const Addition = ({ formik }) => {
               inputStyle: 'radio-item__input',
               inputItemClass: 'input__radio-item',
               label: 'Любой',
-              value: 'any',
-              checked: formik.values.color === 'any',
+              value: 'Любой',
+              checked: formik.values.color === 'Любой',
             },
             {
               inputItemLabelClass: 'radio-item__label',
@@ -25,8 +25,8 @@ const Addition = ({ formik }) => {
               inputStyle: 'radio-item__input',
               inputItemClass: 'input__radio-item',
               label: 'Красный',
-              value: 'red',
-              checked: formik.values.color === 'red',
+              value: 'Красный',
+              checked: formik.values.color === 'Красный',
             },
             {
               inputItemLabelClass: 'radio-item__label',
@@ -34,8 +34,8 @@ const Addition = ({ formik }) => {
               inputStyle: 'radio-item__input',
               inputItemClass: 'input__radio-item',
               label: 'Голубой',
-              value: 'blue',
-              checked: formik.values.color === 'blue',
+              value: 'Голубой',
+              checked: formik.values.color === 'Голубой',
             },
           ]}
           onChange={formik.handleChange}
