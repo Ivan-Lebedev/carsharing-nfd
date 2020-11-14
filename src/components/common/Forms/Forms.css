@@ -69,12 +69,14 @@
   outline: none;
   border: none;
   border-bottom: 1px solid #999999;
-
   font-style: normal;
   font-weight: 300;
   font-size: 14px;
   line-height: 16px;
   color: #121212;
+}
+.text__input-value::-webkit-calendar-picker-indicator {
+  display: none;
 }
 .text__input-type {
   margin-right: 8px;

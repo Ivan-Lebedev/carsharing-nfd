@@ -34,6 +34,16 @@ const Status = ({
     }
   }
 
+  const isButtonDisabled = () => {
+    if (step === 1 && formData.locationPlace === '') {
+      return true
+    }
+    if (step === 2 && formData.model === '') {
+      return true
+    }
+    return false
+  }
+
   return (
     <div className='status'>
       {modal && (
@@ -128,7 +138,10 @@ const Status = ({
         <span className='status__price-digits'>от 8 000 до 12 000 ₽</span>
       </div>
 
-      <button className={statusBtnClasses} onClick={() => onButtonClick()}>
+      <button
+        className={statusBtnClasses}
+        onClick={() => onButtonClick()}
+        disabled={isButtonDisabled()}>
         {step === 1 && 'Выбрать модель'}
         {step === 2 && 'Дополнительно'}
         {step === 3 && 'Итого'}
