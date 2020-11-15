@@ -10,10 +10,10 @@ const instance = axios.create({
 
 const orderAPI = {
   getCity() {
-    return instance.get(`db/city/`)
+    return instance.get('db/city/')
   },
   getPoint() {
-    return instance.get(`db/point/`)
+    return instance.get('db/point/')
   },
 }
 
