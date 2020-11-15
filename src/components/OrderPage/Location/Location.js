@@ -3,9 +3,9 @@ import './Location.css'
 import Map from '../../../assets/images/Map.png'
 import { InputText } from '../../common/Forms/Forms'
 import { connect } from 'react-redux'
-import { requestCities } from '../../../store/order-reducer'
+import { requestCities, requestPoints } from '../../../store/order-reducer'
 
-const Location = ({ formik, cities, requestCities }) => {
+const Location = ({ formik, cities, requestCities, requestPoints }) => {
   const adresses = {
     ulyanovsk: ['Нариманова 1, корп.2', 'Московское шоссе 34', 'Гончарова 27'],
     saransk: ['Гагарина 99А', 'Ленина 24', 'Рабочая 183'],
@@ -29,7 +29,8 @@ const Location = ({ formik, cities, requestCities }) => {
   }
   useEffect(() => {
     requestCities()
-  }, [requestCities])
+    requestPoints()
+  }, [requestCities, requestPoints])
 
   return (
     <div className='location'>
@@ -62,6 +63,9 @@ const Location = ({ formik, cities, requestCities }) => {
 
 const mapStateToProps = (state) => ({
   cities: state.orderPage.cities,
+  points: state.orderPage.points,
 })
 // export default Location
-export default connect(mapStateToProps, { requestCities })(Location)
+export default connect(mapStateToProps, { requestCities, requestPoints })(
+  Location
+)
