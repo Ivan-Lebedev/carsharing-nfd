@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import './Status.css'
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
+import { getPoints } from '../../../store/order-selectors'
+import { connect } from 'react-redux'
 
 const Status = ({
   isFinished,
@@ -10,6 +12,7 @@ const Status = ({
   stepDisabled,
   setStepDisabled,
   formData,
+  points,
 }) => {
   const [modal, setModal] = useState(false)
   const statusBtnClasses = classNames('button status__price-btn', {
@@ -34,8 +37,11 @@ const Status = ({
     }
   }
 
+  const isPlaceValid = () =>
+    points.find((point) => point.address === formData.locationPlace)
+
   const isButtonDisabled = () => {
-    if (step === 1 && formData.locationPlace === '') {
+    if (step === 1 && !isPlaceValid()) {
       return true
     }
     if (step === 2 && formData.model === '') {
@@ -152,4 +158,8 @@ const Status = ({
   )
 }
 
-export default Status
+const mapStateToProps = (state) => ({
+  points: getPoints(state),
+})
+
+export default connect(mapStateToProps)(Status)
