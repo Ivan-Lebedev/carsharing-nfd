@@ -6,7 +6,13 @@ import { connect } from 'react-redux'
 import { requestCities, requestPoints } from '../../../store/order-reducer'
 import { getCities, getPoints } from '../../../store/order-selectors'
 
-const Location = ({ formik, cities, points, requestCities, requestPoints }) => {
+const Location = ({
+  formik,
+  listOfCities,
+  points,
+  requestCities,
+  requestPoints,
+}) => {
   // const adresses = {
   //   ulyanovsk: ['Нариманова 1, корп.2', 'Московское шоссе 34', 'Гончарова 27'],
   //   saransk: ['Гагарина 99А', 'Ленина 24', 'Рабочая 183'],
@@ -34,8 +40,8 @@ const Location = ({ formik, cities, points, requestCities, requestPoints }) => {
     requestPoints()
   }, [requestCities, requestPoints])
 
-  const listOfCities = []
-  cities.map((city) => listOfCities.push(city.name))
+  // const listOfCities = []
+  // cities.map((city) => listOfCities.push(city.name))
 
   const listOfPoints = []
   points.map(
@@ -74,7 +80,7 @@ const Location = ({ formik, cities, points, requestCities, requestPoints }) => {
 }
 
 const mapStateToProps = (state) => ({
-  cities: getCities(state),
+  listOfCities: getCities(state),
   points: getPoints(state),
 })
 
