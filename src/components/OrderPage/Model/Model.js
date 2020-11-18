@@ -1,45 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Model.css'
-import car_1 from '../../../assets/images/car_1.png'
-import car_2 from '../../../assets/images/car_2.png'
-import car_3 from '../../../assets/images/car_3.png'
-import car_4 from '../../../assets/images/car_4.png'
+import classNames from 'classnames'
+import { connect } from 'react-redux'
+import { getCars } from '../../../store/order-selectors'
+import { requestCars } from '../../../store/order-reducer'
 import { InputItem } from '../../common/Forms/Forms'
 
-const carList = [
-  {
-    name: 'ELANTRA',
-    price: '12 000 - 25 000 ₽',
-    img: car_1,
-  },
-  {
-    name: 'i30 N',
-    price: '10 000 - 32 000 ₽',
-    img: car_2,
-  },
-  {
-    name: 'CRETA',
-    price: '12 000 - 25 000 ₽',
-    img: car_3,
-  },
-  {
-    name: 'SONATA',
-    price: '10 000 - 32 000 ₽',
-    img: car_4,
-  },
-  {
-    name: 'ELANTRA',
-    price: '12 000 - 25 000 ₽',
-    img: car_1,
-  },
-  {
-    name: 'i30 N',
-    price: '10 000 - 32 000 ₽',
-    img: car_2,
-  },
-]
+const Model = ({ formik, listOfCars, requestCars }) => {
+  useEffect(() => requestCars(), [requestCars])
 
-const Model = ({ formik }) => {
+  const cardClass = (carName) =>
+    classNames('catalog__car', {
+      'catalog__car--active': carName === formik.values.model,
+    })
+
+  const getCarImg = (car) => {
+    return car.thumbnail.path.includes('base64')
+      ? car.thumbnail.path
+      : `http://api-factory.simbirsoft1.com/${car.thumbnail.path}`
+  }
+
   return (
     <div className='model'>
       <InputItem
@@ -76,13 +56,22 @@ const Model = ({ formik }) => {
         onChange={formik.handleChange}
       />
       <div className='catalog'>
-        {carList.map((car, i) => (
-          <div className='catalog__car' key={i}>
+        {listOfCars.map((car) => (
+          <div
+            className={cardClass(car.name)}
+            key={car.id}
+            onClick={() =>
+              formik.setValues({ ...formik.values, model: car.name })
+            }>
             <div className='catalog__car-title'>
               <div className='catalog__car-name'>{car.name}</div>
-              <div className='catalog__car-price'>{car.price}</div>
+              <div className='catalog__car-price'>{`${car.priceMin} - ${car.priceMax} ₽`}</div>
             </div>
-            <img className='catalog__car-img' src={car.img} alt='car-img' />
+            <img
+              className='catalog__car-img'
+              src={getCarImg(car)}
+              alt='car-img'
+            />
           </div>
         ))}
       </div>
@@ -90,4 +79,9 @@ const Model = ({ formik }) => {
   )
 }
 
-export default Model
+const mapStateToProps = (state) => ({
+  listOfCars: getCars(state),
+})
+
+// export default Model
+export default connect(mapStateToProps, { requestCars })(Model)

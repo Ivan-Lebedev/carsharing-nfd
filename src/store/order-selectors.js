@@ -5,3 +5,5 @@ export const getCities = (state) => {
 }
 
 export const getPoints = (state) => state.order.points
+
+export const getCars = (state) => state.order.cars
