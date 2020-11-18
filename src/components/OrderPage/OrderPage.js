@@ -25,8 +25,8 @@ const OrderPage = ({ isFinished }) => {
     initialValues: {
       locationCity: '',
       locationPlace: '',
-      modelFilter: 'all',
-      model: 'Hyndai, i30 N',
+      modelFilter: 'Все модели',
+      model: '',
       color: 'Любой',
       dateFrom: '',
       dateTo: '',

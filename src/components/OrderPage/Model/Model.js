@@ -9,6 +9,20 @@ import { InputItem } from '../../common/Forms/Forms'
 const Model = ({ formik, listOfCars, requestCars }) => {
   useEffect(() => requestCars(), [requestCars])
 
+  let listOfFilteredCars = []
+
+  const filterCars = () => {
+    if (formik.values.modelFilter === 'Все модели') {
+      listOfFilteredCars = listOfCars
+    } else {
+      listOfFilteredCars = listOfCars.filter(
+        (car) => car.categoryId.name === formik.values.modelFilter
+      )
+    }
+  }
+
+  filterCars()
+
   const cardClass = (carName) =>
     classNames('catalog__car', {
       'catalog__car--active': carName === formik.values.model,
@@ -31,8 +45,8 @@ const Model = ({ formik, listOfCars, requestCars }) => {
             inputStyle: 'radio-item__input',
             inputItemClass: 'input__radio-item',
             label: 'Все модели',
-            value: 'all',
-            checked: formik.values.modelFilter === 'all',
+            value: 'Все модели',
+            checked: formik.values.modelFilter === 'Все модели',
           },
           {
             inputItemLabelClass: 'radio-item__label',
@@ -40,8 +54,8 @@ const Model = ({ formik, listOfCars, requestCars }) => {
             inputStyle: 'radio-item__input',
             inputItemClass: 'input__radio-item',
             label: 'Эконом',
-            value: 'econom',
-            checked: formik.values.modelFilter === 'econom',
+            value: 'Эконом',
+            checked: formik.values.modelFilter === 'Эконом',
           },
           {
             inputItemLabelClass: 'radio-item__label',
@@ -49,14 +63,14 @@ const Model = ({ formik, listOfCars, requestCars }) => {
             inputStyle: 'radio-item__input',
             inputItemClass: 'input__radio-item',
             label: 'Премиум',
-            value: 'premium',
-            checked: formik.values.modelFilter === 'premium',
+            value: 'Премиум',
+            checked: formik.values.modelFilter === 'Премиум',
           },
         ]}
         onChange={formik.handleChange}
       />
       <div className='catalog'>
-        {listOfCars.map((car) => (
+        {listOfFilteredCars.map((car) => (
           <div
             className={cardClass(car.name)}
             key={car.id}
@@ -83,5 +97,4 @@ const mapStateToProps = (state) => ({
   listOfCars: getCars(state),
 })
 
-// export default Model
 export default connect(mapStateToProps, { requestCars })(Model)

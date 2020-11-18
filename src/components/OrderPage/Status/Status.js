@@ -85,7 +85,7 @@ const Status = ({
           </div>
         </div>
       )}
-      {!stepDisabled[2] && (
+      {formData.model !== '' && (
         <div className='status__item'>
           <div className='status__item-title'>Модель</div>
           <div className='status__item-dash'></div>
