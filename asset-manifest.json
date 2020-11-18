@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/carsharing-nfd/static/css/main.38cae07b.chunk.css",
-    "main.js": "/carsharing-nfd/static/js/main.56c2c09e.chunk.js",
-    "main.js.map": "/carsharing-nfd/static/js/main.56c2c09e.chunk.js.map",
+    "main.js": "/carsharing-nfd/static/js/main.389161bb.chunk.js",
+    "main.js.map": "/carsharing-nfd/static/js/main.389161bb.chunk.js.map",
     "runtime-main.js": "/carsharing-nfd/static/js/runtime-main.35ed25dc.js",
     "runtime-main.js.map": "/carsharing-nfd/static/js/runtime-main.35ed25dc.js.map",
     "static/js/2.6907f14e.chunk.js": "/carsharing-nfd/static/js/2.6907f14e.chunk.js",
@@ -22,6 +22,6 @@
     "static/js/runtime-main.35ed25dc.js",
     "static/js/2.6907f14e.chunk.js",
     "static/css/main.38cae07b.chunk.css",
-    "static/js/main.56c2c09e.chunk.js"
+    "static/js/main.389161bb.chunk.js"
   ]
 }
