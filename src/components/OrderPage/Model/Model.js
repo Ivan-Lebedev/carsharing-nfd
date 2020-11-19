@@ -32,7 +32,6 @@ const Model = ({ formik, listOfCars, requestCars }) => {
     return car.thumbnail.path.includes('base64')
       ? car.thumbnail.path
       : `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/${car.thumbnail.path}`
-    // gh-pages url: `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/${car.thumbnail.path}
   }
 
   return (
@@ -85,6 +84,8 @@ const Model = ({ formik, listOfCars, requestCars }) => {
             <img
               className='catalog__car-img'
               src={getCarImg(car)}
+              crossOrigin='anonymous'
+              referrerPolicy='origin'
               alt='car-img'
             />
           </div>
