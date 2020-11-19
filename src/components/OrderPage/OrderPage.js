@@ -19,7 +19,7 @@ const OrderPage = ({ isFinished }) => {
     4: true,
   })
 
-  const [step, setStep] = useState(3)
+  const [step, setStep] = useState(1)
 
   const formik = useFormik({
     initialValues: {

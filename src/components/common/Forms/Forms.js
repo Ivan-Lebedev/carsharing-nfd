@@ -83,6 +83,7 @@ export const InputDate = ({ items, formik }) => {
           endDate={formik.values.dateTo}
           maxDate={formik.values.dateTo}
           className='text__input-value'
+          placeholderText={items[0].placeholder}
         />
         <button className='text__input-cancel'>
           <CrossIcon />
@@ -100,6 +101,7 @@ export const InputDate = ({ items, formik }) => {
           endDate={formik.values.dateTo}
           minDate={formik.values.dateFrom}
           className='text__input-value'
+          placeholderText={items[1].placeholder}
         />
         <button className='text__input-cancel'>
           <CrossIcon />

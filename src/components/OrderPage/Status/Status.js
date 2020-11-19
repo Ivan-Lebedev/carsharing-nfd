@@ -40,11 +40,20 @@ const Status = ({
   const isPlaceValid = () =>
     points.find((point) => point.address === formData.locationPlace)
 
+  const deltaTime = Math.abs(formData.dateTo - formData.dateFrom)
+  const deltaDays =
+    formData.dateTo !== '' && formData.dateFrom !== ''
+      ? Math.ceil(deltaTime / (1000 * 60 * 60 * 24))
+      : 0
+
   const isButtonDisabled = () => {
     if (step === 1 && !isPlaceValid()) {
       return true
     }
     if (step === 2 && formData.model === '') {
+      return true
+    }
+    if (step === 3 && deltaDays === 0) {
       return true
     }
     return false
@@ -103,9 +112,7 @@ const Status = ({
         <div className='status__item'>
           <div className='status__item-title'>Длительность аренды</div>
           <div className='status__item-dash'></div>
-          <div className='status__item-value'>
-            {formData.dateFrom} {formData.dateTo}
-          </div>
+          <div className='status__item-value'>{deltaDays} д</div>
         </div>
       )}
       {!stepDisabled[3] && (
