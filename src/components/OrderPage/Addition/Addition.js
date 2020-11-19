@@ -1,43 +1,36 @@
 import React from 'react'
 import './Addition.css'
+import { connect } from 'react-redux'
+import { getCars } from '../../../store/order-selectors'
 import { InputItem, InputText } from '../../common/Forms/Forms'
 
-const Addition = ({ formik }) => {
+const Addition = ({ formik, cars }) => {
+  const getColors = () => {
+    const carColors = ['Любой']
+    cars.map(
+      (car) => car.name === formik.values.model && carColors.push(...car.colors)
+    )
+    return carColors
+  }
+  const ColorItems = getColors().map((color) => {
+    const colorItem = {}
+    colorItem.inputItemLabelClass = 'radio-item__label'
+    colorItem.inputItemStyle = 'radio'
+    colorItem.inputStyle = 'radio-item__input'
+    colorItem.inputItemClass = 'input__radio-item'
+    colorItem.label = color.charAt(0).toUpperCase() + color.slice(1)
+    colorItem.value = color
+    colorItem.checked = formik.values.color === color
+    return colorItem
+  })
+
   return (
     <div className='addition'>
       <div className='addition__option'>
         <div className='addition__title'>Цвет</div>
         <InputItem
           name='color'
-          items={[
-            {
-              inputItemLabelClass: 'radio-item__label',
-              inputItemStyle: 'radio',
-              inputStyle: 'radio-item__input',
-              inputItemClass: 'input__radio-item',
-              label: 'Любой',
-              value: 'Любой',
-              checked: formik.values.color === 'Любой',
-            },
-            {
-              inputItemLabelClass: 'radio-item__label',
-              inputItemStyle: 'radio',
-              inputStyle: 'radio-item__input',
-              inputItemClass: 'input__radio-item',
-              label: 'Красный',
-              value: 'Красный',
-              checked: formik.values.color === 'Красный',
-            },
-            {
-              inputItemLabelClass: 'radio-item__label',
-              inputItemStyle: 'radio',
-              inputStyle: 'radio-item__input',
-              inputItemClass: 'input__radio-item',
-              label: 'Голубой',
-              value: 'Голубой',
-              checked: formik.values.color === 'Голубой',
-            },
-          ]}
+          items={ColorItems}
           onChange={formik.handleChange}
         />
       </div>
@@ -132,4 +125,9 @@ const Addition = ({ formik }) => {
   )
 }
 
-export default Addition
+const mapStateToProps = (state) => ({
+  cars: getCars(state),
+})
+
+// export default Addition
+export default connect(mapStateToProps)(Addition)
