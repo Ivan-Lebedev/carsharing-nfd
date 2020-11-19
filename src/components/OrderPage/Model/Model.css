@@ -1,3 +1,7 @@
+.model {
+  /* display: flex;
+  justify-content: center; */
+}
 .model__filter {
   display: flex;
   color: #999999;

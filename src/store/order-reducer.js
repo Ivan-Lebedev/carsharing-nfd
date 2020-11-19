@@ -3,11 +3,13 @@ import orderAPI from '../api/api'
 const ADD_CITIES = 'ADD_CITIES'
 const ADD_POINTS = 'ADD_POINTS'
 const ADD_CARS = 'ADD_CARS'
+const CARS_FETCHING = 'CARS_FETCHING'
 
 const initialState = {
   cities: [],
   points: [],
   cars: [],
+  carsFetching: true,
 }
 
 const orderReducer = (state = initialState, action) => {
@@ -27,6 +29,11 @@ const orderReducer = (state = initialState, action) => {
         ...state,
         cars: action.payload,
       }
+    case CARS_FETCHING:
+      return {
+        ...state,
+        carsFetching: action.payload,
+      }
     default:
       return state
   }
@@ -45,6 +52,11 @@ export const addPoints = (points) => ({
 export const addCars = (cars) => ({
   type: ADD_CARS,
   payload: cars,
+})
+
+export const toggleCarsFetching = (carsFetching) => ({
+  type: CARS_FETCHING,
+  payload: carsFetching,
 })
 
 export const requestCities = () => async (dispatch) => {
@@ -67,7 +79,9 @@ export const requestPoints = () => async (dispatch) => {
 
 export const requestCars = () => async (dispatch) => {
   try {
+    dispatch(toggleCarsFetching(true))
     const result = await orderAPI.getCar()
+    dispatch(toggleCarsFetching(false))
     dispatch(addCars(result.data.data))
   } catch (e) {
     console.log(e)
