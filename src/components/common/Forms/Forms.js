@@ -2,6 +2,8 @@ import React from 'react'
 import './Forms.css'
 import classNames from 'classnames'
 import CrossIcon from '../../common/icons/CrossIcon'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
 export const InputItem = ({ name, direction, items, onChange }) => {
   const inputClass = classNames('input', {
@@ -62,6 +64,47 @@ export const InputText = ({ items, onChange }) => {
           </button>
         </label>
       ))}
+    </div>
+  )
+}
+
+export const InputDate = ({ items, formik }) => {
+  return (
+    <div className='text'>
+      <div className='text__input' key={items[0].label}>
+        <div className='text__input-type'>{items[0].label}</div>
+        <DatePicker
+          selectsStart
+          selected={items[0].value}
+          onChange={(date) =>
+            formik.setValues({ ...formik.values, dateFrom: date })
+          }
+          startDate={formik.values.dateFrom}
+          endDate={formik.values.dateTo}
+          maxDate={formik.values.dateTo}
+          className='text__input-value'
+        />
+        <button className='text__input-cancel'>
+          <CrossIcon />
+        </button>
+      </div>
+      <div className='text__input' key={items[1].label}>
+        <div className='text__input-type'>{items[1].label}</div>
+        <DatePicker
+          selectsEnd
+          selected={items[1].value}
+          onChange={(date) =>
+            formik.setValues({ ...formik.values, dateTo: date })
+          }
+          startDate={formik.values.dateFrom}
+          endDate={formik.values.dateTo}
+          minDate={formik.values.dateFrom}
+          className='text__input-value'
+        />
+        <button className='text__input-cancel'>
+          <CrossIcon />
+        </button>
+      </div>
     </div>
   )
 }

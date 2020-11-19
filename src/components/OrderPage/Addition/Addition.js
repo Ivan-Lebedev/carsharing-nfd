@@ -2,7 +2,7 @@ import React from 'react'
 import './Addition.css'
 import { connect } from 'react-redux'
 import { getCars } from '../../../store/order-selectors'
-import { InputItem, InputText } from '../../common/Forms/Forms'
+import { InputItem, InputDate } from '../../common/Forms/Forms'
 
 const Addition = ({ formik, cars }) => {
   const getColors = () => {
@@ -37,7 +37,7 @@ const Addition = ({ formik, cars }) => {
 
       <div className='addition__option'>
         <div className='addition__title'>Дата аренды</div>
-        <InputText
+        <InputDate
           items={[
             {
               name: 'dateFrom',
@@ -52,7 +52,7 @@ const Addition = ({ formik, cars }) => {
               value: formik.values.dateTo,
             },
           ]}
-          onChange={formik.handleChange}
+          formik={formik}
         />
       </div>
 
