@@ -27,7 +27,7 @@ const OrderPage = ({ isFinished }) => {
       locationPlace: '',
       modelFilter: 'Все модели',
       model: '',
-      color: 'Любой',
+      color: 'любой',
       dateFrom: '',
       dateTo: '',
       plan: 'day',

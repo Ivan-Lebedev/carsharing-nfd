@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './Status.css'
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
-import { getPoints } from '../../../store/order-selectors'
+import { getPoints, getCars } from '../../../store/order-selectors'
 import { connect } from 'react-redux'
 
 const Status = ({
@@ -13,6 +13,7 @@ const Status = ({
   setStepDisabled,
   formData,
   points,
+  cars,
 }) => {
   const [modal, setModal] = useState(false)
   const statusBtnClasses = classNames('button status__price-btn', {
@@ -57,6 +58,37 @@ const Status = ({
       return true
     }
     return false
+  }
+
+  const modelData = cars.find((car) => car.name === formData.model)
+  const getPrice = () => {
+    let priceMin = 0
+    let priceMax = 0
+    let price = 0
+    if (formData.fullFuel) {
+      priceMin += 500
+      price += 500
+    }
+    if (formData.childSeat) {
+      priceMin += 200
+      price += 200
+    }
+    if (formData.rightHand) {
+      priceMin += 1600
+      price += 1600
+    }
+    if (formData.model !== '') {
+      priceMin =
+        formData.plan === 'minute'
+          ? modelData.priceMin + priceMin
+          : Math.ceil((modelData.priceMin + priceMin))
+      priceMax = modelData.priceMax
+      price = `${priceMin} - ${priceMax}`
+    }
+    if (deltaDays !== 0) {
+      price = priceMin * deltaDays
+    }
+    return `${price} ₽`
   }
 
   return (
@@ -148,7 +180,7 @@ const Status = ({
 
       <div className='status__price'>
         <span className='status__price-header'>Цена: </span>
-        <span className='status__price-digits'>от 8 000 до 12 000 ₽</span>
+        <span className='status__price-digits'>{getPrice()}</span>
       </div>
 
       <button
@@ -167,6 +199,7 @@ const Status = ({
 
 const mapStateToProps = (state) => ({
   points: getPoints(state),
+  cars: getCars(state),
 })
 
 export default connect(mapStateToProps)(Status)

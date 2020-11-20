@@ -5,14 +5,10 @@ import { getCars } from '../../../store/order-selectors'
 import { InputItem, InputDate } from '../../common/Forms/Forms'
 
 const Addition = ({ formik, cars }) => {
-  const getColors = () => {
-    const carColors = ['Любой']
-    cars.map(
-      (car) => car.name === formik.values.model && carColors.push(...car.colors)
-    )
-    return carColors
-  }
-  const ColorItems = getColors().map((color) => {
+  const modelData = cars.find((car) => car.name === formik.values.model)
+  const carColors = ['любой', ...modelData.colors]
+
+  const ColorItems = carColors.map((color) => {
     const colorItem = {}
     colorItem.inputItemLabelClass = 'radio-item__label'
     colorItem.inputItemStyle = 'radio'
@@ -67,7 +63,9 @@ const Addition = ({ formik, cars }) => {
               inputItemStyle: 'radio',
               inputStyle: 'radio-item__input',
               inputItemClass: 'input__radio-item',
-              label: 'Поминутно, 7₽/мин',
+              label: `Поминутно, ${Math.ceil(
+                (2 * modelData.priceMin) / (60 * 24)
+              )} ₽/мин`,
               value: 'minute',
               checked: formik.values.plan === 'minute',
             },
@@ -76,7 +74,7 @@ const Addition = ({ formik, cars }) => {
               inputItemStyle: 'radio',
               inputStyle: 'radio-item__input',
               inputItemClass: 'input__radio-item',
-              label: 'На сутки, 1999 ₽/сутки',
+              label: `На сутки, ${Math.ceil(modelData.priceMin)} ₽/сутки`,
               value: 'day',
               checked: formik.values.plan === 'day',
             },
