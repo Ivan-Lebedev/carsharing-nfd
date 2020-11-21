@@ -24,16 +24,16 @@ const OrderPage = ({ isFinished }) => {
   const formik = useFormik({
     initialValues: {
       locationCity: '',
-      locationPlace: '',
+      locationPoint: '',
       modelFilter: 'Все модели',
       model: '',
       color: 'любой',
       dateFrom: '',
       dateTo: '',
       plan: 'day',
-      fullFuel: false,
-      childSeat: false,
-      rightHand: false,
+      isFullTank: false,
+      isNeedChildChair: false,
+      isRightWheel: false,
     },
   })
   console.log(formik.values)

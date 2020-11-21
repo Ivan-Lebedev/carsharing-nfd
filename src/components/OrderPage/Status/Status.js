@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import './Status.css'
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
-import { getPoints, getCars } from '../../../store/order-selectors'
+import { getPoints, getCars, getCities } from '../../../store/order-selectors'
 import { connect } from 'react-redux'
+import { submitOrder } from '../../../store/order-reducer'
 
 const Status = ({
   isFinished,
@@ -12,22 +13,29 @@ const Status = ({
   stepDisabled,
   setStepDisabled,
   formData,
+  cities,
   points,
   cars,
+  submitOrder,
 }) => {
-  const [modal, setModal] = useState(false)
+  const [isModal, setIsModal] = useState(false)
   const statusBtnClasses = classNames('button status__price-btn', {
     'button--cancel': isFinished === true,
   })
 
   const onModalConfirm = () => {
-    if (isFinished) setStep(1)
-    setModal(false)
+    if (isFinished) {
+      setStep(1)
+      setIsModal(false)
+    } else {
+      submitForm()
+      setIsModal(false)
+    }
   }
 
   const onButtonClick = () => {
     if (step === 4 || isFinished) {
-      setModal(!modal)
+      setIsModal(!isModal)
     } else {
       const nextStep = step + 1
       setStepDisabled({
@@ -39,7 +47,7 @@ const Status = ({
   }
 
   const isPlaceValid = () =>
-    points.find((point) => point.address === formData.locationPlace)
+    points.find((point) => point.address === formData.locationPoint)
 
   const deltaTime = Math.abs(formData.dateTo - formData.dateFrom)
   const deltaDays =
@@ -48,7 +56,7 @@ const Status = ({
       : 0
 
   const isButtonDisabled = () => {
-    if (step === 1 && !isPlaceValid()) {
+    if (!isPlaceValid()) {
       return true
     }
     if (step === 2 && formData.model === '') {
@@ -65,15 +73,15 @@ const Status = ({
     let priceMin = 0
     let priceMax = 0
     let price = 0
-    if (formData.fullFuel) {
+    if (formData.isFullTank) {
       priceMin += 500
       price += 500
     }
-    if (formData.childSeat) {
+    if (formData.isNeedChildChair) {
       priceMin += 200
       price += 200
     }
-    if (formData.rightHand) {
+    if (formData.isRightWheel) {
       priceMin += 1600
       price += 1600
     }
@@ -81,7 +89,7 @@ const Status = ({
       priceMin =
         formData.plan === 'minute'
           ? modelData.priceMin + priceMin
-          : Math.ceil((modelData.priceMin + priceMin))
+          : Math.ceil(modelData.priceMin + priceMin)
       priceMax = modelData.priceMax
       price = `${priceMin} - ${priceMax}`
     }
@@ -91,9 +99,36 @@ const Status = ({
     return `${price} ₽`
   }
 
+  const submitForm = () => {
+    const { color, isFullTank, isNeedChildChair, isRightWheel, dateFrom, dateTo } = formData
+    const cityId = cities.find((city) => city.name === formData.locationCity).id
+    const pointId = points.find(
+      (point) => point.address === formData.locationPoint
+    ).id
+    const carId = modelData.id
+    // const dateFrom = formData.dateFrom
+    // const dateTo = formData.dateTo
+    const rateId = '5e26a0e2099b810b946c5d86'
+    const price = getPrice()
+
+    submitOrder(
+      cityId,
+      pointId,
+      carId,
+      color,
+      dateFrom,
+      dateTo,
+      rateId,
+      price,
+      isFullTank,
+      isNeedChildChair,
+      isRightWheel
+    )
+  }
+
   return (
     <div className='status'>
-      {modal && (
+      {isModal && (
         <div className='modal'>
           <div className='modal__overlay' />
           <div className='modal__container'>
@@ -108,7 +143,7 @@ const Status = ({
                 Подтвердить
               </Link>
               <button
-                onClick={() => setModal(false)}
+                onClick={() => setIsModal(false)}
                 className='button button--cancel'>
                 Вернуться
               </button>
@@ -117,12 +152,12 @@ const Status = ({
         </div>
       )}
       <div className='status__header'>Ваш заказ:</div>
-      {formData.locationPlace !== '' && formData.locationCity !== '' && (
+      {formData.locationPoint !== '' && formData.locationCity !== '' && (
         <div className='status__item'>
           <div className='status__item-title'>Пункт выдачи</div>
           <div className='status__item-dash'></div>
           <div className='status__item-value'>
-            {formData.locationCity}, {formData.locationPlace}
+            {formData.locationCity}, {formData.locationPoint}
           </div>
         </div>
       )}
@@ -156,21 +191,21 @@ const Status = ({
           </div>
         </div>
       )}
-      {!stepDisabled[3] && formData.fullFuel && (
+      {!stepDisabled[3] && formData.isFullTank && (
         <div className='status__item'>
           <div className='status__item-title'>Полный бак</div>
           <div className='status__item-dash'></div>
           <div className='status__item-value'>Да</div>
         </div>
       )}
-      {!stepDisabled[3] && formData.childSeat && (
+      {!stepDisabled[3] && formData.isNeedChildChair && (
         <div className='status__item'>
           <div className='status__item-title'>Детское кресло</div>
           <div className='status__item-dash'></div>
           <div className='status__item-value'>Да</div>
         </div>
       )}
-      {!stepDisabled[3] && formData.rightHand && (
+      {!stepDisabled[3] && formData.isRightWheel && (
         <div className='status__item'>
           <div className='status__item-title'>Правый руль</div>
           <div className='status__item-dash'></div>
@@ -200,6 +235,7 @@ const Status = ({
 const mapStateToProps = (state) => ({
   points: getPoints(state),
   cars: getCars(state),
+  cities: getCities(state),
 })
 
-export default connect(mapStateToProps)(Status)
+export default connect(mapStateToProps, { submitOrder })(Status)

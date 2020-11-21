@@ -4,7 +4,7 @@ import Map from '../../../assets/images/Map.png'
 import { InputText } from '../../common/Forms/Forms'
 import { connect } from 'react-redux'
 import { requestCities, requestPoints } from '../../../store/order-reducer'
-import { getCities, getPoints } from '../../../store/order-selectors'
+import { getListOfCities, getPoints } from '../../../store/order-selectors'
 
 const Location = ({
   formik,
@@ -13,35 +13,10 @@ const Location = ({
   requestCities,
   requestPoints,
 }) => {
-  // const adresses = {
-  //   ulyanovsk: ['Нариманова 1, корп.2', 'Московское шоссе 34', 'Гончарова 27'],
-  //   saransk: ['Гагарина 99А', 'Ленина 24', 'Рабочая 183'],
-  //   kazan: ['Петербургская 1'],
-  //   samara: ['улица Дыбенко, 30', 'проспект Карла Маркса 201'],
-  // }
-
-  // const getCityAdresses = () => {
-  //   switch (formik.values.locationCity) {
-  //     case 'Ульяновск':
-  //       return adresses.ulyanovsk
-  //     case 'Саранск':
-  //       return adresses.saransk
-  //     case 'Казань':
-  //       return adresses.kazan
-  //     case 'Самара':
-  //       return adresses.samara
-  //     default:
-  //       return false
-  //   }
-  // }
-
   useEffect(() => {
     requestCities()
     requestPoints()
   }, [requestCities, requestPoints])
-
-  // const listOfCities = []
-  // cities.map((city) => listOfCities.push(city.name))
 
   const listOfPoints = []
   points.map(
@@ -62,10 +37,10 @@ const Location = ({
             options: listOfCities,
           },
           {
-            name: 'locationPlace',
+            name: 'locationPoint',
             label: 'Пункт выдачи',
             placeholder: 'Начните вводить пункт...',
-            value: formik.values.locationPlace,
+            value: formik.values.locationPoint,
             options: listOfPoints,
           },
         ]}
@@ -80,7 +55,7 @@ const Location = ({
 }
 
 const mapStateToProps = (state) => ({
-  listOfCities: getCities(state),
+  listOfCities: getListOfCities(state),
   points: getPoints(state),
 })
 

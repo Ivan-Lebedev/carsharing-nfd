@@ -94,8 +94,8 @@ const Addition = ({ formik, cars }) => {
               inputStyle: 'checkbox-item__input',
               inputItemClass: 'input__checkbox-item',
               label: 'Полный бак, 500р',
-              value: 'fullFuel',
-              checked: formik.values.fullFuel === true,
+              value: 'isFullTank',
+              checked: formik.values.isFullTank === true,
             },
             {
               inputItemLabelClass: 'checkbox-item__label',
@@ -103,8 +103,8 @@ const Addition = ({ formik, cars }) => {
               inputStyle: 'checkbox-item__input',
               inputItemClass: 'input__checkbox-item',
               label: 'Детское кресло, 200р',
-              value: 'childSeat',
-              checked: formik.values.childSeat === true,
+              value: 'isNeedChildChair',
+              checked: formik.values.isNeedChildChair === true,
             },
             {
               inputItemLabelClass: 'checkbox-item__label',
@@ -112,8 +112,8 @@ const Addition = ({ formik, cars }) => {
               inputStyle: 'checkbox-item__input',
               inputItemClass: 'input__checkbox-item',
               label: 'Правый руль, 1600р',
-              value: 'rightHand',
-              checked: formik.values.rightHand === true,
+              value: 'isRightWheel',
+              checked: formik.values.isRightWheel === true,
             },
           ]}
           onChange={formik.handleChange}

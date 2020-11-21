@@ -19,7 +19,10 @@ const orderAPI = {
     return instance.get('db/point/')
   },
   getCar() {
-    return instance.get(`db/car/`)
+    return instance.get('db/car/')
+  },
+  postOrder(orderBody) {
+    return instance.post('db/order/', orderBody)
   },
 }
 
