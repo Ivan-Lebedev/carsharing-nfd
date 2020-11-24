@@ -3,13 +3,17 @@ import orderAPI from '../api/api'
 const ADD_CITIES = 'ADD_CITIES'
 const ADD_POINTS = 'ADD_POINTS'
 const ADD_CARS = 'ADD_CARS'
-const CARS_FETCHING = 'CARS_FETCHING'
+const IS_CARS_FETCHING = 'IS_CARS_FETCHING'
+const ADD_ORDER_ID = 'ADD_ORDER_ID'
+const ADD_FINISHED_ORDER_DATA = 'ADD_FINISHED_ORDER_DATA'
 
 const initialState = {
   cities: [],
   points: [],
   cars: [],
-  carsFetching: true,
+  isCarsFetching: true,
+  orderId: null,
+  finishedOrderData: null,
 }
 
 const orderReducer = (state = initialState, action) => {
@@ -29,10 +33,20 @@ const orderReducer = (state = initialState, action) => {
         ...state,
         cars: action.payload,
       }
-    case CARS_FETCHING:
+    case IS_CARS_FETCHING:
       return {
         ...state,
-        carsFetching: action.payload,
+        isCarsFetching: action.payload,
+      }
+    case ADD_ORDER_ID:
+      return {
+        ...state,
+        orderId: action.payload,
+      }
+    case ADD_FINISHED_ORDER_DATA:
+      return {
+        ...state,
+        finishedOrderData: action.payload,
       }
     default:
       return state
@@ -54,9 +68,19 @@ export const addCars = (cars) => ({
   payload: cars,
 })
 
-export const toggleCarsFetching = (carsFetching) => ({
-  type: CARS_FETCHING,
-  payload: carsFetching,
+export const toggleIsCarsFetching = (isCarsFetching) => ({
+  type: IS_CARS_FETCHING,
+  payload: isCarsFetching,
+})
+
+export const addOrderId = (orderId) => ({
+  type: ADD_ORDER_ID,
+  payload: orderId,
+})
+
+export const addFinishedOrderData = (orderData) => ({
+  type: ADD_FINISHED_ORDER_DATA,
+  payload: orderData,
 })
 
 export const requestCities = () => async (dispatch) => {
@@ -79,9 +103,9 @@ export const requestPoints = () => async (dispatch) => {
 
 export const requestCars = () => async (dispatch) => {
   try {
-    dispatch(toggleCarsFetching(true))
+    dispatch(toggleIsCarsFetching(true))
     const result = await orderAPI.getCar()
-    dispatch(toggleCarsFetching(false))
+    dispatch(toggleIsCarsFetching(false))
     dispatch(addCars(result.data.data))
   } catch (e) {
     console.log(e)
@@ -99,8 +123,9 @@ export const submitOrder = (
   price,
   isFullTank,
   isNeedChildChair,
-  isRightWheel
-) => async () => {
+  isRightWheel,
+  setIsModal
+) => async (dispatch) => {
   try {
     const orderBody = {
       orderStatusId: {
@@ -127,7 +152,18 @@ export const submitOrder = (
       isNeedChildChair,
       isRightWheel,
     }
-    await orderAPI.postOrder(orderBody)
+    const result = await orderAPI.postOrder(orderBody)
+    dispatch(addOrderId(result.data.data.id))
+    setIsModal(false)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const requestOrder = (orderId) => async (dispatch) => {
+  try {
+    const result = await orderAPI.getOrder(orderId)
+    dispatch(addFinishedOrderData(result.data.data))
   } catch (e) {
     console.log(e)
   }

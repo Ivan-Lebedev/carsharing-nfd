@@ -10,4 +10,8 @@ export const getPoints = (state) => state.order.points
 
 export const getCars = (state) => state.order.cars
 
-export const isCarsFetching = (state) => state.order.carsFetching
+export const isCarsFetching = (state) => state.order.isCarsFetching
+
+export const getOrderId = (state) => state.order.orderId
+
+export const getOrderData = (state) => state.order.finishedOrderData

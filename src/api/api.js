@@ -13,16 +13,19 @@ const instance = axios.create({
 
 const orderAPI = {
   getCity() {
-    return instance.get('db/city/')
+    return instance.get(`db/city/`)
   },
   getPoint() {
-    return instance.get('db/point/')
+    return instance.get(`db/point/`)
   },
   getCar() {
-    return instance.get('db/car/')
+    return instance.get(`db/car/`)
   },
   postOrder(orderBody) {
-    return instance.post('db/order/', orderBody)
+    return instance.post(`db/order/`, orderBody)
+  },
+  getOrder(orderId) {
+    return instance.get(`db/order/${orderId}`)
   },
 }
 

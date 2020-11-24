@@ -55,7 +55,7 @@ const Addition = ({ formik, cars }) => {
       <div className='addition__option'>
         <div className='addition__title'>Тариф</div>
         <InputItem
-          name='plan'
+          name='rate'
           direction='column'
           items={[
             {
@@ -67,7 +67,7 @@ const Addition = ({ formik, cars }) => {
                 (2 * modelData.priceMin) / (60 * 24)
               )} ₽/мин`,
               value: 'minute',
-              checked: formik.values.plan === 'minute',
+              checked: formik.values.rate === 'minute',
             },
             {
               inputItemLabelClass: 'radio-item__label',
@@ -76,7 +76,7 @@ const Addition = ({ formik, cars }) => {
               inputItemClass: 'input__radio-item',
               label: `На сутки, ${Math.ceil(modelData.priceMin)} ₽/сутки`,
               value: 'day',
-              checked: formik.values.plan === 'day',
+              checked: formik.values.rate === 'day',
             },
           ]}
           onChange={formik.handleChange}

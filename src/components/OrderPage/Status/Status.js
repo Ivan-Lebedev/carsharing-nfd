@@ -1,10 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Status.css'
-import { Link } from 'react-router-dom'
 import classNames from 'classnames'
-import { getPoints, getCars, getCities } from '../../../store/order-selectors'
+import {
+  getPoints,
+  getCars,
+  getCities,
+  getOrderId,
+} from '../../../store/order-selectors'
 import { connect } from 'react-redux'
 import { submitOrder } from '../../../store/order-reducer'
+import { withRouter } from 'react-router-dom'
+import { compose } from 'redux'
+import { LinkButton } from '../../common/Button/Button'
 
 const Status = ({
   isFinished,
@@ -17,11 +24,19 @@ const Status = ({
   points,
   cars,
   submitOrder,
+  orderId,
+  history,
 }) => {
   const [isModal, setIsModal] = useState(false)
   const statusBtnClasses = classNames('button status__price-btn', {
     'button--cancel': isFinished === true,
   })
+
+  useEffect(() => {
+    if (orderId) {
+      history.push(`/order/finished/${orderId}`)
+    }
+  }, [history, orderId])
 
   const onModalConfirm = () => {
     if (isFinished) {
@@ -29,7 +44,6 @@ const Status = ({
       setIsModal(false)
     } else {
       submitForm()
-      setIsModal(false)
     }
   }
 
@@ -56,6 +70,9 @@ const Status = ({
       : 0
 
   const isButtonDisabled = () => {
+    if (isFinished) {
+      return false
+    }
     if (!isPlaceValid()) {
       return true
     }
@@ -87,7 +104,7 @@ const Status = ({
     }
     if (formData.model !== '') {
       priceMin =
-        formData.plan === 'minute'
+        formData.rate === 'minute'
           ? modelData.priceMin + priceMin
           : Math.ceil(modelData.priceMin + priceMin)
       priceMax = modelData.priceMax
@@ -100,15 +117,18 @@ const Status = ({
   }
 
   const submitForm = () => {
-    const { color, isFullTank, isNeedChildChair, isRightWheel, dateFrom, dateTo } = formData
+    const { color, isFullTank, isNeedChildChair, isRightWheel } = formData
     const cityId = cities.find((city) => city.name === formData.locationCity).id
     const pointId = points.find(
       (point) => point.address === formData.locationPoint
     ).id
     const carId = modelData.id
-    // const dateFrom = formData.dateFrom
-    // const dateTo = formData.dateTo
-    const rateId = '5e26a0e2099b810b946c5d86'
+    const dateFrom = formData.dateFrom.getTime()
+    const dateTo = formData.dateTo.getTime()
+    const rateId =
+      formData.rate === 'day'
+        ? '5e26a0e2099b810b946c5d86'
+        : '5e26a0d2099b810b946c5d85'
     const price = getPrice()
 
     submitOrder(
@@ -122,7 +142,8 @@ const Status = ({
       price,
       isFullTank,
       isNeedChildChair,
-      isRightWheel
+      isRightWheel,
+      setIsModal
     )
   }
 
@@ -136,12 +157,11 @@ const Status = ({
               {isFinished ? 'Отменить заказ' : 'Подтвердить заказ'}
             </div>
             <div className='modal__buttons'>
-              <Link
-                to={isFinished ? '/order' : '/order/finished'}
-                onClick={() => onModalConfirm()}
-                className='button'>
+              <LinkButton
+                to={isFinished ? '/order' : false}
+                onClick={() => onModalConfirm()}>
                 Подтвердить
-              </Link>
+              </LinkButton>
               <button
                 onClick={() => setIsModal(false)}
                 className='button button--cancel'>
@@ -187,7 +207,7 @@ const Status = ({
           <div className='status__item-title'>Тариф</div>
           <div className='status__item-dash'></div>
           <div className='status__item-value'>
-            {formData.plan === 'day' ? 'На сутки' : 'Поминутно'}
+            {formData.rate === 'day' ? 'На сутки' : 'Поминутно'}
           </div>
         </div>
       )}
@@ -236,6 +256,10 @@ const mapStateToProps = (state) => ({
   points: getPoints(state),
   cars: getCars(state),
   cities: getCities(state),
+  orderId: getOrderId(state),
 })
 
-export default connect(mapStateToProps, { submitOrder })(Status)
+export default compose(
+  connect(mapStateToProps, { submitOrder }),
+  withRouter
+)(Status)

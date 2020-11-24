@@ -5,9 +5,9 @@ import StepsTriangle from '../common/icons/StepsTriangle'
 import Location from './Location/Location'
 import Model from './Model/Model'
 import Addition from './Addition/Addition'
-import Total from './Total/Total'
+import TotalContainer from './Total/Total'
 import Status from './Status/Status'
-import { Finished } from './Finished/Finished'
+import Finished from './Finished/Finished'
 import classNames from 'classnames'
 import { useFormik } from 'formik'
 
@@ -30,7 +30,7 @@ const OrderPage = ({ isFinished }) => {
       color: 'любой',
       dateFrom: '',
       dateTo: '',
-      plan: 'day',
+      rate: 'day',
       isFullTank: false,
       isNeedChildChair: false,
       isRightWheel: false,
@@ -47,7 +47,7 @@ const OrderPage = ({ isFinished }) => {
       case 3:
         return <Addition formik={formik} />
       case 4:
-        return <Total formData={formik.values} />
+        return <TotalContainer formData={formik.values} />
       default:
         return <Location formik={formik} />
     }
@@ -69,7 +69,7 @@ const OrderPage = ({ isFinished }) => {
       <div className='order'>
         <div className='order__content-container'>
           <div className='order__content'>
-            {isFinished ? <Finished formData={formik.values} /> : renderStep()}
+            {isFinished ? <Finished /> : renderStep()}
           </div>
         </div>
         <div className='order__status-container'>
