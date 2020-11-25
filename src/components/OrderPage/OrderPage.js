@@ -10,8 +10,10 @@ import Status from './Status/Status'
 import Finished from './Finished/Finished'
 import classNames from 'classnames'
 import { useFormik } from 'formik'
+import { connect } from 'react-redux'
+import { getOrderId } from '../../store/order-selectors'
 
-const OrderPage = ({ isFinished }) => {
+const OrderPage = ({ isFinished, orderId }) => {
   const [stepDisabled, setStepDisabled] = useState({
     1: false,
     2: true,
@@ -64,6 +66,7 @@ const OrderPage = ({ isFinished }) => {
           step={step}
           setStep={setStep}
           stepDisabled={stepDisabled}
+          orderId={orderId}
         />
       </div>
       <div className='order'>
@@ -89,7 +92,7 @@ const OrderPage = ({ isFinished }) => {
   )
 }
 
-const Steps = ({ isFinished, step, setStep, stepDisabled }) => {
+const Steps = ({ isFinished, step, setStep, stepDisabled, orderId }) => {
   const stepNames = ['Местоположение', 'Модель', 'Дополнительно', 'Итого']
   const stepClass = (index) => {
     return classNames('steps__item-name', {
@@ -100,7 +103,7 @@ const Steps = ({ isFinished, step, setStep, stepDisabled }) => {
     <div className='steps'>
       <div className='steps__items'>
         {isFinished ? (
-          <span className='steps__finished'>Заказ номер RU58491823</span>
+          <span className='steps__finished'>Заказ номер {orderId}</span>
         ) : (
           stepNames.map((name, index) => (
             <div className='steps__item' key={name}>
@@ -119,4 +122,8 @@ const Steps = ({ isFinished, step, setStep, stepDisabled }) => {
   )
 }
 
-export default OrderPage
+const mapStateToProps = (state) => ({
+  orderId: getOrderId(state),
+})
+
+export default connect(mapStateToProps, {})(OrderPage)

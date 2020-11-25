@@ -10,9 +10,15 @@ const TotalContainer = ({ orderData, formData, cars }) => {
   let dateFrom
   let carImg
 
-  // console.log('cars:', cars)
-  // console.log('orderData:', orderData)
-  // console.log('formData:', formData)
+  console.log('cars:', cars)
+  console.log('orderData:', orderData)
+  console.log('formData:', formData)
+
+  const getCarImg = (car) => {
+    return car?.thumbnail?.path.includes('base64')
+      ? car?.thumbnail?.path
+      : `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/${car?.thumbnail?.path}`
+  }
 
   if (orderData) {
     carName = orderData.carId.name
@@ -20,7 +26,8 @@ const TotalContainer = ({ orderData, formData, cars }) => {
     carFuel = `${orderData.carId.tank}  %`
     const date = new Date(orderData.dateFrom)
     dateFrom = date.toLocaleDateString()
-    carImg = orderData.carId.thumbnail.path
+    // carImg = orderData.carId.thumbnail.path
+    carImg = getCarImg(orderData.carId)
   } else {    
     const carData = cars.find((car) => car?.name === formData?.model)
     
@@ -29,9 +36,10 @@ const TotalContainer = ({ orderData, formData, cars }) => {
     carFuel = formData?.isFullTank ? '100%' : `${carData?.tank || '50'} %`
     const date = new Date(formData?.dateFrom)
     dateFrom = date?.toLocaleDateString()
-    carImg = carData?.thumbnail.path
+    // carImg = carData?.thumbnail.path
+    carImg = getCarImg(carData)
 
-    // console.log('carData:', carData)
+    console.log('carData:', carData)
   }
 
   return (
@@ -62,7 +70,8 @@ const Total = ({ carName, carNumber, carFuel, dateFrom, carImg }) => {
       <img
         crossOrigin='anonymous'
         referrerPolicy='origin'
-        src={`https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/${carImg}`}
+        // src={`https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/${carImg}`}
+        src={carImg}
         className='total__car-img'
         alt='total__car'
       />
