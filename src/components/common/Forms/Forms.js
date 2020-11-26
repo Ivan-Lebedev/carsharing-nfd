@@ -50,6 +50,7 @@ export const InputText = ({ items, onChange }) => {
             onChange={onChange}
             placeholder={item.placeholder}
             list={item.placeholder}
+            autoComplete="off"
           />
           {item.options && (
             <datalist id={item.placeholder}>
