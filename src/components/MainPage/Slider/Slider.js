@@ -7,6 +7,7 @@ import Image2 from '../../../assets/images/Slider_2.jpg'
 import Image3 from '../../../assets/images/Slider_3.jpg'
 import Image4 from '../../../assets/images/Slider_4.jpg'
 import classNames from 'classnames'
+import { Button } from '../../common/Button/Button'
 
 const slides = [
   {
@@ -14,25 +15,25 @@ const slides = [
     title: 'Бесплатная парковка',
     desc:
       'Оставляйте машину на платных городских парковках и разрешенных местах, не нарушая ПДД, а также в аэропортах',
-    btn: 'slider-item__btn btn1 button',
+    btn: 'slider-item__btn btn1',
   },
   {
     img: Image2,
     title: 'Страховка',
     desc: 'Полная страховка страховка автомобиля',
-    btn: 'slider-item__btn btn2 button',
+    btn: 'slider-item__btn btn2',
   },
   {
     img: Image3,
     title: 'Бензин',
     desc: 'Полный бак на любой заправке города за наш счёт',
-    btn: 'slider-item__btn btn3 button',
+    btn: 'slider-item__btn btn3',
   },
   {
     img: Image4,
     title: 'Обслуживание',
     desc: 'Автомобиль проходит еженедельное ТО',
-    btn: 'slider-item__btn btn4 button',
+    btn: 'slider-item__btn btn4',
   },
 ]
 
@@ -83,7 +84,7 @@ const Slider = () => {
           }}>
           <h3 className='slider-item__header'>{slide.title}</h3>
           <p className='slider-item__desc'>{slide.desc}</p>
-          <button className={slide.btn}>Подробнее</button>
+          <Button additionalStyles={slide.btn}>Подробнее</Button>
         </div>
         <div className='radio'>
           {slides.map((item, index) => (

@@ -8,13 +8,13 @@ export const Button = ({
   history,
   to,
   onClick,
-  isDisabled,
+  disabled,
 }) => {
   return (
     <button
       type='button'
       className={`button ${additionalStyles}`}
-      disabled={isDisabled}
+      disabled={disabled}
       onClick={(event) => {
         if (onClick) {
           onClick(event)

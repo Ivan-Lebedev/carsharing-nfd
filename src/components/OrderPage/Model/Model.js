@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { getCars, isCarsFetching } from '../../../store/order-selectors'
 import { requestCars } from '../../../store/order-reducer'
-import { InputItem } from '../../common/Forms/Forms'
+import { RadioBtns } from '../../common/Forms/Forms'
 import Loader from '../../common/Loader/Loader'
 
 const Model = ({ formik, listOfCars, requestCars, isCarsFetching }) => {
@@ -43,38 +43,23 @@ const Model = ({ formik, listOfCars, requestCars, isCarsFetching }) => {
         <Loader />
       ) : (
         <>
-          <InputItem
+          <RadioBtns
+            onChange={formik.handleChange}
             name='modelFilter'
             items={[
               {
-                inputItemLabelClass: 'radio-item__label',
-                inputItemStyle: 'radio',
-                inputStyle: 'radio-item__input',
-                inputItemClass: 'input__radio-item',
-                label: 'Все модели',
                 value: 'Все модели',
                 checked: formik.values.modelFilter === 'Все модели',
               },
               {
-                inputItemLabelClass: 'radio-item__label',
-                inputItemStyle: 'radio',
-                inputStyle: 'radio-item__input',
-                inputItemClass: 'input__radio-item',
-                label: 'Эконом',
                 value: 'Эконом',
                 checked: formik.values.modelFilter === 'Эконом',
               },
               {
-                inputItemLabelClass: 'radio-item__label',
-                inputItemStyle: 'radio',
-                inputStyle: 'radio-item__input',
-                inputItemClass: 'input__radio-item',
-                label: 'Премиум',
                 value: 'Премиум',
                 checked: formik.values.modelFilter === 'Премиум',
               },
             ]}
-            onChange={formik.handleChange}
           />
           <div className='catalog'>
             {listOfFilteredCars.map((car) => (

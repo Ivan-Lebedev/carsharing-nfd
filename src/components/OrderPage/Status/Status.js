@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 import { submitOrder } from '../../../store/order-reducer'
 import { withRouter } from 'react-router-dom'
 import { compose } from 'redux'
-import { LinkButton } from '../../common/Button/Button'
+import { Button, LinkButton } from '../../common/Button/Button'
 
 const Status = ({
   isFinished,
@@ -63,12 +63,6 @@ const Status = ({
   const isPlaceValid = () =>
     points.find((point) => point.address === formData.locationPoint)
 
-  const deltaTime = Math.abs(formData.dateTo - formData.dateFrom)
-  const deltaDays =
-    formData.dateTo !== '' && formData.dateFrom !== ''
-      ? Math.ceil(deltaTime / (1000 * 60 * 60 * 24))
-      : 0
-
   const isButtonDisabled = () => {
     if (isFinished) {
       return false
@@ -85,33 +79,57 @@ const Status = ({
     return false
   }
 
+  const deltaTime = Math.abs(formData.dateTo - formData.dateFrom)
+  const deltaMinutes =
+    formData.dateTo && formData.dateFrom !== ''
+      ? Math.ceil(deltaTime / (1000 * 60))
+      : 0
+  const deltaHours =
+    formData.dateTo && formData.dateFrom !== ''
+      ? Math.ceil(deltaTime / (1000 * 60 * 60))
+      : 0
+  const deltaDays =
+    formData.dateTo !== '' && formData.dateFrom !== ''
+      ? Math.ceil(deltaTime / (1000 * 60 * 60 * 24))
+      : 0
+
   const modelData = cars.find((car) => car.name === formData.model)
+
   const getPrice = () => {
-    let priceMin = 0
-    let priceMax = 0
     let price = 0
-    if (formData.isFullTank) {
-      priceMin += 500
-      price += 500
-    }
-    if (formData.isNeedChildChair) {
-      priceMin += 200
-      price += 200
-    }
-    if (formData.isRightWheel) {
-      priceMin += 1600
-      price += 1600
-    }
     if (formData.model !== '') {
-      priceMin =
-        formData.rate === 'minute'
-          ? modelData.priceMin + priceMin
-          : Math.ceil(modelData.priceMin + priceMin)
-      priceMax = modelData.priceMax
-      price = `${priceMin} - ${priceMax}`
-    }
-    if (deltaDays !== 0) {
-      price = priceMin * deltaDays
+      if (deltaMinutes === 0) {
+        let priceMin =
+          formData.rate === 'minute'
+            ? modelData.priceMin * 2
+            : modelData.priceMin
+        const priceMax = modelData.priceMax
+        if (formData.isFullTank) {
+          priceMin += 500
+        }
+        if (formData.isNeedChildChair) {
+          priceMin += 200
+        }
+        if (formData.isRightWheel) {
+          priceMin += 1600
+        }
+        price = `${priceMin} - ${priceMax}`
+      } else {
+        price = Math.round(
+          formData.rate === 'minute'
+            ? (modelData.priceMin / (60 * 24)) * deltaMinutes * 1.5
+            : modelData.priceMin * deltaDays
+        )
+        if (formData.isFullTank) {
+          price += 500
+        }
+        if (formData.isNeedChildChair) {
+          price += 200
+        }
+        if (formData.isRightWheel) {
+          price += 1600
+        }
+      }
     }
     return `${price} ₽`
   }
@@ -162,11 +180,11 @@ const Status = ({
                 onClick={() => onModalConfirm()}>
                 Подтвердить
               </LinkButton>
-              <button
+              <Button
                 onClick={() => setIsModal(false)}
-                className='button button--cancel'>
+                additionalStyles='button--cancel'>
                 Вернуться
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -199,7 +217,9 @@ const Status = ({
         <div className='status__item'>
           <div className='status__item-title'>Длительность аренды</div>
           <div className='status__item-dash'></div>
-          <div className='status__item-value'>{deltaDays} д</div>
+          <div className='status__item-value'>{`${Math.floor(
+            deltaHours / 24
+          )}д ${deltaHours % 24}ч`}</div>
         </div>
       )}
       {!stepDisabled[3] && (
@@ -232,14 +252,13 @@ const Status = ({
           <div className='status__item-value'>Да</div>
         </div>
       )}
-
       <div className='status__price'>
         <span className='status__price-header'>Цена: </span>
         <span className='status__price-digits'>{getPrice()}</span>
       </div>
 
-      <button
-        className={statusBtnClasses}
+      <Button
+        additionalStyles={statusBtnClasses}
         onClick={() => onButtonClick()}
         disabled={isButtonDisabled()}>
         {step === 1 && 'Выбрать модель'}
@@ -247,7 +266,7 @@ const Status = ({
         {step === 3 && 'Итого'}
         {step === 4 && !isFinished && 'Заказать'}
         {step === 4 && isFinished && 'Отменить'}
-      </button>
+      </Button>
     </div>
   )
 }

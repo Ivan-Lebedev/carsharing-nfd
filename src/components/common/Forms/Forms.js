@@ -5,29 +5,51 @@ import CrossIcon from '../../common/icons/CrossIcon'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
-export const InputItem = ({ name, direction, items, onChange }) => {
+export const RadioBtns = ({ name, direction, items, onChange }) => {
   const inputClass = classNames('input', {
     'input--column': direction === 'column',
   })
-  //item.inputItemClass: 'input__radio-item' / 'input__checkbox-item'
-  //item.inputStyle: 'radio-item__input' / 'checkbox-item__input'
-  //item.inputItemStyle: 'radio' / 'checkbox'
-  //item.inputItemLabelClass: 'radio-item__label' / 'checkbox-item__label'
   return (
     <div className={inputClass}>
       {items.map((item) => (
-        <div className={item.inputItemClass} key={item.value}>
+        <div className='input__radio-item' key={item.value}>
           <input
-            className={item.inputStyle}
-            type={item.inputItemStyle}
-            name={name ? name : item.value}
+            className='radio-item__input'
+            type='radio'
+            name={name}
             id={item.value}
             checked={item.checked}
             value={item.value}
             onChange={onChange}
           />
-          <label className={item.inputItemLabelClass} htmlFor={item.value}>
-            {item.label}
+          <label className='radio-item__label' htmlFor={item.value}>
+            {item.label ? item.label : item.value}
+          </label>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const CheckBoxes = ({ direction, items, onChange }) => {
+  const inputClass = classNames('input', {
+    'input--column': direction === 'column',
+  })
+  return (
+    <div className={inputClass}>
+      {items.map((item) => (
+        <div className='input__checkbox-item' key={item.value}>
+          <input
+            className='checkbox-item__input'
+            type='checkbox'
+            name={item.value}
+            id={item.value}
+            checked={item.checked}
+            value={item.value}
+            onChange={onChange}
+          />
+          <label className='checkbox-item__label' htmlFor={item.value}>
+            {item.label ? item.label : item.value}
           </label>
         </div>
       ))}
@@ -114,6 +136,7 @@ export const SearchCity = ({ item, onChange, formik }) => {
       <label className='text__input' key={item.label}>
         <div className='text__input-type'>{item.label}</div>
         <input
+          maxLength='20'
           type='text'
           id={item.name}
           name={item.name}
@@ -152,6 +175,7 @@ export const SearchPoint = ({ item, onChange, formik }) => {
       <label className='text__input' key={item.label}>
         <div className='text__input-type'>{item.label}</div>
         <input
+          maxLength='20'
           type='text'
           id={item.name}
           name={item.name}
