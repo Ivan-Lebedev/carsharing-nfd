@@ -149,7 +149,9 @@
   opacity: 1;
   width: 10px;
 }
-
+.react-datepicker {
+  display: flex !important;
+}
 @media screen and (max-width: 767px) {
   .text__input {
     width: 269px;

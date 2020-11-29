@@ -1,4 +1,5 @@
 import orderAPI from '../api/api'
+import Geocode from 'react-geocode'
 
 const ADD_CITIES = 'ADD_CITIES'
 const ADD_POINTS = 'ADD_POINTS'
@@ -6,6 +7,8 @@ const ADD_CARS = 'ADD_CARS'
 const IS_CARS_FETCHING = 'IS_CARS_FETCHING'
 const ADD_ORDER_ID = 'ADD_ORDER_ID'
 const ADD_FINISHED_ORDER_DATA = 'ADD_FINISHED_ORDER_DATA'
+
+Geocode.setApiKey('AIzaSyCrF2ESCD9XTV0X2_4JOrAvPSIHq2NPJiI')
 
 const initialState = {
   cities: [],
@@ -86,7 +89,23 @@ export const addFinishedOrderData = (orderData) => ({
 export const requestCities = () => async (dispatch) => {
   try {
     const result = await orderAPI.getCity()
-    dispatch(addCities(result.data.data))
+    const cities = result.data.data
+    const getCityLatLng = async (city) => {
+      try {
+        const address = city.name
+        const response = await Geocode.fromAddress(address)
+        const { lat, lng } = response.results[0].geometry.location
+        const cityWithLatLng = city
+        cityWithLatLng.lat = lat
+        cityWithLatLng.lng = lng
+        return cityWithLatLng
+      } catch (e) {
+        console.log(e)
+        return null
+      }
+    }
+    cities.map((city) => getCityLatLng(city))
+    dispatch(addCities(cities))
   } catch (e) {
     console.log(e)
   }
@@ -95,7 +114,23 @@ export const requestCities = () => async (dispatch) => {
 export const requestPoints = () => async (dispatch) => {
   try {
     const result = await orderAPI.getPoint()
-    dispatch(addPoints(result.data.data))
+    const points = result.data.data
+    const getPointLatLng = async (point) => {
+      try {
+        const address = `${point.address}, ${point.cityId.name}`
+        const response = await Geocode.fromAddress(address)
+        const { lat, lng } = response.results[0].geometry.location
+        const pointWithLatLng = point
+        pointWithLatLng.lat = lat
+        pointWithLatLng.lng = lng
+        return pointWithLatLng
+      } catch (e) {
+        console.log(e)
+        return null
+      }
+    }
+    points.map((point) => getPointLatLng(point))
+    dispatch(addPoints(points))
   } catch (e) {
     console.log(e)
   }

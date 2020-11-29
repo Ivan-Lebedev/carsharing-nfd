@@ -2,7 +2,7 @@ import React from 'react'
 import './Addition.css'
 import { connect } from 'react-redux'
 import { getCars } from '../../../store/order-selectors'
-import { InputItem, InputDate } from '../../common/Forms/Forms'
+import { InputItem, DateFrom, DateTo } from '../../common/Forms/Forms'
 
 const Addition = ({ formik, cars }) => {
   const modelData = cars.find((car) => car.name === formik.values.model)
@@ -33,23 +33,8 @@ const Addition = ({ formik, cars }) => {
 
       <div className='addition__option'>
         <div className='addition__title'>Дата аренды</div>
-        <InputDate
-          items={[
-            {
-              name: 'dateFrom',
-              label: 'C',
-              placeholder: 'Введите дату и время',
-              value: formik.values.dateFrom,
-            },
-            {
-              name: 'dateTo',
-              label: 'По',
-              placeholder: 'Введите дату и время',
-              value: formik.values.dateTo,
-            },
-          ]}
-          formik={formik}
-        />
+        <DateFrom formik={formik} />
+        <DateTo formik={formik} />
       </div>
 
       <div className='addition__option'>
@@ -127,5 +112,4 @@ const mapStateToProps = (state) => ({
   cars: getCars(state),
 })
 
-// export default Addition
 export default connect(mapStateToProps)(Addition)

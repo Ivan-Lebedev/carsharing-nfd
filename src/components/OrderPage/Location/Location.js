@@ -1,22 +1,29 @@
 import React, { useEffect } from 'react'
 import './Location.css'
-import Map from '../../../assets/images/Map.png'
-import { InputText } from '../../common/Forms/Forms'
+import Map from './Map'
 import { connect } from 'react-redux'
 import { requestCities, requestPoints } from '../../../store/order-reducer'
-import { getListOfCities, getPoints } from '../../../store/order-selectors'
+import {
+  getListOfCities,
+  getPoints,
+  getCities,
+} from '../../../store/order-selectors'
+import { SearchCity, SearchPoint } from '../../common/Forms/Forms'
 
 const Location = ({
   formik,
   listOfCities,
   points,
+  cities,
   requestCities,
   requestPoints,
 }) => {
   useEffect(() => {
-    requestCities()
-    requestPoints()
-  }, [requestCities, requestPoints])
+    if (points.length === 0) {
+      requestCities()
+      requestPoints()
+    }
+  }, [points, requestCities, requestPoints])
 
   const listOfPoints = []
   points.map(
@@ -27,28 +34,33 @@ const Location = ({
 
   return (
     <div className='location'>
-      <InputText
-        items={[
-          {
-            name: 'locationCity',
-            label: 'Город',
-            placeholder: 'Начните вводить город...',
-            value: formik.values.locationCity,
-            options: listOfCities,
-          },
-          {
-            name: 'locationPoint',
-            label: 'Пункт выдачи',
-            placeholder: 'Начните вводить пункт...',
-            value: formik.values.locationPoint,
-            options: listOfPoints,
-          },
-        ]}
+      <SearchCity
+        item={{
+          name: 'locationCity',
+          label: 'Город',
+          placeholder: 'Начните вводить город...',
+          value: formik.values.locationCity,
+          options: listOfCities,
+        }}
         onChange={formik.handleChange}
+        formik={formik}
+      />
+      <SearchPoint
+        item={{
+          name: 'locationPoint',
+          label: 'Пункт выдачи',
+          placeholder: 'Начните вводить пункт...',
+          value: formik.values.locationPoint,
+          options: listOfPoints,
+        }}
+        onChange={formik.handleChange}
+        formik={formik}
       />
       <div className='location__map'>
         <div className='location__map-header'>Выбрать на карте:</div>
-        <img src={Map} alt='map' className='location__map-img' />
+        <div className='location__map-img'>
+          <Map formik={formik} points={points} cities={cities} />
+        </div>
       </div>
     </div>
   )
@@ -57,6 +69,7 @@ const Location = ({
 const mapStateToProps = (state) => ({
   listOfCities: getListOfCities(state),
   points: getPoints(state),
+  cities: getCities(state),
 })
 
 export default connect(mapStateToProps, { requestCities, requestPoints })(

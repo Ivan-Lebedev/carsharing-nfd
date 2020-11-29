@@ -63,6 +63,7 @@
 }
 .order__status-container {
   border-left: 1px solid #eeeeee;
+  min-width: 36%;
 }
 
 .steps__finished {
