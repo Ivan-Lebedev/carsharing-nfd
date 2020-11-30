@@ -32,10 +32,7 @@ const Model = ({ formik, listOfCars, requestCars, isCarsFetching }) => {
   const getCarImg = (car) => {
     return car.thumbnail.path.includes('base64')
       ? car.thumbnail.path
-      : //dev
-        //`http://api-factory.simbirsoft1.com/${car.thumbnail.path}`
-        // prod
-        `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/${car.thumbnail.path}`
+      : `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/${car.thumbnail.path}`
   }
 
   return (
