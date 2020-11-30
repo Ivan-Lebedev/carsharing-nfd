@@ -3,8 +3,9 @@ import './Steps.css'
 import StepsTriangle from '../../common/icons/StepsTriangle'
 import classNames from 'classnames'
 
+const stepNames = ['Местоположение', 'Модель', 'Дополнительно', 'Итого']
+
 const Steps = ({ isFinished, step, setStep, stepDisabled, orderId }) => {
-  const stepNames = ['Местоположение', 'Модель', 'Дополнительно', 'Итого']
   const stepClass = (index) => {
     return classNames('steps__item-name', {
       'steps__item-name--active': step === index + 1,
