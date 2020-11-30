@@ -193,7 +193,7 @@ const Status = ({
       {formData.locationPoint !== '' && formData.locationCity !== '' && (
         <div className='status__item'>
           <div className='status__item-title'>Пункт выдачи</div>
-          <div className='status__item-dash'></div>
+          <div className='status__item-dash' />
           <div className='status__item-value'>
             {formData.locationCity}, {formData.locationPoint}
           </div>
@@ -202,21 +202,21 @@ const Status = ({
       {formData.model !== '' && (
         <div className='status__item'>
           <div className='status__item-title'>Модель</div>
-          <div className='status__item-dash'></div>
+          <div className='status__item-dash' />
           <div className='status__item-value'>{formData.model}</div>
         </div>
       )}
       {!stepDisabled[3] && (
         <div className='status__item'>
           <div className='status__item-title'>Цвет</div>
-          <div className='status__item-dash'></div>
+          <div className='status__item-dash' />
           <div className='status__item-value'>{formData.color}</div>
         </div>
       )}
       {!stepDisabled[3] && formData.dateFrom && formData.dateTo && (
         <div className='status__item'>
           <div className='status__item-title'>Длительность аренды</div>
-          <div className='status__item-dash'></div>
+          <div className='status__item-dash' />
           <div className='status__item-value'>{`${Math.floor(
             deltaHours / 24
           )}д ${deltaHours % 24}ч`}</div>
@@ -225,7 +225,7 @@ const Status = ({
       {!stepDisabled[3] && (
         <div className='status__item'>
           <div className='status__item-title'>Тариф</div>
-          <div className='status__item-dash'></div>
+          <div className='status__item-dash' />
           <div className='status__item-value'>
             {formData.rate === 'day' ? 'На сутки' : 'Поминутно'}
           </div>
@@ -234,21 +234,21 @@ const Status = ({
       {!stepDisabled[3] && formData.isFullTank && (
         <div className='status__item'>
           <div className='status__item-title'>Полный бак</div>
-          <div className='status__item-dash'></div>
+          <div className='status__item-dash' />
           <div className='status__item-value'>Да</div>
         </div>
       )}
       {!stepDisabled[3] && formData.isNeedChildChair && (
         <div className='status__item'>
           <div className='status__item-title'>Детское кресло</div>
-          <div className='status__item-dash'></div>
+          <div className='status__item-dash' />
           <div className='status__item-value'>Да</div>
         </div>
       )}
       {!stepDisabled[3] && formData.isRightWheel && (
         <div className='status__item'>
           <div className='status__item-title'>Правый руль</div>
-          <div className='status__item-dash'></div>
+          <div className='status__item-dash' />
           <div className='status__item-value'>Да</div>
         </div>
       )}
