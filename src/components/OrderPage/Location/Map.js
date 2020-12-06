@@ -1,19 +1,19 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from "react"
 import {
   GoogleMap,
   useLoadScript,
   Marker,
   InfoWindow,
-} from '@react-google-maps/api'
-import Loader from '../../common/Loader/Loader'
-import MapMarker from '../../../assets/icons/MapMarker.svg'
-import '@reach/combobox/styles.css'
+} from "@react-google-maps/api"
+import Loader from "../../common/Loader/Loader"
+import MapMarker from "../../../assets/icons/MapMarker.svg"
+import "@reach/combobox/styles.css"
 
-const API_KEY = 'AIzaSyCrF2ESCD9XTV0X2_4JOrAvPSIHq2NPJiI'
-const libraries = ['places']
+const API_KEY = "AIzaSyCrF2ESCD9XTV0X2_4JOrAvPSIHq2NPJiI"
+const libraries = ["places"]
 const mapContainerStyle = {
   maxWidth: 736,
-  width: '100%',
+  width: "100%",
   height: 352,
   marginTop: 16,
 }
@@ -83,12 +83,13 @@ const Map = ({ formik, points, cities }) => {
   return (
     <>
       <GoogleMap
-        id='map'
+        id="map"
         mapContainerStyle={mapContainerStyle}
         zoom={zoom}
         center={center}
         options={options}
-        onLoad={onMapLoad}>
+        onLoad={onMapLoad}
+      >
         {currentPoints.map((point) => (
           <Marker
             key={point.id}
@@ -113,7 +114,8 @@ const Map = ({ formik, points, cities }) => {
             position={{ lat: selectedPoint.lat, lng: selectedPoint.lng }}
             onCloseClick={() => {
               setSelectedPoint(null)
-            }}>
+            }}
+          >
             <div>
               <span>{selectedPoint.name}</span>
             </div>

@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
-import './Finished.css'
-import TotalContainer from '../Total/TotalContainer'
-import { getOrderData } from '../../../store/order-selectors'
-import { requestOrder } from '../../../store/order-reducer'
-import { compose } from 'redux'
-import { connect } from 'react-redux'
-import { withRouter, useParams } from 'react-router-dom'
+import React, { useEffect } from "react"
+import "./Finished.css"
+import TotalContainer from "../Total/TotalContainer"
+import { getOrderData } from "../../../store/order-selectors"
+import { requestOrder } from "../../../store/order-reducer"
+import { compose } from "redux"
+import { connect } from "react-redux"
+import { withRouter, useParams } from "react-router-dom"
 
 const Finished = ({ orderData, requestOrder }) => {
   const { orderId } = useParams()
@@ -15,8 +15,8 @@ const Finished = ({ orderData, requestOrder }) => {
   }, [orderId, requestOrder])
 
   return (
-    <div className='finished'>
-      <div className='finished__title'>Ваш заказ подтверждён</div>
+    <div className="finished">
+      <div className="finished__title">Ваш заказ подтверждён</div>
       <TotalContainer orderData={orderData} />
     </div>
   )

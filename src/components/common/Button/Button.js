@@ -1,6 +1,6 @@
-import React from 'react'
-import './Button.css'
-import { withRouter } from 'react-router-dom'
+import React from "react"
+import "./Button.css"
+import { withRouter } from "react-router-dom"
 
 export const Button = ({
   additionalStyles,
@@ -12,7 +12,7 @@ export const Button = ({
 }) => {
   return (
     <button
-      type='button'
+      type="button"
       className={`button ${additionalStyles}`}
       disabled={disabled}
       onClick={(event) => {
@@ -22,7 +22,8 @@ export const Button = ({
         if (history) {
           history.push(to)
         }
-      }}>
+      }}
+    >
       {children}
     </button>
   )

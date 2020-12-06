@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
-import './OrderPage.css'
-import Steps from './Steps/Steps'
-import Header from '../common/Header/Header'
-import Location from './Location/Location'
-import Model from './Model/Model'
-import Addition from './Addition/Addition'
-import TotalContainer from './Total/TotalContainer'
-import Status from './Status/Status'
-import Finished from './Finished/Finished'
-import { useFormik } from 'formik'
-import { connect } from 'react-redux'
-import { getOrderId } from '../../store/order-selectors'
+import React, { useState } from "react"
+import "./OrderPage.css"
+import Steps from "./Steps/Steps"
+import Header from "../common/Header/Header"
+import Location from "./Location/Location"
+import Model from "./Model/Model"
+import Addition from "./Addition/Addition"
+import TotalContainer from "./Total/TotalContainer"
+import Status from "./Status/Status"
+import Finished from "./Finished/Finished"
+import { useFormik } from "formik"
+import { connect } from "react-redux"
+import { getOrderId } from "../../store/order-selectors"
 
 const OrderPage = ({ isFinished, orderId }) => {
   const [stepDisabled, setStepDisabled] = useState({
@@ -24,14 +24,14 @@ const OrderPage = ({ isFinished, orderId }) => {
 
   const formik = useFormik({
     initialValues: {
-      locationCity: '',
-      locationPoint: '',
-      modelFilter: 'Все модели',
-      model: '',
-      color: 'любой',
-      dateFrom: '',
-      dateTo: '',
-      rate: 'day',
+      locationCity: "",
+      locationPoint: "",
+      modelFilter: "Все модели",
+      model: "",
+      color: "любой",
+      dateFrom: "",
+      dateTo: "",
+      rate: "day",
       isFullTank: false,
       isNeedChildChair: false,
       isRightWheel: false,
@@ -55,11 +55,11 @@ const OrderPage = ({ isFinished, orderId }) => {
   }
 
   return (
-    <div className='order-page'>
-      <div className='order-page__header'>
+    <div className="order-page">
+      <div className="order-page__header">
         <Header />
       </div>
-      <div className='order-page__steps'>
+      <div className="order-page__steps">
         <Steps
           isFinished={isFinished}
           step={step}
@@ -68,14 +68,14 @@ const OrderPage = ({ isFinished, orderId }) => {
           orderId={orderId}
         />
       </div>
-      <div className='order'>
-        <div className='order__content-container'>
-          <div className='order__content'>
+      <div className="order">
+        <div className="order__content-container">
+          <div className="order__content">
             {isFinished ? <Finished /> : renderStep()}
           </div>
         </div>
-        <div className='order__status-container'>
-          <div className='order__status'>
+        <div className="order__status-container">
+          <div className="order__status">
             <Status
               isFinished={isFinished}
               step={step}

@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react'
-import './Location.css'
-import Map from './Map'
-import { connect } from 'react-redux'
-import { requestCities, requestPoints } from '../../../store/order-reducer'
+import React, { useEffect } from "react"
+import "./Location.css"
+import Map from "./Map"
+import { connect } from "react-redux"
+import { requestCities, requestPoints } from "../../../store/order-reducer"
 import {
   getListOfCities,
   getPoints,
   getCities,
-} from '../../../store/order-selectors'
-import { SearchCity, SearchPoint } from '../../common/Forms/Forms'
+} from "../../../store/order-selectors"
+import { SearchCity, SearchPoint } from "../../common/Forms/Forms"
 
 const Location = ({
   formik,
@@ -33,12 +33,12 @@ const Location = ({
   )
 
   return (
-    <div className='location'>
+    <div className="location">
       <SearchCity
         item={{
-          name: 'locationCity',
-          label: 'Город',
-          placeholder: 'Начните вводить город...',
+          name: "locationCity",
+          label: "Город",
+          placeholder: "Начните вводить город...",
           value: formik.values.locationCity,
           options: listOfCities,
         }}
@@ -47,18 +47,18 @@ const Location = ({
       />
       <SearchPoint
         item={{
-          name: 'locationPoint',
-          label: 'Пункт выдачи',
-          placeholder: 'Начните вводить пункт...',
+          name: "locationPoint",
+          label: "Пункт выдачи",
+          placeholder: "Начните вводить пункт...",
           value: formik.values.locationPoint,
           options: listOfPoints,
         }}
         onChange={formik.handleChange}
         formik={formik}
       />
-      <div className='location__map'>
-        <div className='location__map-header'>Выбрать на карте:</div>
-        <div className='location__map-img'>
+      <div className="location__map">
+        <div className="location__map-header">Выбрать на карте:</div>
+        <div className="location__map-img">
           <Map formik={formik} points={points} cities={cities} />
         </div>
       </div>

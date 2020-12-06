@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import './Status.css'
-import classNames from 'classnames'
+import React, { useEffect, useState } from "react"
+import "./Status.css"
+import classNames from "classnames"
 import {
   getPoints,
   getCars,
   getCities,
   getOrderId,
-} from '../../../store/order-selectors'
-import { connect } from 'react-redux'
-import { submitOrder } from '../../../store/order-reducer'
-import { withRouter } from 'react-router-dom'
-import { compose } from 'redux'
-import { Button, LinkButton } from '../../common/Button/Button'
+} from "../../../store/order-selectors"
+import { connect } from "react-redux"
+import { submitOrder } from "../../../store/order-reducer"
+import { withRouter } from "react-router-dom"
+import { compose } from "redux"
+import { Button, LinkButton } from "../../common/Button/Button"
 
 const Status = ({
   isFinished,
@@ -28,8 +28,8 @@ const Status = ({
   history,
 }) => {
   const [isModal, setIsModal] = useState(false)
-  const statusBtnClasses = classNames('button status__price-btn', {
-    'button--cancel': isFinished === true,
+  const statusBtnClasses = classNames("button status__price-btn", {
+    "button--cancel": isFinished === true,
   })
 
   useEffect(() => {
@@ -70,7 +70,7 @@ const Status = ({
     if (!isPlaceValid()) {
       return true
     }
-    if (step === 2 && formData.model === '') {
+    if (step === 2 && formData.model === "") {
       return true
     }
     if (step === 3 && deltaDays === 0) {
@@ -81,15 +81,15 @@ const Status = ({
 
   const deltaTime = Math.abs(formData.dateTo - formData.dateFrom)
   const deltaMinutes =
-    formData.dateTo && formData.dateFrom !== ''
+    formData.dateTo && formData.dateFrom !== ""
       ? Math.ceil(deltaTime / (1000 * 60))
       : 0
   const deltaHours =
-    formData.dateTo && formData.dateFrom !== ''
+    formData.dateTo && formData.dateFrom !== ""
       ? Math.ceil(deltaTime / (1000 * 60 * 60))
       : 0
   const deltaDays =
-    formData.dateTo !== '' && formData.dateFrom !== ''
+    formData.dateTo !== "" && formData.dateFrom !== ""
       ? Math.ceil(deltaTime / (1000 * 60 * 60 * 24))
       : 0
 
@@ -97,10 +97,10 @@ const Status = ({
 
   const getPrice = () => {
     let price = 0
-    if (formData.model !== '') {
+    if (formData.model !== "") {
       if (deltaMinutes === 0) {
         let priceMin =
-          formData.rate === 'minute'
+          formData.rate === "minute"
             ? modelData.priceMin * 2
             : modelData.priceMin
         const priceMax = modelData.priceMax
@@ -116,7 +116,7 @@ const Status = ({
         price = `${priceMin} - ${priceMax}`
       } else {
         price = Math.round(
-          formData.rate === 'minute'
+          formData.rate === "minute"
             ? (modelData.priceMin / (60 * 24)) * deltaMinutes * 1.5
             : modelData.priceMin * deltaDays
         )
@@ -144,9 +144,9 @@ const Status = ({
     const dateFrom = formData.dateFrom.getTime()
     const dateTo = formData.dateTo.getTime()
     const rateId =
-      formData.rate === 'day'
-        ? '5e26a0e2099b810b946c5d86'
-        : '5e26a0d2099b810b946c5d85'
+      formData.rate === "day"
+        ? "5e26a0e2099b810b946c5d86"
+        : "5e26a0d2099b810b946c5d85"
     const price = getPrice()
 
     submitOrder(
@@ -166,106 +166,109 @@ const Status = ({
   }
 
   return (
-    <div className='status'>
+    <div className="status">
       {isModal && (
-        <div className='modal'>
-          <div className='modal__overlay' />
-          <div className='modal__container'>
-            <div className='modal__title'>
-              {isFinished ? 'Отменить заказ' : 'Подтвердить заказ'}
+        <div className="modal">
+          <div className="modal__overlay" />
+          <div className="modal__container">
+            <div className="modal__title">
+              {isFinished ? "Отменить заказ" : "Подтвердить заказ"}
             </div>
-            <div className='modal__buttons'>
+            <div className="modal__buttons">
               <LinkButton
-                to={isFinished ? '/order' : false}
-                onClick={() => onModalConfirm()}>
+                to={isFinished ? "/order" : false}
+                onClick={() => onModalConfirm()}
+              >
                 Подтвердить
               </LinkButton>
               <Button
                 onClick={() => setIsModal(false)}
-                additionalStyles='button--cancel'>
+                additionalStyles="button--cancel"
+              >
                 Вернуться
               </Button>
             </div>
           </div>
         </div>
       )}
-      <div className='status__header'>Ваш заказ:</div>
-      {formData.locationPoint !== '' && formData.locationCity !== '' && (
-        <div className='status__item'>
-          <div className='status__item-title'>Пункт выдачи</div>
-          <div className='status__item-dash' />
-          <div className='status__item-value'>
+      <div className="status__header">Ваш заказ:</div>
+      {formData.locationPoint !== "" && formData.locationCity !== "" && (
+        <div className="status__item">
+          <div className="status__item-title">Пункт выдачи</div>
+          <div className="status__item-dash" />
+          <div className="status__item-value">
             {formData.locationCity}, {formData.locationPoint}
           </div>
         </div>
       )}
-      {formData.model !== '' && (
-        <div className='status__item'>
-          <div className='status__item-title'>Модель</div>
-          <div className='status__item-dash' />
-          <div className='status__item-value'>{formData.model}</div>
+      {formData.model !== "" && (
+        <div className="status__item">
+          <div className="status__item-title">Модель</div>
+          <div className="status__item-dash" />
+          <div className="status__item-value">{formData.model}</div>
         </div>
       )}
       {!stepDisabled[3] && (
-        <div className='status__item'>
-          <div className='status__item-title'>Цвет</div>
-          <div className='status__item-dash' />
-          <div className='status__item-value'>{formData.color}</div>
+        <div className="status__item">
+          <div className="status__item-title">Цвет</div>
+          <div className="status__item-dash" />
+          <div className="status__item-value">{formData.color}</div>
         </div>
       )}
       {!stepDisabled[3] && formData.dateFrom && formData.dateTo && (
-        <div className='status__item'>
-          <div className='status__item-title'>Длительность аренды</div>
-          <div className='status__item-dash' />
-          <div className='status__item-value'>{`${Math.floor(
+        <div className="status__item">
+          <div className="status__item-title">Длительность аренды</div>
+          <div className="status__item-dash" />
+          <div className="status__item-value">{`${Math.floor(
             deltaHours / 24
           )}д ${deltaHours % 24}ч`}</div>
         </div>
       )}
       {!stepDisabled[3] && (
-        <div className='status__item'>
-          <div className='status__item-title'>Тариф</div>
-          <div className='status__item-dash' />
-          <div className='status__item-value'>
-            {formData.rate === 'day' ? 'На сутки' : 'Поминутно'}
+        <div className="status__item">
+          <div className="status__item-title">Тариф</div>
+          <div className="status__item-dash" />
+          <div className="status__item-value">
+            {formData.rate === "day" ? "На сутки" : "Поминутно"}
           </div>
         </div>
       )}
       {!stepDisabled[3] && formData.isFullTank && (
-        <div className='status__item'>
-          <div className='status__item-title'>Полный бак</div>
-          <div className='status__item-dash' />
-          <div className='status__item-value'>Да</div>
+        <div className="status__item">
+          <div className="status__item-title">Полный бак</div>
+          <div className="status__item-dash" />
+          <div className="status__item-value">Да</div>
         </div>
       )}
       {!stepDisabled[3] && formData.isNeedChildChair && (
-        <div className='status__item'>
-          <div className='status__item-title'>Детское кресло</div>
-          <div className='status__item-dash' />
-          <div className='status__item-value'>Да</div>
+        <div className="status__item">
+          <div className="status__item-title">Детское кресло</div>
+          <div className="status__item-dash" />
+          <div className="status__item-value">Да</div>
         </div>
       )}
       {!stepDisabled[3] && formData.isRightWheel && (
-        <div className='status__item'>
-          <div className='status__item-title'>Правый руль</div>
-          <div className='status__item-dash' />
-          <div className='status__item-value'>Да</div>
+        <div className="status__item">
+          <div className="status__item-title">Правый руль</div>
+          <div className="status__item-dash" />
+          <div className="status__item-value">Да</div>
         </div>
       )}
-      <div className='status__price'>
-        <span className='status__price-header'>Цена: </span>
-        <span className='status__price-digits'>{getPrice()}</span>
+      <div className="status__price">
+        <span className="status__price-header">Цена: </span>
+        <span className="status__price-digits">{getPrice()}</span>
       </div>
 
       <Button
         additionalStyles={statusBtnClasses}
         onClick={() => onButtonClick()}
-        disabled={isButtonDisabled()}>
-        {step === 1 && 'Выбрать модель'}
-        {step === 2 && 'Дополнительно'}
-        {step === 3 && 'Итого'}
-        {step === 4 && !isFinished && 'Заказать'}
-        {step === 4 && isFinished && 'Отменить'}
+        disabled={isButtonDisabled()}
+      >
+        {step === 1 && "Выбрать модель"}
+        {step === 2 && "Дополнительно"}
+        {step === 3 && "Итого"}
+        {step === 4 && !isFinished && "Заказать"}
+        {step === 4 && isFinished && "Отменить"}
       </Button>
     </div>
   )

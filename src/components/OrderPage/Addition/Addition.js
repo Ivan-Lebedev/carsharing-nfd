@@ -1,17 +1,17 @@
-import React from 'react'
-import './Addition.css'
-import { connect } from 'react-redux'
-import { getCars } from '../../../store/order-selectors'
+import React from "react"
+import "./Addition.css"
+import { connect } from "react-redux"
+import { getCars } from "../../../store/order-selectors"
 import {
   RadioBtns,
   CheckBoxes,
   DateFrom,
   DateTo,
-} from '../../common/Forms/Forms'
+} from "../../common/Forms/Forms"
 
 const Addition = ({ formik, cars }) => {
   const modelData = cars.find((car) => car.name === formik.values.model)
-  const carColors = ['любой', ...modelData.colors]
+  const carColors = ["любой", ...modelData.colors]
 
   const сolorItems = carColors.map((color) => {
     const colorItem = {}
@@ -22,63 +22,63 @@ const Addition = ({ formik, cars }) => {
   })
 
   return (
-    <div className='addition'>
-      <div className='addition__option'>
-        <div className='addition__title'>Цвет</div>
+    <div className="addition">
+      <div className="addition__option">
+        <div className="addition__title">Цвет</div>
         <RadioBtns
-          name='color'
+          name="color"
           items={сolorItems}
           onChange={formik.handleChange}
         />
       </div>
 
-      <div className='addition__option'>
-        <div className='addition__title'>Дата аренды</div>
+      <div className="addition__option">
+        <div className="addition__title">Дата аренды</div>
         <DateFrom formik={formik} />
         <DateTo formik={formik} />
       </div>
 
-      <div className='addition__option'>
-        <div className='addition__title'>Тариф</div>
+      <div className="addition__option">
+        <div className="addition__title">Тариф</div>
         <RadioBtns
-          name='rate'
-          direction='column'
+          name="rate"
+          direction="column"
           items={[
             {
               label: `Поминутно, ${Math.ceil(
                 (1.5 * modelData.priceMin) / (60 * 24)
               )} ₽/мин`,
-              value: 'minute',
-              checked: formik.values.rate === 'minute',
+              value: "minute",
+              checked: formik.values.rate === "minute",
             },
             {
               label: `На сутки, ${Math.ceil(modelData.priceMin)} ₽/сутки`,
-              value: 'day',
-              checked: formik.values.rate === 'day',
+              value: "day",
+              checked: formik.values.rate === "day",
             },
           ]}
           onChange={formik.handleChange}
         />
       </div>
 
-      <div className='addition__option'>
-        <div className='addition__title'>Доп услуги</div>
+      <div className="addition__option">
+        <div className="addition__title">Доп услуги</div>
         <CheckBoxes
-          direction='column'
+          direction="column"
           items={[
             {
-              label: 'Полный бак, 500р',
-              value: 'isFullTank',
+              label: "Полный бак, 500р",
+              value: "isFullTank",
               checked: formik.values.isFullTank === true,
             },
             {
-              label: 'Детское кресло, 200р',
-              value: 'isNeedChildChair',
+              label: "Детское кресло, 200р",
+              value: "isNeedChildChair",
               checked: formik.values.isNeedChildChair === true,
             },
             {
-              label: 'Правый руль, 1600р',
-              value: 'isRightWheel',
+              label: "Правый руль, 1600р",
+              value: "isRightWheel",
               checked: formik.values.isRightWheel === true,
             },
           ]}

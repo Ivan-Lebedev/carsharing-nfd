@@ -1,14 +1,14 @@
-import orderAPI from '../api/api'
-import Geocode from 'react-geocode'
+import orderAPI from "../api/api"
+import Geocode from "react-geocode"
 
-const ADD_CITIES = 'ADD_CITIES'
-const ADD_POINTS = 'ADD_POINTS'
-const ADD_CARS = 'ADD_CARS'
-const IS_CARS_FETCHING = 'IS_CARS_FETCHING'
-const ADD_ORDER_ID = 'ADD_ORDER_ID'
-const ADD_FINISHED_ORDER_DATA = 'ADD_FINISHED_ORDER_DATA'
+const ADD_CITIES = "ADD_CITIES"
+const ADD_POINTS = "ADD_POINTS"
+const ADD_CARS = "ADD_CARS"
+const IS_CARS_FETCHING = "IS_CARS_FETCHING"
+const ADD_ORDER_ID = "ADD_ORDER_ID"
+const ADD_FINISHED_ORDER_DATA = "ADD_FINISHED_ORDER_DATA"
 
-Geocode.setApiKey('AIzaSyCrF2ESCD9XTV0X2_4JOrAvPSIHq2NPJiI')
+Geocode.setApiKey("AIzaSyCrF2ESCD9XTV0X2_4JOrAvPSIHq2NPJiI")
 
 const initialState = {
   cities: [],
@@ -164,8 +164,8 @@ export const submitOrder = (
   try {
     const orderBody = {
       orderStatusId: {
-        name: 'new',
-        id: '5e26a191099b810b946c5d89',
+        name: "new",
+        id: "5e26a191099b810b946c5d89",
       },
       cityId: {
         id: cityId,
