@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 const Header = () => {
   return (
     <div className="main-header">
-      <Link to="/carsharing-nfd" className="main-header__logo">
+      <Link to="/" className="main-header__logo">
         Need for drive
       </Link>
       <div className="main-header__location">

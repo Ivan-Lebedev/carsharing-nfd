@@ -10,7 +10,7 @@ function App() {
     <div className="app-wrapper">
       <SideBar />
       <Switch>
-        <Route exact path="/carsharing-nfd" render={() => <MainPage />} />
+        <Route exact path="/" render={() => <MainPage />} />
         <Route exact path="/order" render={() => <OrderPage />} />
         <Route
           path="/order/finished/:orderId?"
