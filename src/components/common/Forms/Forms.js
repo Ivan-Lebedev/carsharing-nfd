@@ -61,6 +61,9 @@ export const DateFrom = ({ formik }) => {
   const clearInput = classNames("text__input-cancel", {
     "text__input-cancel--hidden": formik.values.dateFrom.length === 0,
   })
+  const setValue = (date) =>
+    formik.setValues({ ...formik.values, dateFrom: date })
+  const clearValue = () => formik.setValues({ ...formik.values, dateFrom: "" })
   const dateNow = new Date()
   return (
     <div className="text">
@@ -69,9 +72,7 @@ export const DateFrom = ({ formik }) => {
         <DatePicker
           selectsStart
           selected={formik.values.dateFrom}
-          onChange={(date) =>
-            formik.setValues({ ...formik.values, dateFrom: date })
-          }
+          onChange={(date) => setValue(date)}
           startDate={formik.values.dateFrom}
           endDate={formik.values.dateTo}
           maxDate={formik.values.dateTo}
@@ -83,10 +84,7 @@ export const DateFrom = ({ formik }) => {
           dateFormat="dd.MM.yyyy HH:mm"
           minDate={dateNow}
         />
-        <button
-          className={clearInput}
-          onClick={() => formik.setValues({ ...formik.values, dateFrom: "" })}
-        >
+        <button className={clearInput} onClick={clearValue}>
           <CrossIcon />
         </button>
       </div>
@@ -98,6 +96,9 @@ export const DateTo = ({ formik }) => {
   const clearInput = classNames("text__input-cancel", {
     "text__input-cancel--hidden": formik.values.dateTo.length === 0,
   })
+  const setValue = (date) =>
+    formik.setValues({ ...formik.values, dateTo: date })
+  const clearValue = () => formik.setValues({ ...formik.values, dateTo: "" })
   return (
     <div className="text">
       <div className="text__input">
@@ -105,9 +106,7 @@ export const DateTo = ({ formik }) => {
         <DatePicker
           selectsEnd
           selected={formik.values.dateTo}
-          onChange={(date) =>
-            formik.setValues({ ...formik.values, dateTo: date })
-          }
+          onChange={(date) => setValue(date)}
           startDate={formik.values.dateFrom}
           endDate={formik.values.dateTo}
           minDate={formik.values.dateFrom}
@@ -118,10 +117,7 @@ export const DateTo = ({ formik }) => {
           timeIntervals={60}
           dateFormat="dd.MM.yyyy HH:mm"
         />
-        <button
-          className={clearInput}
-          onClick={() => formik.setValues({ ...formik.values, dateTo: "" })}
-        >
+        <button className={clearInput} onClick={clearValue}>
           <CrossIcon />
         </button>
       </div>
@@ -133,6 +129,8 @@ export const SearchCity = ({ item, onChange, formik }) => {
   const clearInput = classNames("text__input-cancel", {
     "text__input-cancel--hidden": item.value.length === 0,
   })
+  const clearValue = () =>
+    formik.setValues({ ...formik.values, locationCity: "" })
   return (
     <div className="text">
       <label className="text__input" key={item.label}>
@@ -156,12 +154,7 @@ export const SearchCity = ({ item, onChange, formik }) => {
             ))}
           </datalist>
         )}
-        <button
-          className={clearInput}
-          onClick={() =>
-            formik.setValues({ ...formik.values, locationCity: "" })
-          }
-        >
+        <button className={clearInput} onClick={clearValue}>
           <CrossIcon />
         </button>
       </label>
@@ -173,6 +166,8 @@ export const SearchPoint = ({ item, onChange, formik }) => {
   const clearInput = classNames("text__input-cancel", {
     "text__input-cancel--hidden": item.value.length === 0,
   })
+  const clearValue = () =>
+    formik.setValues({ ...formik.values, locationPoint: "" })
   return (
     <div className="text">
       <label className="text__input" key={item.label}>
@@ -200,12 +195,7 @@ export const SearchPoint = ({ item, onChange, formik }) => {
             )}
           </datalist>
         )}
-        <button
-          className={clearInput}
-          onClick={() =>
-            formik.setValues({ ...formik.values, locationPoint: "" })
-          }
-        >
+        <button className={clearInput} onClick={clearValue}>
           <CrossIcon />
         </button>
       </label>

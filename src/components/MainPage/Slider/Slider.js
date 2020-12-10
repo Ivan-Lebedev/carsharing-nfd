@@ -67,7 +67,7 @@ const Slider = () => {
         })}
       </div>
       <button
-        onClick={() => onPrevArrowClick()}
+        onClick={onPrevArrowClick}
         className="control-button btn-left"
       >
         <SliderLeftArr />
@@ -101,7 +101,7 @@ const Slider = () => {
         </div>
       </div>
       <button
-        onClick={() => onNextArrowClick()}
+        onClick={onNextArrowClick}
         className="control-button btn-right"
       >
         <SliderRightArr />

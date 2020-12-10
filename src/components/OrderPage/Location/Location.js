@@ -25,12 +25,12 @@ const Location = ({
     }
   }, [points, requestCities, requestPoints])
 
-  const listOfPoints = []
-  points.map(
-    (point) =>
-      formik.values.locationCity === point.cityId.name &&
-      listOfPoints.push(point.address)
-  )
+  const listOfPoints = points.reduce((result, point) => {
+    if (formik.values.locationCity === point.cityId.name) {
+      result.push(point.address)
+    }
+    return result
+  }, [])
 
   return (
     <div className="location">

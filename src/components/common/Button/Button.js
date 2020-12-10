@@ -10,19 +10,20 @@ export const Button = ({
   onClick,
   disabled,
 }) => {
+  const onClickHandler = (event) => {
+    if (onClick) {
+      onClick(event)
+    }
+    if (history) {
+      history.push(to)
+    }
+  }
   return (
     <button
       type="button"
       className={`button ${additionalStyles}`}
       disabled={disabled}
-      onClick={(event) => {
-        if (onClick) {
-          onClick(event)
-        }
-        if (history) {
-          history.push(to)
-        }
-      }}
+      onClick={(event) => onClickHandler(event)}
     >
       {children}
     </button>

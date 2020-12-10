@@ -42,12 +42,12 @@ const Map = ({ formik, points, cities }) => {
 
   const [currentPoints, setCurrentPoints] = useState([])
   useEffect(() => {
-    const sortedPoints = []
-    points.map(
-      (point) =>
-        formik.values.locationCity === point.cityId.name &&
-        sortedPoints.push(point)
-    )
+    const sortedPoints = points.reduce((result, point) => {
+      if (formik.values.locationCity === point.cityId.name) {
+        result.push(point)
+      }
+      return result
+    }, [])
     setCurrentPoints(sortedPoints)
   }, [formik.values.locationCity, points])
 
@@ -78,6 +78,14 @@ const Map = ({ formik, points, cities }) => {
 
   const [selectedPoint, setSelectedPoint] = useState(null)
 
+  const setValue = (point) => {
+    formik.setValues({
+      ...formik.values,
+      locationPoint: point.address,
+    })
+    setSelectedPoint(point)
+  }
+
   if (!isLoaded) return <Loader />
 
   return (
@@ -100,27 +108,19 @@ const Map = ({ formik, points, cities }) => {
               anchor: new window.google.maps.Point(10, 10),
               scaledSize: new window.google.maps.Size(20, 20),
             }}
-            onClick={() => {
-              formik.setValues({
-                ...formik.values,
-                locationPoint: point.address,
-              })
-              setSelectedPoint(point)
-            }}
+            onClick={() => setValue(point)}
           />
         ))}
-        {selectedPoint ? (
+        {selectedPoint && (
           <InfoWindow
             position={{ lat: selectedPoint.lat, lng: selectedPoint.lng }}
-            onCloseClick={() => {
-              setSelectedPoint(null)
-            }}
+            onCloseClick={() => setSelectedPoint(null)}
           >
             <div>
               <span>{selectedPoint.name}</span>
             </div>
           </InfoWindow>
-        ) : null}
+        )}
       </GoogleMap>
     </>
   )

@@ -8,18 +8,46 @@ import {
   DateFrom,
   DateTo,
 } from "../../common/Forms/Forms"
+import { getColorItems } from "../../common/helpers/Helpers"
 
 const Addition = ({ formik, cars }) => {
   const modelData = cars.find((car) => car.name === formik.values.model)
   const carColors = ["любой", ...modelData.colors]
 
-  const сolorItems = carColors.map((color) => {
-    const colorItem = {}
-    colorItem.label = color.charAt(0).toUpperCase() + color.slice(1)
-    colorItem.value = color
-    colorItem.checked = formik.values.color === color
-    return colorItem
-  })
+  const сolorItems = getColorItems(formik, carColors)
+
+  const RadioBtnsItems = [
+    {
+      label: `Поминутно, ${Math.ceil(
+        (1.5 * modelData.priceMin) / (60 * 24)
+      )} ₽/мин`,
+      value: "minute",
+      checked: formik.values.rate === "minute",
+    },
+    {
+      label: `На сутки, ${Math.ceil(modelData.priceMin)} ₽/сутки`,
+      value: "day",
+      checked: formik.values.rate === "day",
+    },
+  ]
+
+  const CheckBoxesItems = [
+    {
+      label: "Полный бак, 500р",
+      value: "isFullTank",
+      checked: formik.values.isFullTank === true,
+    },
+    {
+      label: "Детское кресло, 200р",
+      value: "isNeedChildChair",
+      checked: formik.values.isNeedChildChair === true,
+    },
+    {
+      label: "Правый руль, 1600р",
+      value: "isRightWheel",
+      checked: formik.values.isRightWheel === true,
+    },
+  ]
 
   return (
     <div className="addition">
@@ -43,20 +71,7 @@ const Addition = ({ formik, cars }) => {
         <RadioBtns
           name="rate"
           direction="column"
-          items={[
-            {
-              label: `Поминутно, ${Math.ceil(
-                (1.5 * modelData.priceMin) / (60 * 24)
-              )} ₽/мин`,
-              value: "minute",
-              checked: formik.values.rate === "minute",
-            },
-            {
-              label: `На сутки, ${Math.ceil(modelData.priceMin)} ₽/сутки`,
-              value: "day",
-              checked: formik.values.rate === "day",
-            },
-          ]}
+          items={RadioBtnsItems}
           onChange={formik.handleChange}
         />
       </div>
@@ -65,23 +80,7 @@ const Addition = ({ formik, cars }) => {
         <div className="addition__title">Доп услуги</div>
         <CheckBoxes
           direction="column"
-          items={[
-            {
-              label: "Полный бак, 500р",
-              value: "isFullTank",
-              checked: formik.values.isFullTank === true,
-            },
-            {
-              label: "Детское кресло, 200р",
-              value: "isNeedChildChair",
-              checked: formik.values.isNeedChildChair === true,
-            },
-            {
-              label: "Правый руль, 1600р",
-              value: "isRightWheel",
-              checked: formik.values.isRightWheel === true,
-            },
-          ]}
+          items={CheckBoxesItems}
           onChange={formik.handleChange}
         />
       </div>
