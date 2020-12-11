@@ -11,6 +11,7 @@ import Finished from "./Finished/Finished"
 import { useFormik } from "formik"
 import { connect } from "react-redux"
 import { getOrderId } from "../../store/order-selectors"
+import SideBar from "../SideBar/SideBar"
 
 const OrderPage = ({ isFinished, orderId }) => {
   const [stepDisabled, setStepDisabled] = useState({
@@ -55,39 +56,42 @@ const OrderPage = ({ isFinished, orderId }) => {
   }
 
   return (
-    <div className="order-page">
-      <div className="order-page__header">
-        <Header />
-      </div>
-      <div className="order-page__steps">
-        <Steps
-          isFinished={isFinished}
-          step={step}
-          setStep={setStep}
-          stepDisabled={stepDisabled}
-          orderId={orderId}
-        />
-      </div>
-      <div className="order">
-        <div className="order__content-container">
-          <div className="order__content">
-            {isFinished ? <Finished /> : renderStep()}
+    <>
+      <SideBar />
+      <div className="order-page">
+        <div className="order-page__header">
+          <Header />
+        </div>
+        <div className="order-page__steps">
+          <Steps
+            isFinished={isFinished}
+            step={step}
+            setStep={setStep}
+            stepDisabled={stepDisabled}
+            orderId={orderId}
+          />
+        </div>
+        <div className="order">
+          <div className="order__content-container">
+            <div className="order__content">
+              {isFinished ? <Finished /> : renderStep()}
+            </div>
+          </div>
+          <div className="order__status-container">
+            <div className="order__status">
+              <Status
+                isFinished={isFinished}
+                step={step}
+                setStep={setStep}
+                stepDisabled={stepDisabled}
+                setStepDisabled={setStepDisabled}
+                formData={formik.values}
+              />
+            </div>
           </div>
         </div>
-        <div className="order__status-container">
-          <div className="order__status">
-            <Status
-              isFinished={isFinished}
-              step={step}
-              setStep={setStep}
-              stepDisabled={stepDisabled}
-              setStepDisabled={setStepDisabled}
-              formData={formik.values}
-            />
-          </div>
-        </div>
       </div>
-    </div>
+    </>
   )
 }
 

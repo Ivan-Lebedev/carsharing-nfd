@@ -1,5 +1,5 @@
 import React from "react"
-import "./Forms.css"
+import "./Forms.scss"
 import classNames from "classnames"
 import CrossIcon from "../../common/icons/CrossIcon"
 import DatePicker from "react-datepicker"
@@ -200,5 +200,18 @@ export const SearchPoint = ({ item, onChange, formik }) => {
         </button>
       </label>
     </div>
+  )
+}
+
+export const TextField = ({ title, placeholder, type }) => {
+  return (
+    <>
+      <div className="login-form__subtitle">{title}</div>
+      <input
+        className="login-form__input"
+        placeholder={placeholder}
+        type={type}
+      />
+    </>
   )
 }

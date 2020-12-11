@@ -31,7 +31,7 @@
   color: #999999;
 }
 .radio-item__label::before {
-  content: '';
+  content: "";
   display: inline-block;
   width: 12px;
   height: 12px;
@@ -118,7 +118,7 @@
   color: #999999;
 }
 .checkbox-item__label::before {
-  content: '';
+  content: "";
   display: inline-block;
   width: 12px;
   height: 12px;
@@ -127,7 +127,7 @@
   cursor: pointer;
 }
 .checkbox-item__label::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 0;
   left: 8px;
@@ -166,5 +166,28 @@
   }
   .input__radio-item:not(:last-child) {
     margin-bottom: 8px;
+  }
+}
+
+.login-form {
+  &__subtitle {
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 12px;
+    color: #495057;
+    align-self: start;
+    margin-bottom: 8px;
+  }
+  &__input {
+    width: 100%;
+    margin-bottom: 16px;
+    background: #ffffff;
+    border: 0.5px solid #becad6;
+    box-sizing: border-box;
+    border-radius: 3px;
+    height: 30px;
+    padding: 12px;
   }
 }

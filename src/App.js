@@ -3,12 +3,11 @@ import "./App.css"
 import { Route, Switch } from "react-router-dom"
 import MainPage from "./components/MainPage/MainPage"
 import OrderPage from "./components/OrderPage/OrderPage"
-import SideBar from "./components/SideBar/SideBar"
+import LoginPage from "./components/LoginPage/LoginPage"
 
 function App() {
   return (
     <div className="app-wrapper">
-      <SideBar />
       <Switch>
         <Route exact path="/" render={() => <MainPage />} />
         <Route exact path="/order" render={() => <OrderPage />} />
@@ -16,6 +15,7 @@ function App() {
           path="/order/finished/:orderId?"
           render={() => <OrderPage isFinished />}
         />
+        <Route exact path="/login" render={() => <LoginPage />} />
       </Switch>
     </div>
   )
