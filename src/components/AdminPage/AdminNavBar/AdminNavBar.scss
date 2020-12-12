@@ -1,0 +1,63 @@
+.nav-bar {
+  z-index: 1;
+  width: 290px;
+  background: #ffffff;
+  box-shadow: 0 1px 75px rgba(90, 97, 105, 0.11),
+    0 2px 4px rgba(90, 97, 105, 0.12), 0 7.5px 11px rgba(90, 97, 105, 0.1),
+    0 3.5px 17.5px rgba(165, 182, 201, 0.1);
+}
+
+.nb-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 68px;
+  box-shadow: inset 0px -1px 0px #e1e5eb;
+  &__img {
+    width: 21.5px;
+    height: 21.5px;
+    margin-right: 10px;
+  }
+  &__title {
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 18px;
+    color: #3d5170;
+  }
+}
+
+.menu {
+  &__item {
+    display: flex;
+    height: 60px;
+    align-items: center;
+    padding-left: 26px;
+    text-decoration: none;
+    background: #ffffff;
+    box-shadow: inset 0px -1px 0px #e1e5eb;
+    color: #3d5170;
+    &:hover {
+      background: #fbfbfb;
+    }
+    &--active {
+      color: #007bff;
+      background: #fbfbfb;
+      box-shadow: inset 0px -1px 0px #e1e5eb, inset 4px 0px 0px #007bff;
+      svg path {
+        fill: #007bff;
+      }
+    }
+  }
+  &__item-icon {
+    margin-right: 12px;
+  }
+  &__item-title {
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 17px;
+  }
+}

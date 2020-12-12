@@ -1,0 +1,32 @@
+.admin__footer {
+  display: flex;
+  height: 68px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  background: #ffffff;
+  box-shadow: 0px -0.5px 0px #d7dae3;
+}
+.admin__footer-links {
+    display: flex;
+}
+.admin__footer-link {
+  font-family: Helvetica;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #007bff;
+  text-decoration: none;
+  margin-right: 16px;
+  cursor: pointer;
+}
+.admin__footer-copyright {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: right;
+  color: #818ea3;
+}

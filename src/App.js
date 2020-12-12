@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom"
 import MainPage from "./components/MainPage/MainPage"
 import OrderPage from "./components/OrderPage/OrderPage"
 import LoginPage from "./components/LoginPage/LoginPage"
+import AdminPage from "./components/AdminPage/AdminPage"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           render={() => <OrderPage isFinished />}
         />
         <Route exact path="/login" render={() => <LoginPage />} />
+        <Route path="/admin" render={() => <AdminPage />} />
       </Switch>
     </div>
   )
