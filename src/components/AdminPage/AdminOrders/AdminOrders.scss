@@ -1,0 +1,135 @@
+.orders {
+  display: flex;
+  flex-direction: column;
+  &__header {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px 0 20px;
+  }
+  &__filter {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  &__filter-items {
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+  }
+  &__filter-button {
+    margin-bottom: 12px;
+  }
+  &__content {
+    flex-grow: 1;
+    border-top: 1px solid #f5f6f8;
+    border-bottom: 1px solid #f5f6f8;
+    display: flex;
+    padding: 16px 24px;
+  }
+  &__order {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+  }
+  &__content-container {
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+  &__footer {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.paginator {
+  display: flex;
+  &__item {
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 17px;
+    color: #007bff;
+    margin: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    &--active {
+      color: #ffffff;
+      height: 18px;
+      width: 18px;
+      border-radius: 50%;
+      background: #007bff;
+    }
+  }
+}
+.items-container {
+  display: flex;
+}
+
+.car-info {
+  display: flex;
+  align-items: center;
+  &__img {
+    width: 138px;
+    height: 63px;
+    margin-right: 16px;
+  }
+  &__desc {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 15px;
+    color: #868e96;
+  }
+  &__desc-item {
+    margin-bottom: 6px;
+  }
+  &__accent {
+    color: #121212;
+  }
+}
+.order-price {
+  font-family: Helvetica;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+  color: #121212;
+}
+.order-btn {
+  height: 24px;
+  width: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-family: Helvetica;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 13px;
+  color: #5a6169;
+}
+.order__approve {
+  background: #ffffff;
+  border: 0.5px solid #becad6;
+  border-radius: 4px 0px 0px 4px;
+}
+.order__reject {
+  background: #ffffff;
+  border: 0.5px solid #becad6;
+}
+.order__edit {
+  background: #ffffff;
+  border: 0.5px solid #becad6;
+  border-radius: 0px 4px 4px 0px;
+}
