@@ -5,6 +5,16 @@
   box-shadow: 0px 2.5px 9.5px rgba(90, 97, 105, 0.12);
   align-items: center;
   padding: 0 32px;
+  @media (max-width: 1023px) {
+    padding: 0 16px;
+    height: 60px;
+  }
+  @media (max-width: 767px) {
+    margin-bottom: 50px;
+    padding: 0 8px;
+    height: 50px;
+    z-index: 2;
+  }
   &__search {
     display: flex;
     align-items: center;
@@ -13,6 +23,9 @@
   &__search-input {
     border: none;
     margin-left: 10px;
+    @media (max-width: 767px) {
+      width: 100px;
+    }
     &::placeholder {
       color: #767f9d;
     }
@@ -23,7 +36,8 @@
   &__notifications {
     width: 70px;
     height: 100%;
-    box-shadow: 0.5px 0px 0px #cacedb, -0.5px 0px 0px #cacedb;
+    border-right: 0.5px solid #cacedb;
+    border-left: 0.5px solid #cacedb;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -64,6 +78,10 @@
       margin-left: 25px;
       margin-right: 15px;
       cursor: pointer;
+      @media (max-width: 767px) {
+        margin-left: 10px;
+        margin-right: 8px;
+      }
     }
     &__name {
       font-family: Helvetica;
@@ -74,6 +92,9 @@
       color: #5a6169;
       margin-right: 25px;
       cursor: pointer;
+      @media (max-width: 767px) {
+        margin-right: 8px;
+      }
     }
     &__dropdown-icon {
       cursor: pointer;

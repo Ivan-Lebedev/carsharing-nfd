@@ -202,16 +202,3 @@ export const SearchPoint = ({ item, onChange, formik }) => {
     </div>
   )
 }
-
-export const TextField = ({ title, placeholder, type }) => {
-  return (
-    <>
-      <div className="login-form__subtitle">{title}</div>
-      <input
-        className="login-form__input"
-        placeholder={placeholder}
-        type={type}
-      />
-    </>
-  )
-}

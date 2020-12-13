@@ -1,6 +1,7 @@
 import React from "react"
 import "./AdminOrders.scss"
 
+
 const AdminOrders = () => {
   return (
     <div className="admin__orders">

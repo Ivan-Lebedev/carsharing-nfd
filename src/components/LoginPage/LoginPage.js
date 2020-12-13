@@ -2,7 +2,7 @@ import React from "react"
 import "./LoginPage.scss"
 import LogoIcon from "../../assets/icons/LogoIcon.svg"
 import { Button } from "../common/Button/Button"
-import { TextField } from "../common/Forms/Forms"
+import { TextField } from "../common/AdminForms/AdminForms"
 
 const LoginPage = () => {
   return (

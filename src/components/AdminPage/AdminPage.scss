@@ -16,6 +16,12 @@
 .content {
   padding: 32px;
   flex-grow: 1;
+  @media (max-width: 1023px) {
+    padding: 16px;
+  }
+  @media (max-width: 767px) {
+    padding: 8px;
+  }
   &__title {
     font-family: Helvetica;
     font-style: normal;
@@ -23,6 +29,12 @@
     font-size: 29px;
     line-height: 33px;
     color: #3d5170;
+    @media (max-width: 1023px) {
+      font-size: 23px;
+    }
+    @media (max-width: 767px) {
+      font-size: 20px;
+    }
   }
   &__card {
     margin-top: 32px;
@@ -32,5 +44,12 @@
       0px 2px 4px rgba(90, 97, 105, 0.12), 0px 5px 5px rgba(90, 97, 105, 0.06),
       0px 3.5px 35px rgba(90, 97, 105, 0.1);
     border-radius: 9px;
+    @media (max-width: 1023px) {
+      margin-top: 16px;
+    }
+    @media (max-width: 767px) {
+      margin-top: 8px;
+      min-height: 320px;
+    }
   }
 }
