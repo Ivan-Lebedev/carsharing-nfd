@@ -43,6 +43,19 @@
     cursor: pointer;
     outline: none;
   }
+  &__admin--disabled {
+    background: #e9ecef;
+    border: none;
+    &:hover {
+      cursor: auto;
+      box-shadow: none;
+      border: none;
+    }
+  }
+  &__admin--cancel {
+    background: #cb3656;
+    border: 0.5px solid #cb3656;
+  }
 }
 
 .slider-item__btn {

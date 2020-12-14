@@ -5,14 +5,14 @@ import classNames from "classnames"
 
 export const TextField = ({ title, placeholder, type }) => {
   return (
-    <>
+    <div className="text-field">
       <div className="login-form__subtitle">{title}</div>
       <input
         className="login-form__input"
         placeholder={placeholder}
         type={type}
       />
-    </>
+    </div>
   )
 }
 

@@ -1,0 +1,236 @@
+.car-settings {
+  height: 100%;
+  &__content {
+    display: flex;
+    height: 100%;
+    padding-top: 32px;
+    @media (max-width: 1023px) {
+      padding-top: 16px;
+    }
+    @media (max-width: 767px) {
+      padding-top: 8px;
+      flex-direction: column;
+    }
+  }
+}
+
+.car-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: fit-content;
+  background: #ffffff;
+  box-shadow: 0px 2px 4px rgba(90, 97, 105, 0.12);
+  border-radius: 9px;
+  @media (max-width: 767px) {
+    width: 100%;
+  }
+  &__car-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 35px 50px 22px 50px;
+    @media (max-width: 1023px) {
+      margin: 20px 30px 22px 30px;
+    }
+    @media (max-width: 767px) {
+      margin: 10px 10px 22px 10px;
+    }
+  }
+  &__img {
+    width: 245px;
+    height: 110px;
+  }
+  &__title {
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    color: #3d5170;
+    margin: 10px;
+  }
+  &__car-desc {
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 14px;
+    text-align: center;
+    color: #818ea3;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+  &__file {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    height: 30px;
+    color: #495057;
+    font-size: 12px;
+  }
+  &__file-input {
+    width: 232px;
+    margin: 0;
+    opacity: 0;
+  }
+  &__file-custom {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 15px;
+    z-index: 2;
+    height: 30px;
+    padding: 8px 13px;
+    color: #555;
+    background: #ffffff;
+    border: 0.5px solid #becad6;
+    border-radius: 4px;
+    &::before {
+      content: "Выберите файл...";
+    }
+    &::after {
+      content: "Обзор";
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: -0.6px;
+      right: -1px;
+      bottom: -0.6px;
+      width: 66px;
+      background: #e9ecef;
+      border: 0.5px solid #becad6;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+  }
+  &__desc {
+    max-width: 320px;
+    padding: 22px;
+  }
+  &__desc-title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 15px;
+    color: #868e96;
+  }
+  &__desc-text {
+    margin-top: 14px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 19px;
+    color: #5a6169;
+  }
+}
+
+.progress-bar {
+  display: flex;
+  padding: 16px 24px;
+  flex-direction: column;
+  border-top: 0.5px solid #becad6;
+  border-bottom: 0.5px solid #becad6;
+  &__desc {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  &__title {
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 15px;
+    color: #868e96;
+  }
+  &__progress {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: center;
+    color: #5a6169;
+  }
+  &__loader {
+    margin-top: 10px;
+  }
+}
+
+.settings-container {
+  background: #ffffff;
+  box-shadow: 0px 2px 4px rgba(90, 97, 105, 0.12);
+  border-radius: 9px;
+  height: fit-content;
+  margin-left: 32px;
+  padding: 20px 18px;
+  @media (max-width: 1023px) {
+    width: 300px;
+  }
+  @media (max-width: 767px) {
+    margin-top: 16px;
+    width: 100%;
+    margin-left: 0;
+  }
+  &__title {
+    margin-bottom: 35px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    color: #3d5170;
+  }
+  &__items {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__item {
+    position: relative;
+    display: flex;
+    width: 320px;
+    margin-right: 20px;
+    align-items: center;
+  }
+  &__item-btn {
+    background: #fff;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #becad6;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    top: 2px;
+    margin-left: 8px;
+    &::before {
+      content: "";
+      border: 1px solid #becad6;
+    }
+    &::after {
+      content: "";
+      border: 1px solid #becad6;
+      position: absolute;
+      top: 13px;
+      right: 4px;
+      width: 16px;
+    }
+  }
+  &__buttons {
+    display: flex;
+    margin-top: 16px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  &__buttons-edit {
+    display: flex;
+    button {
+      margin-right: 20px;
+      margin-top: 16px;
+    }
+  }
+  &__buttons-delete {
+    margin-top: 16px;
+  }
+}

@@ -6,6 +6,7 @@ import { Route, Switch } from "react-router-dom"
 import "./AdminPage.scss"
 import AdminFooter from "./AdminFooter/AdminFooter"
 import AdminError from "./AdminError/AdminError"
+import AdminCarSettings from "./AdminCarSettings/AdminCarSettings"
 
 const AdminPage = () => {
   return (
@@ -16,6 +17,11 @@ const AdminPage = () => {
         <div className="admin__content content">
           <Switch>
             <Route exact path="/admin/orders" render={() => <AdminOrders />} />
+            <Route
+              exact
+              path="/admin/car-card"
+              render={() => <AdminCarSettings />}
+            />
             <Route path="*" render={() => <AdminError />} />
           </Switch>
         </div>
