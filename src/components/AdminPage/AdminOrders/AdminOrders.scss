@@ -5,6 +5,12 @@
     display: flex;
     align-items: center;
     padding: 16px 20px 0 20px;
+    @media (max-width: 1023px) {
+      padding: 16px 16px 0 16px;
+    }
+    @media (max-width: 767px) {
+      padding: 8px 8px 0 8px;
+    }
   }
   &__filter {
     display: flex;
@@ -26,18 +32,33 @@
     border-top: 1px solid #f5f6f8;
     border-bottom: 1px solid #f5f6f8;
     display: flex;
-    padding: 16px 24px;
+    padding: 16px 20px;
+    @media (max-width: 1023px) {
+      padding: 16px;
+    }
+    @media (max-width: 767px) {
+      padding: 8px;
+    }
   }
   &__order {
     display: flex;
     width: 100%;
     height: fit-content;
+    flex-wrap: wrap;
+    @media (max-width: 1023px) {
+      flex-direction: column;
+    }
   }
   &__content-container {
     flex-grow: 1;
     justify-content: center;
     align-items: center;
     display: flex;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    &:last-child {
+      margin-right: 0;
+    }
   }
   &__footer {
     height: 60px;
