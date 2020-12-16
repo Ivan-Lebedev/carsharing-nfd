@@ -2,9 +2,9 @@ import React from "react"
 import "./AdminNavBar.scss"
 import LogoIcon from "../../../assets/icons/LogoIcon.svg"
 import { NavLink } from "react-router-dom"
-import CarCard from "../../common/icons/AdminCarCard"
-import CarList from "../../common/icons/AdminCarList"
-import CarOrders from "../../common/icons/AdminCarOrders"
+import CarCard from "../../common/icons/CarCardIcon"
+import CarList from "../../common/icons/CarListIcon"
+import CarOrders from "../../common/icons/CarOrdersIcon"
 
 const AdminNavBar = () => {
   return (

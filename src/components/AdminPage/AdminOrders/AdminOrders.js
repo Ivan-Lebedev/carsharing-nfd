@@ -1,6 +1,6 @@
 import { Form, Formik } from "formik"
 import React from "react"
-import { OrdersFilter } from "../../common/AdminForms/AdminForms"
+import { AdminFilter } from "../../common/AdminForms/AdminForms"
 import "./AdminOrders.scss"
 import { Button } from "../../common/Button/Button"
 import Car from "../../../assets/images/image 2.png"
@@ -8,6 +8,7 @@ import { CheckBoxes } from "../../common/AdminForms/AdminForms"
 import Approve from "../../../assets/icons/ApproveIcon.svg"
 import Reject from "../../../assets/icons/RejectIcon.svg"
 import Edit from "../../../assets/icons/EditIcon.svg"
+import Paginator from "../../common/Paginator/Paginator"
 
 const AdminOrders = () => {
   const periodOptions = [
@@ -63,12 +64,12 @@ const AdminOrders = () => {
             <Form className="orders__filter">
               <div className="orders__filter-items">
                 <div className="items-container">
-                  <OrdersFilter name="period" options={periodOptions} />
-                  <OrdersFilter name="model" options={modelOptions} />
+                  <AdminFilter name="period" options={periodOptions} />
+                  <AdminFilter name="model" options={modelOptions} />
                 </div>
                 <div className="items-container">
-                  <OrdersFilter name="city" options={cityOptions} />
-                  <OrdersFilter name="status" options={statusOptions} />
+                  <AdminFilter name="city" options={cityOptions} />
+                  <AdminFilter name="status" options={statusOptions} />
                 </div>
               </div>
               <div className="orders__filter-button">
@@ -120,17 +121,7 @@ const AdminOrders = () => {
           </div>
         </div>
         <div className="orders__footer">
-          <div className="paginator">
-            <div className="paginator__item">{"<<"}</div>
-            <div className="paginator__item ">1</div>
-            <div className="paginator__item">...</div>
-            <div className="paginator__item">4</div>
-            <div className="paginator__item paginator__item--active">5</div>
-            <div className="paginator__item">6</div>
-            <div className="paginator__item">...</div>
-            <div className="paginator__item">31</div>
-            <div className="paginator__item">{">>"}</div>
-          </div>
+          <Paginator />
         </div>
       </div>
     </div>

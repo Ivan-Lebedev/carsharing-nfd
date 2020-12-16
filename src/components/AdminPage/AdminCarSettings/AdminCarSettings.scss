@@ -43,7 +43,6 @@
     height: 110px;
   }
   &__title {
-    font-family: Helvetica;
     font-style: normal;
     font-weight: normal;
     font-size: 24px;
@@ -53,7 +52,6 @@
     margin: 10px;
   }
   &__car-desc {
-    font-family: Helvetica;
     font-style: normal;
     font-weight: normal;
     font-size: 13px;
@@ -140,7 +138,6 @@
     width: 100%;
   }
   &__title {
-    font-family: Helvetica;
     font-style: normal;
     font-weight: normal;
     font-size: 13px;
@@ -169,6 +166,7 @@
   padding: 20px 18px;
   @media (max-width: 1023px) {
     width: 300px;
+    margin-left: 16px;
   }
   @media (max-width: 767px) {
     margin-top: 16px;

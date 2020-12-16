@@ -7,6 +7,7 @@ import "./AdminPage.scss"
 import AdminFooter from "./AdminFooter/AdminFooter"
 import AdminError from "./AdminError/AdminError"
 import AdminCarSettings from "./AdminCarSettings/AdminCarSettings"
+import AdminCarList from "./AdminCarList/AdminCarList"
 
 const AdminPage = () => {
   return (
@@ -17,6 +18,11 @@ const AdminPage = () => {
         <div className="admin__content content">
           <Switch>
             <Route exact path="/admin/orders" render={() => <AdminOrders />} />
+            <Route
+              exact
+              path="/admin/car-list"
+              render={() => <AdminCarList />}
+            />
             <Route
               exact
               path="/admin/car-card"

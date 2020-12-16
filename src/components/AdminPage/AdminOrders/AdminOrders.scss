@@ -68,29 +68,6 @@
   }
 }
 
-.paginator {
-  display: flex;
-  &__item {
-    font-family: Helvetica;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 17px;
-    color: #007bff;
-    margin: 6px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    &--active {
-      color: #ffffff;
-      height: 18px;
-      width: 18px;
-      border-radius: 50%;
-      background: #007bff;
-    }
-  }
-}
 .items-container {
   display: flex;
 }
@@ -118,7 +95,6 @@
   }
 }
 .order-price {
-  font-family: Helvetica;
   font-style: normal;
   font-weight: normal;
   font-size: 24px;
@@ -132,7 +108,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-family: Helvetica;
+
   font-style: normal;
   font-weight: normal;
   font-size: 11px;

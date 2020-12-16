@@ -6,6 +6,7 @@
   align-items: center;
   padding: 0 32px;
   width: 100%;
+  z-index: 3;
   @media (max-width: 1023px) {
     padding: 0 16px;
     height: 60px;
@@ -14,7 +15,6 @@
     position: fixed;
     padding: 0 8px;
     height: 50px;
-    z-index: 2;
   }
   &__search {
     display: flex;
@@ -85,7 +85,6 @@
       }
     }
     &__name {
-      font-family: Helvetica;
       font-style: normal;
       font-weight: normal;
       font-size: 15px;

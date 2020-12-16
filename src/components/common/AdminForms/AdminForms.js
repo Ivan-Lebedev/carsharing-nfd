@@ -16,7 +16,7 @@ export const TextField = ({ title, placeholder, type }) => {
   )
 }
 
-export const OrdersFilter = ({ name, options }) => {
+export const AdminFilter = ({ name, options }) => {
   return (
     <Field className="admin-filter" as="select" id={name} name={name}>
       {options.map((option) => {
