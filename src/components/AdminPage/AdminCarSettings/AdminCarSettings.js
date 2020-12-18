@@ -10,7 +10,7 @@ const AdminCarSettings = () => {
   const initialValues = {
     model: "Hyndai, i30 N",
     modelType: "Компакт-кар",
-    colors: "Синий",
+    modelColors: "Синий",
   }
   const colorOptions = [
     { label: "Красный", value: "Красный" },
@@ -65,6 +65,7 @@ const AdminCarSettings = () => {
               <div className="settings-container__items">
                 <div className="settings-container__item">
                   <TextField
+                    name="model"
                     title="Модель автомобиля"
                     placeholder="Hyndai, i30 N"
                     type="text"
@@ -72,6 +73,7 @@ const AdminCarSettings = () => {
                 </div>
                 <div className="settings-container__item">
                   <TextField
+                    name="modelType"
                     title="Тип автомобиля"
                     placeholder="Компакт-кар"
                     type="text"
@@ -79,6 +81,7 @@ const AdminCarSettings = () => {
                 </div>
                 <div className="settings-container__item">
                   <TextField
+                    name="modelColors"
                     title="Доступные цвета"
                     placeholder="Синий"
                     type="text"
@@ -92,10 +95,7 @@ const AdminCarSettings = () => {
               <div className="settings-container__buttons">
                 <div className="settings-container__buttons-edit">
                   <Button additionalStyles="button__admin">Сохранить</Button>
-                  <Button
-                    additionalStyles="button__admin button__admin--disabled"
-                    disabled={true}
-                  >
+                  <Button additionalStyles="button__admin" disabled={true}>
                     Отменить
                   </Button>
                 </div>

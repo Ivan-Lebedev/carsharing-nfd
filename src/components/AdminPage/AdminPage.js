@@ -2,14 +2,20 @@ import React from "react"
 import AdminNavBar from "./AdminNavBar/AdminNavBar"
 import AdminOrders from "./AdminOrders/AdminOrders"
 import AdminHeader from "./AdminHeader/AdminHeader"
-import { Route, Switch } from "react-router-dom"
+import { Route, Switch, Redirect } from "react-router-dom"
 import "./AdminPage.scss"
 import AdminFooter from "./AdminFooter/AdminFooter"
 import AdminError from "./AdminError/AdminError"
 import AdminCarSettings from "./AdminCarSettings/AdminCarSettings"
 import AdminCarList from "./AdminCarList/AdminCarList"
+import Cookies from "js-cookie"
 
 const AdminPage = () => {
+  const accessToken = Cookies.get("access_token")
+  if (!accessToken) {
+    return <Redirect to="/login" />
+  }
+
   return (
     <div className="admin">
       <AdminNavBar />

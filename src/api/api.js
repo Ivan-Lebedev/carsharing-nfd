@@ -25,6 +25,14 @@ const orderAPI = {
   getOrder(orderId) {
     return instance.get(`db/order/${orderId}`)
   },
+  postLogIn(orderBody, basicToken) {
+    return instance.post(`auth/login`, orderBody, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Basic ${basicToken}`,
+      },
+    })
+  },
 }
 
 export default orderAPI

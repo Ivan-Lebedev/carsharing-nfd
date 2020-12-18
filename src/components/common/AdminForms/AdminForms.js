@@ -1,17 +1,23 @@
-import { Field } from "formik"
+import { Field, ErrorMessage } from "formik"
 import React from "react"
 import "./AdminForms.scss"
 import classNames from "classnames"
 
-export const TextField = ({ title, placeholder, type }) => {
+export const TextField = ({ name, title, placeholder, type }) => {
   return (
     <div className="text-field">
       <div className="login-form__subtitle">{title}</div>
-      <input
+      <Field
+        as="input"
+        id={name}
+        name={name}
         className="login-form__input"
         placeholder={placeholder}
         type={type}
       />
+      <div className="error-message">
+        <ErrorMessage name={name} />
+      </div>
     </div>
   )
 }
