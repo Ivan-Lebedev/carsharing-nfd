@@ -6,7 +6,7 @@ import { TextField } from "../common/AdminForms/AdminForms"
 import { Form, Formik } from "formik"
 import { connect } from "react-redux"
 import { Redirect } from "react-router-dom"
-import { logIn } from "../../store/order-reducer"
+import { logIn } from "../../store/admin-reducer"
 import * as Yup from "yup"
 import Cookies from "js-cookie"
 
@@ -83,8 +83,8 @@ const LoginPage = ({ logIn, isAuthInProgress, isAuthFailed }) => {
 }
 
 const mapStateToProps = (state) => ({
-  isAuthInProgress: state.order.isAuthInProgress,
-  isAuthFailed: state.order.isAuthFailed,
+  isAuthInProgress: state.admin.isAuthInProgress,
+  isAuthFailed: state.admin.isAuthFailed,
 })
 
 export default connect(mapStateToProps, { logIn })(LoginPage)

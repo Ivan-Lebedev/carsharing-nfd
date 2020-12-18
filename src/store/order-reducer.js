@@ -1,6 +1,5 @@
 import orderAPI from "../api/api"
 import Geocode from "react-geocode"
-import Cookies from "js-cookie"
 
 const ADD_CITIES = "ADD_CITIES"
 const ADD_POINTS = "ADD_POINTS"
@@ -8,8 +7,6 @@ const ADD_CARS = "ADD_CARS"
 const IS_CARS_FETCHING = "IS_CARS_FETCHING"
 const ADD_ORDER_ID = "ADD_ORDER_ID"
 const ADD_FINISHED_ORDER_DATA = "ADD_FINISHED_ORDER_DATA"
-const TOGGLE_IS_AUTH_IN_PROGRESS = "TOGGLE_IS_AUTH_IN_PROGRESS"
-const TOGGLE_IS_AUTH_FAILED = "TOGGLE_IS_AUTH_FAILED"
 
 Geocode.setApiKey("AIzaSyCrF2ESCD9XTV0X2_4JOrAvPSIHq2NPJiI")
 
@@ -56,16 +53,6 @@ const orderReducer = (state = initialState, action) => {
         ...state,
         finishedOrderData: action.payload,
       }
-    case TOGGLE_IS_AUTH_IN_PROGRESS:
-      return {
-        ...state,
-        isAuthInProgress: action.payload,
-      }
-    case TOGGLE_IS_AUTH_FAILED:
-      return {
-        ...state,
-        isAuthFailed: action.payload,
-      }
     default:
       return state
   }
@@ -99,16 +86,6 @@ export const addOrderId = (orderId) => ({
 export const addFinishedOrderData = (orderData) => ({
   type: ADD_FINISHED_ORDER_DATA,
   payload: orderData,
-})
-
-export const toggleIsAuthInProgress = (isAuthInProgress) => ({
-  type: TOGGLE_IS_AUTH_IN_PROGRESS,
-  payload: isAuthInProgress,
-})
-
-export const toggleIsAuthFailed = (isAuthFailed) => ({
-  type: TOGGLE_IS_AUTH_FAILED,
-  payload: isAuthFailed,
 })
 
 export const requestCities = () => async (dispatch) => {
@@ -225,30 +202,6 @@ export const requestOrder = (orderId) => async (dispatch) => {
     const result = await orderAPI.getOrder(orderId)
     dispatch(addFinishedOrderData(result.data.data))
   } catch (e) {
-    console.log(e)
-  }
-}
-
-export const logIn = (userData) => async (dispatch) => {
-  try {
-    dispatch(toggleIsAuthInProgress(true))
-    const getRandomString = (n) => Math.random().toString(32).substr(2, n)
-    const basicToken = btoa(`${getRandomString(7)}:4cbcea96de`)
-    const orderBody = JSON.stringify(userData)
-    const response = await orderAPI.postLogIn(orderBody, basicToken)
-    if (response.statusText === "OK") {
-      const cookiesExpiresDays = response.data.expires_in / 86400
-      Cookies.set("access_token", response.data.access_token, {
-        expires: cookiesExpiresDays,
-      })
-      Cookies.set("refresh_token", response.data.refresh_token, {
-        expires: cookiesExpiresDays,
-      })
-    }
-    dispatch(toggleIsAuthInProgress(false))
-  } catch (e) {
-    dispatch(toggleIsAuthInProgress(false))
-    dispatch(toggleIsAuthFailed(true))
     console.log(e)
   }
 }

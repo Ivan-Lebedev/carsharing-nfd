@@ -9,10 +9,11 @@ import AdminError from "./AdminError/AdminError"
 import AdminCarSettings from "./AdminCarSettings/AdminCarSettings"
 import AdminCarList from "./AdminCarList/AdminCarList"
 import Cookies from "js-cookie"
+import { useState } from "react"
 
 const AdminPage = () => {
-  const accessToken = Cookies.get("access_token")
-  if (!accessToken) {
+  const [isTokenValid, setIsTokenValid] = useState(Cookies.get("access_token"))
+  if (!isTokenValid) {
     return <Redirect to="/login" />
   }
 
@@ -20,7 +21,7 @@ const AdminPage = () => {
     <div className="admin">
       <AdminNavBar />
       <div className="admin__container">
-        <AdminHeader />
+        <AdminHeader setIsTokenValid={setIsTokenValid} />
         <div className="admin__content content">
           <Switch>
             <Route exact path="/admin/orders" render={() => <AdminOrders />} />
