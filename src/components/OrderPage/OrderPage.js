@@ -38,7 +38,6 @@ const OrderPage = ({ isFinished, orderId }) => {
       isRightWheel: false,
     },
   })
-  console.log(formik.values)
 
   const renderStep = () => {
     switch (step) {
