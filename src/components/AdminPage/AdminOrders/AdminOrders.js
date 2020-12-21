@@ -10,51 +10,51 @@ import Reject from "../../../assets/icons/RejectIcon.svg"
 import Edit from "../../../assets/icons/EditIcon.svg"
 import Paginator from "../../common/Paginator/Paginator"
 
+const periodOptions = [
+  { key: "За год", value: "year" },
+  { key: "За месяц", value: "month" },
+  { key: "За неделю", value: "week" },
+  { key: "За день", value: "day" },
+]
+const modelOptions = [
+  { key: "Все модели", value: "all" },
+  { key: "Elantra", value: "Elantra" },
+  { key: "Tucson", value: "Tucson" },
+  { key: "Solaris", value: "Solaris" },
+]
+const cityOptions = [
+  { key: "Ульяновск", value: "Ульяновск" },
+  { key: "Саранск", value: "Саранск" },
+  { key: "Самара", value: "Самара" },
+  { key: "Краснодар", value: "Краснодар" },
+]
+const statusOptions = [
+  { key: "В процессе", value: "process" },
+  { key: "Завершенные", value: "finished" },
+]
+const initialValues = {
+  period: "week",
+  model: "all",
+  city: "Ульяновск",
+  status: "process",
+}
+
+const CheckBoxesItems = [
+  {
+    label: "Полный бак, 500р",
+    value: "isFullTank",
+  },
+  {
+    label: "Детское кресло, 200р",
+    value: "isNeedChildChair",
+  },
+  {
+    label: "Правый руль, 1600р",
+    value: "isRightWheel",
+  },
+]
+
 const AdminOrders = () => {
-  const periodOptions = [
-    { key: "За год", value: "year" },
-    { key: "За месяц", value: "month" },
-    { key: "За неделю", value: "week" },
-    { key: "За день", value: "day" },
-  ]
-  const modelOptions = [
-    { key: "Все модели", value: "all" },
-    { key: "Elantra", value: "Elantra" },
-    { key: "Tucson", value: "Tucson" },
-    { key: "Solaris", value: "Solaris" },
-  ]
-  const cityOptions = [
-    { key: "Ульяновск", value: "Ульяновск" },
-    { key: "Саранск", value: "Саранск" },
-    { key: "Самара", value: "Самара" },
-    { key: "Краснодар", value: "Краснодар" },
-  ]
-  const statusOptions = [
-    { key: "В процессе", value: "process" },
-    { key: "Завершенные", value: "finished" },
-  ]
-  const initialValues = {
-    period: "week",
-    model: "all",
-    city: "Ульяновск",
-    status: "process",
-  }
-
-  const CheckBoxesItems = [
-    {
-      label: "Полный бак, 500р",
-      value: "isFullTank",
-    },
-    {
-      label: "Детское кресло, 200р",
-      value: "isNeedChildChair",
-    },
-    {
-      label: "Правый руль, 1600р",
-      value: "isRightWheel",
-    },
-  ]
-
   return (
     <div className="admin__orders">
       <div className="content__title">Заказы</div>

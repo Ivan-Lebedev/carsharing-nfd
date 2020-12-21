@@ -10,6 +10,16 @@ import { logIn } from "../../store/admin-reducer"
 import * as Yup from "yup"
 import Cookies from "js-cookie"
 
+const initialValues = {
+  username: "",
+  password: "",
+}
+
+const validationSchema = Yup.object({
+  username: Yup.string().required("Введите логин"),
+  password: Yup.string().required("Введите пароль"),
+})
+
 const LoginPage = ({ logIn, isAuthInProgress, isAuthFailed }) => {
   const accessToken = Cookies.get("access_token")
   if (accessToken) {
@@ -19,15 +29,6 @@ const LoginPage = ({ logIn, isAuthInProgress, isAuthFailed }) => {
   const onLogInSubmit = (userData) => {
     logIn(userData)
   }
-  const initialValues = {
-    username: "",
-    password: "",
-  }
-
-  const validationSchema = Yup.object({
-    username: Yup.string().required("Введите логин"),
-    password: Yup.string().required("Введите пароль"),
-  })
 
   return (
     <div className="login__wrapper">

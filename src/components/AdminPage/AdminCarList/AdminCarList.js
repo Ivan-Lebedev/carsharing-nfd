@@ -5,31 +5,31 @@ import { AdminFilter } from "../../common/AdminForms/AdminForms"
 import { Button } from "../../common/Button/Button"
 import Paginator from "../../common/Paginator/Paginator"
 
+const firstOption = [
+  { key: "1", value: "1" },
+  { key: "2", value: "2" },
+]
+const secondOption = [
+  { key: "1", value: "1" },
+  { key: "2", value: "2" },
+]
+const thirdOption = [
+  { key: "1", value: "1" },
+  { key: "2", value: "2" },
+]
+const fourthOption = [
+  { key: "1", value: "1" },
+  { key: "2", value: "2" },
+]
+
+const initialValues = {
+  field1: "1",
+  field2: "2",
+  field3: "2",
+  field4: "1",
+}
+
 const AdminCarList = () => {
-  const firstOption = [
-    { key: "1", value: "1" },
-    { key: "2", value: "2" },
-  ]
-  const secondOption = [
-    { key: "1", value: "1" },
-    { key: "2", value: "2" },
-  ]
-  const thirdOption = [
-    { key: "1", value: "1" },
-    { key: "2", value: "2" },
-  ]
-  const fourthOption = [
-    { key: "1", value: "1" },
-    { key: "2", value: "2" },
-  ]
-
-  const initialValues = {
-    field1: "1",
-    field2: "2",
-    field3: "2",
-    field4: "1",
-  }
-
   return (
     <div className="admin__car-list car-list">
       <div className="content__title">Список авто</div>
