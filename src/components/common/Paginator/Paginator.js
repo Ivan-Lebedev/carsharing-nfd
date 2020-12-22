@@ -2,14 +2,14 @@ import React from "react"
 import "./Paginator.scss"
 import ReactPaginate from "react-paginate"
 
-const Paginator = () => {
-  const pageChangeHandler = () => {}
+const Paginator = ({ itemsCount, pageSize, onPageChange }) => {
+  const pageCount = Math.ceil(itemsCount / pageSize) || 31
   return (
     <ReactPaginate
-      pageCount={31} //pageCount
-      //   forcePage={0} //forcePage
+      pageCount={pageCount}
       initialPage={0}
-      onPageChange={pageChangeHandler} //pageChangeHandler
+      onPageChange={onPageChange}
+      //   forcePage={0}
       marginPagesDisplayed={2}
       pageRangeDisplayed={2}
       previousLabel="<<"

@@ -1,9 +1,16 @@
-import React from "react"
+import React, { useEffect } from "react"
 import "./AdminCarList.scss"
 import { Form, Formik } from "formik"
 import { AdminFilter } from "../../common/AdminForms/AdminForms"
 import { Button } from "../../common/Button/Button"
 import Paginator from "../../common/Paginator/Paginator"
+import { connect } from "react-redux"
+import {
+  requestCarsPage,
+  setCurrentPage,
+} from "../../../store/cars-table-reducer"
+import Loader from "../../common/Loader/Loader"
+import { getAdminTableColors } from "../../common/helpers/Helpers"
 
 const firstOption = [
   { key: "1", value: "1" },
@@ -29,7 +36,19 @@ const initialValues = {
   field4: "1",
 }
 
-const AdminCarList = () => {
+const AdminCarList = ({
+  cars,
+  isFetching,
+  pageSize,
+  currentPage,
+  carsCount,
+  requestCarsPage,
+  setCurrentPage,
+}) => {
+  useEffect(() => {
+    requestCarsPage(currentPage, pageSize)
+  }, [currentPage, pageSize, requestCarsPage])
+
   return (
     <div className="admin__car-list car-list">
       <div className="content__title">Список авто</div>
@@ -56,45 +75,39 @@ const AdminCarList = () => {
             </Form>
           </Formik>
           <div className="car-list__table">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Модель</th>
-                  <th scope="col">Тип</th>
-                  <th scope="col">Цена</th>
-                  <th scope="col">Цвета</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td data-label="Модель">Hyndai, i30 N</td>
-                  <td data-label="Тип">Компакт-кар</td>
-                  <td data-label="Цена">10000 - 25000 ₽</td>
-                  <td data-label="Цвета">синий, красный</td>
-                </tr>
-                <tr>
-                  <td data-label="Модель">Hyndai, i30 N</td>
-                  <td data-label="Тип">Компакт-кар</td>
-                  <td data-label="Цена">12000 - 32000 ₽</td>
-                  <td data-label="Цвета">белый, черный</td>
-                </tr>
-                <tr>
-                  <td data-label="Модель">Hyndai, i30 N</td>
-                  <td data-label="Тип">Компакт-кар</td>
-                  <td data-label="Цена">12000 - 32000 ₽</td>
-                  <td data-label="Цвета">белый, черный</td>
-                </tr>
-                <tr>
-                  <td data-label="Модель">Hyndai, i30 N</td>
-                  <td data-label="Тип">Компакт-кар</td>
-                  <td data-label="Цена">12000 - 32000 ₽</td>
-                  <td data-label="Цвета">белый, черный</td>
-                </tr>
-              </tbody>
-            </table>
+            {isFetching ? (
+              <Loader admin={true} />
+            ) : (
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Модель</th>
+                    <th scope="col">Тип</th>
+                    <th scope="col">Цена</th>
+                    <th scope="col">Цвета</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cars.map((car) => (
+                    <tr key={car.id}>
+                      <td data-label="Модель">{car.name}</td>
+                      <td data-label="Тип">{car.categoryId.name}</td>
+                      <td data-label="Цена">{`${car.priceMin} - ${car.priceMax} ₽`}</td>
+                      <td data-label="Цвета">
+                        {getAdminTableColors(car.colors)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
           </div>
           <div className="car-list__footer">
-            <Paginator />
+            <Paginator
+              itemsCount={carsCount}
+              pageSize={pageSize}
+              onPageChange={({ selected }) => setCurrentPage(selected)}
+            />
           </div>
         </div>
       </div>
@@ -102,4 +115,13 @@ const AdminCarList = () => {
   )
 }
 
-export default AdminCarList
+const mapStateToProps = (state) => ({
+  cars: state.carsTable.cars,
+  isFetching: state.carsTable.isFetching,
+  pageSize: state.carsTable.pageSize,
+  currentPage: state.carsTable.currentPage,
+  carsCount: state.carsTable.carsCount,
+})
+export default connect(mapStateToProps, { requestCarsPage, setCurrentPage })(
+  AdminCarList,
+)

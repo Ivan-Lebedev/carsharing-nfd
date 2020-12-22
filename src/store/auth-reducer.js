@@ -9,7 +9,7 @@ const initialState = {
   isAuthFailed: false,
 }
 
-const orderReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case TOGGLE_IS_AUTH_IN_PROGRESS:
       return {
@@ -60,4 +60,4 @@ export const logIn = (userData) => async (dispatch) => {
   }
 }
 
-export default orderReducer
+export default authReducer

@@ -7,3 +7,9 @@ export const getColorItems = (formik, carColors) => {
     return colorItem
   })
 }
+
+export const getAdminTableColors = (colors) => {
+  return colors
+    .map((color) => color.charAt(0).toUpperCase() + color.slice(1))
+    .join(", ")
+}
