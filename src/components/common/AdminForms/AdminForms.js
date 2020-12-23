@@ -22,9 +22,15 @@ export const TextField = ({ name, title, placeholder, type }) => {
   )
 }
 
-export const AdminFilter = ({ name, options }) => {
+export const AdminFilter = ({ name, options, onBlur }) => {
   return (
-    <Field className="admin-filter" as="select" id={name} name={name}>
+    <Field
+      className="admin-filter"
+      as="select"
+      id={name}
+      name={name}
+      onBlur={onBlur}
+    >
       {options.map((option) => {
         return (
           <option key={option.value} value={option.value}>
@@ -36,7 +42,7 @@ export const AdminFilter = ({ name, options }) => {
   )
 }
 
-export const CheckBoxes = ({ direction, items, onChange }) => {
+export const CheckBoxes = ({ direction, items, onChange, isChangeable }) => {
   const inputClass = classNames("admin-checkbox-input", {
     "admin-checkbox-input--column": direction === "column",
   })
@@ -51,6 +57,7 @@ export const CheckBoxes = ({ direction, items, onChange }) => {
             id={item.value}
             checked={item.checked}
             value={item.value}
+            readOnly={!isChangeable}
             onChange={onChange}
           />
           <label className="admin-checkbox-item__label" htmlFor={item.value}>

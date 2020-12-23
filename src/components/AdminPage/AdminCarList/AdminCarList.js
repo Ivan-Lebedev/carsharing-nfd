@@ -8,46 +8,45 @@ import { connect } from "react-redux"
 import {
   requestCarsPage,
   setCurrentPage,
+  requestCarsTotal,
 } from "../../../store/cars-table-reducer"
 import Loader from "../../common/Loader/Loader"
-import { getAdminTableColors } from "../../common/helpers/Helpers"
+import {
+  getAdminTableColors,
+  getAdminCarNames,
+  getAdminCarTypes,
+} from "../../common/helpers/Helpers"
 
-const firstOption = [
-  { key: "1", value: "1" },
-  { key: "2", value: "2" },
-]
-const secondOption = [
-  { key: "1", value: "1" },
-  { key: "2", value: "2" },
-]
-const thirdOption = [
-  { key: "1", value: "1" },
-  { key: "2", value: "2" },
-]
-const fourthOption = [
-  { key: "1", value: "1" },
-  { key: "2", value: "2" },
-]
+let firstOption = []
+let secondOption = []
 
 const initialValues = {
   field1: "1",
   field2: "2",
-  field3: "2",
-  field4: "1",
 }
 
 const AdminCarList = ({
-  cars,
+  carsTotal,
+  carsPerPage,
   isFetching,
   pageSize,
   currentPage,
   carsCount,
   requestCarsPage,
   setCurrentPage,
+  requestCarsTotal,
 }) => {
   useEffect(() => {
     requestCarsPage(currentPage, pageSize)
-  }, [currentPage, pageSize, requestCarsPage])
+    requestCarsTotal()
+  }, [currentPage, pageSize, requestCarsPage, requestCarsTotal])
+
+  firstOption = getAdminCarNames(carsTotal)
+  secondOption = getAdminCarTypes(carsTotal)
+
+  const handleChange = (e) => {
+    console.log(e.target.value)
+  }
 
   return (
     <div className="admin__car-list car-list">
@@ -57,10 +56,18 @@ const AdminCarList = ({
           <Formik initialValues={initialValues}>
             <Form className="car-list__filter">
               <div className="car-list__filter-items">
-                <AdminFilter name="field1" options={firstOption} />
-                <AdminFilter name="field2" options={secondOption} />
-                <AdminFilter name="field3" options={thirdOption} />
-                <AdminFilter name="field4" options={fourthOption} />
+                <AdminFilter
+                  name="field1"
+                  options={firstOption}
+                  // onChange={(e) => handleChange(e)}
+                  onBlur={(e) => handleChange(e)}
+                />
+                <AdminFilter
+                  name="field2"
+                  options={secondOption}
+                  // onChange={(e) => handleChange(e)}
+                  onBlur={(e) => handleChange(e)}
+                />
               </div>
               <div className="car-list__filter-btns">
                 <div className="car-list__filter-btn">
@@ -88,7 +95,7 @@ const AdminCarList = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {cars.map((car) => (
+                  {carsPerPage.map((car) => (
                     <tr key={car.id}>
                       <td data-label="Модель">{car.name}</td>
                       <td data-label="Тип">{car.categoryId.name}</td>
@@ -116,12 +123,15 @@ const AdminCarList = ({
 }
 
 const mapStateToProps = (state) => ({
-  cars: state.carsTable.cars,
+  carsTotal: state.carsTable.carsTotal,
+  carsPerPage: state.carsTable.carsPerPage,
   isFetching: state.carsTable.isFetching,
   pageSize: state.carsTable.pageSize,
   currentPage: state.carsTable.currentPage,
   carsCount: state.carsTable.carsCount,
 })
-export default connect(mapStateToProps, { requestCarsPage, setCurrentPage })(
-  AdminCarList,
-)
+export default connect(mapStateToProps, {
+  requestCarsPage,
+  setCurrentPage,
+  requestCarsTotal,
+})(AdminCarList)

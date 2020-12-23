@@ -36,6 +36,13 @@ const orderAPI = {
   getCarsPage(currentPage = 0, pageSize = 5) {
     return instance.get(`db/car?page=${currentPage}&limit=${pageSize}`)
   },
+  getAdminOrders(currentPage = 0, pageSize = 5, basicToken) {
+    return instance.get(`db/order?page=${currentPage}&limit=${pageSize}`, {
+      headers: {
+        Authorization: `Bearer ${basicToken}`,
+      },
+    })
+  },
 }
 
 export default orderAPI

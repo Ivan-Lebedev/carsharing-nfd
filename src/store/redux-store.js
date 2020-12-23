@@ -3,11 +3,13 @@ import thunkMiddleware from "redux-thunk"
 import orderReducer from "./order-reducer"
 import authReducer from "./auth-reducer"
 import carsTableReducer from "./cars-table-reducer"
+import ordersTableReducer from "./orders-table-reducer"
 
 const reducers = combineReducers({
   order: orderReducer,
   auth: authReducer,
   carsTable: carsTableReducer,
+  ordersTable: ordersTableReducer,
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
