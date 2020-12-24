@@ -61,7 +61,6 @@ const AdminOrders = ({
   useEffect(() => {
     requestOrdersPage(currentOrdersPage, ordersPageSize)
   }, [currentOrdersPage, ordersPageSize, requestOrdersPage])
-  console.log(ordersPerPage)
 
   return (
     <div className="admin__orders">

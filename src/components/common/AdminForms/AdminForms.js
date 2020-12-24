@@ -22,15 +22,9 @@ export const TextField = ({ name, title, placeholder, type }) => {
   )
 }
 
-export const AdminFilter = ({ name, options, onBlur }) => {
+export const AdminFilter = ({ name, options }) => {
   return (
-    <Field
-      className="admin-filter"
-      as="select"
-      id={name}
-      name={name}
-      onBlur={onBlur}
-    >
+    <Field className="admin-filter" as="select" id={name} name={name}>
       {options.map((option) => {
         return (
           <option key={option.value} value={option.value}>

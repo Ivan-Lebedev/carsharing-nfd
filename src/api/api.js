@@ -33,8 +33,14 @@ const orderAPI = {
       },
     })
   },
-  getCarsPage(currentPage = 0, pageSize = 5) {
-    return instance.get(`db/car?page=${currentPage}&limit=${pageSize}`)
+  getCarsPage(currentPage = 0, pageSize = 5, filters = []) {
+    let reqUrl = `db/car?page=${currentPage}&limit=${pageSize}`
+    if (filters.length !== 0) {
+      filters.forEach((filter) => {
+        reqUrl += `&name[$regex]=.*${filter}.*`
+      })
+    }
+    return instance.get(reqUrl)
   },
   getAdminOrders(currentPage = 0, pageSize = 5, basicToken) {
     return instance.get(`db/order?page=${currentPage}&limit=${pageSize}`, {

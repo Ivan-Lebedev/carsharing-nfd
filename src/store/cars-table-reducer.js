@@ -72,10 +72,12 @@ export const setCarsTotal = (carsTotal) => ({
   payload: carsTotal,
 })
 
-export const requestCarsPage = (page, pageSize) => async (dispatch) => {
+export const requestCarsPage = (page, pageSize, filters) => async (
+  dispatch,
+) => {
   try {
     dispatch(toggleIsFetching(true))
-    const result = await orderAPI.getCarsPage(page, pageSize)
+    const result = await orderAPI.getCarsPage(page, pageSize, filters)
     dispatch(toggleIsFetching(false))
     dispatch(setCarsPerPage(result.data.data))
     dispatch(setCarsCount(result.data.count))

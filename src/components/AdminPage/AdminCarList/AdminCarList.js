@@ -1,8 +1,5 @@
 import React, { useEffect } from "react"
 import "./AdminCarList.scss"
-import { Form, Formik } from "formik"
-import { AdminFilter } from "../../common/AdminForms/AdminForms"
-import { Button } from "../../common/Button/Button"
 import Paginator from "../../common/Paginator/Paginator"
 import { connect } from "react-redux"
 import {
@@ -16,14 +13,11 @@ import {
   getAdminCarNames,
   getAdminCarTypes,
 } from "../../common/helpers/Helpers"
+import AdminCarListFilter from "./AdminCarListFilter"
+import { useState } from "react"
 
 let firstOption = []
 let secondOption = []
-
-const initialValues = {
-  field1: "1",
-  field2: "2",
-}
 
 const AdminCarList = ({
   carsTotal,
@@ -36,16 +30,28 @@ const AdminCarList = ({
   setCurrentPage,
   requestCarsTotal,
 }) => {
+  const [filters, setFilters] = useState([])
   useEffect(() => {
-    requestCarsPage(currentPage, pageSize)
+    requestCarsPage(currentPage, pageSize, filters)
     requestCarsTotal()
-  }, [currentPage, pageSize, requestCarsPage, requestCarsTotal])
+  }, [currentPage, pageSize, requestCarsPage, requestCarsTotal, filters])
 
-  firstOption = getAdminCarNames(carsTotal)
-  secondOption = getAdminCarTypes(carsTotal)
-
-  const handleChange = (e) => {
-    console.log(e.target.value)
+  firstOption = [{ key: "Все модели", value: "Все модели" }].concat(
+    getAdminCarNames(carsTotal),
+  )
+  secondOption = [{ key: "Все типы", value: "Все типы" }].concat(
+    getAdminCarTypes(carsTotal),
+  )
+  const onFiltersSubmit = ({ field1, field2 }) => {
+    if (field1 === "Все модели") {
+      setFilters([])
+      return
+    }
+    setFilters([field1])
+    // console.log({ field1, field2 })
+  }
+  const clearFilters = () => {
+    setFilters([])
   }
 
   return (
@@ -53,34 +59,12 @@ const AdminCarList = ({
       <div className="content__title">Список авто</div>
       <div className="car-list__content-wrapper">
         <div className="car-list__content">
-          <Formik initialValues={initialValues}>
-            <Form className="car-list__filter">
-              <div className="car-list__filter-items">
-                <AdminFilter
-                  name="field1"
-                  options={firstOption}
-                  // onChange={(e) => handleChange(e)}
-                  onBlur={(e) => handleChange(e)}
-                />
-                <AdminFilter
-                  name="field2"
-                  options={secondOption}
-                  // onChange={(e) => handleChange(e)}
-                  onBlur={(e) => handleChange(e)}
-                />
-              </div>
-              <div className="car-list__filter-btns">
-                <div className="car-list__filter-btn">
-                  <Button additionalStyles="button__admin button__admin--cancel">
-                    Сбросить
-                  </Button>
-                </div>
-                <div className="car-list__filter-btn">
-                  <Button additionalStyles="button__admin">Применить</Button>
-                </div>
-              </div>
-            </Form>
-          </Formik>
+          <AdminCarListFilter
+            firstOption={firstOption}
+            secondOption={secondOption}
+            onSubmit={onFiltersSubmit}
+            clearFilters={clearFilters}
+          />
           <div className="car-list__table">
             {isFetching ? (
               <Loader admin={true} />
