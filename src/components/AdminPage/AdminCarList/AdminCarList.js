@@ -11,13 +11,11 @@ import Loader from "../../common/Loader/Loader"
 import {
   getAdminTableColors,
   getAdminCarNames,
-  getAdminCarTypes,
 } from "../../common/helpers/Helpers"
 import AdminCarListFilter from "./AdminCarListFilter"
 import { useState } from "react"
 
 let firstOption = []
-let secondOption = []
 
 const AdminCarList = ({
   carsTotal,
@@ -39,16 +37,12 @@ const AdminCarList = ({
   firstOption = [{ key: "Все модели", value: "Все модели" }].concat(
     getAdminCarNames(carsTotal),
   )
-  secondOption = [{ key: "Все типы", value: "Все типы" }].concat(
-    getAdminCarTypes(carsTotal),
-  )
-  const onFiltersSubmit = ({ field1, field2 }) => {
+  const onFiltersSubmit = ({ field1 }) => {
     if (field1 === "Все модели") {
       setFilters([])
       return
     }
     setFilters([field1])
-    // console.log({ field1, field2 })
   }
   const clearFilters = () => {
     setFilters([])
@@ -61,7 +55,6 @@ const AdminCarList = ({
         <div className="car-list__content">
           <AdminCarListFilter
             firstOption={firstOption}
-            secondOption={secondOption}
             onSubmit={onFiltersSubmit}
             clearFilters={clearFilters}
           />
