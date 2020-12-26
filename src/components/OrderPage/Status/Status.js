@@ -27,7 +27,7 @@ const Status = ({
   orderId,
   history,
 }) => {
-  const [isModal, setIsModal] = useState(false)
+  const [isModalVisible, setIsModalVisible] = useState(false)
   const statusBtnClasses = classNames("button status__price-btn", {
     "button--cancel": isFinished === true,
   })
@@ -41,7 +41,7 @@ const Status = ({
   const onModalConfirm = () => {
     if (isFinished) {
       setStep(1)
-      setIsModal(false)
+      setIsModalVisible(false)
     } else {
       submitForm()
     }
@@ -49,7 +49,7 @@ const Status = ({
 
   const onButtonClick = () => {
     if (step === 4 || isFinished) {
-      setIsModal(!isModal)
+      setIsModalVisible(!isModalVisible)
     } else {
       const nextStep = step + 1
       setStepDisabled({
@@ -161,13 +161,28 @@ const Status = ({
       isFullTank,
       isNeedChildChair,
       isRightWheel,
-      setIsModal
+      setIsModalVisible
     )
+  }
+
+  const buttonText = () => {
+    switch (step) {
+      case 1:
+        return "Выбрать модель"
+      case 2:
+        return "Дополнительно"
+      case 3:
+        return "Итого"
+      case 4:
+        return isFinished ? "Отменить" : "Заказать"
+      default:
+        return "Выбрать модель"
+    }
   }
 
   return (
     <div className="status">
-      {isModal && (
+      {isModalVisible && (
         <div className="modal">
           <div className="modal__overlay" />
           <div className="modal__container">
@@ -182,7 +197,7 @@ const Status = ({
                 Подтвердить
               </LinkButton>
               <Button
-                onClick={() => setIsModal(false)}
+                onClick={() => setIsModalVisible(false)}
                 additionalStyles="button--cancel"
               >
                 Вернуться
@@ -261,14 +276,10 @@ const Status = ({
 
       <Button
         additionalStyles={statusBtnClasses}
-        onClick={() => onButtonClick()}
+        onClick={onButtonClick}
         disabled={isButtonDisabled()}
       >
-        {step === 1 && "Выбрать модель"}
-        {step === 2 && "Дополнительно"}
-        {step === 3 && "Итого"}
-        {step === 4 && !isFinished && "Заказать"}
-        {step === 4 && isFinished && "Отменить"}
+        {buttonText()}
       </Button>
     </div>
   )

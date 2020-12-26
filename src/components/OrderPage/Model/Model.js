@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import "./Model.css"
 import classNames from "classnames"
 import { connect } from "react-redux"
@@ -8,21 +8,24 @@ import { RadioBtns } from "../../common/Forms/Forms"
 import Loader from "../../common/Loader/Loader"
 
 const Model = ({ formik, listOfCars, requestCars, isCarsFetching }) => {
+  const [listOfFilteredCars, setListOfFilteredCars] = useState(listOfCars)
+
   useEffect(() => requestCars(), [requestCars])
 
-  let listOfFilteredCars = []
-
-  const filterCars = () => {
-    if (formik.values.modelFilter === "Все модели") {
-      listOfFilteredCars = listOfCars
-    } else {
-      listOfFilteredCars = listOfCars.filter(
-        (car) => car.categoryId.name === formik.values.modelFilter
-      )
+  useEffect(() => {
+    const filterCars = () => {
+      if (formik.values.modelFilter === "Все модели") {
+        return setListOfFilteredCars(listOfCars)
+      } else {
+        return setListOfFilteredCars(
+          listOfCars.filter(
+            (car) => car.categoryId.name === formik.values.modelFilter
+          )
+        )
+      }
     }
-  }
-
-  filterCars()
+    filterCars()
+  }, [listOfCars, formik.values.modelFilter])
 
   const cardClass = (carName) =>
     classNames("catalog__car", {
@@ -35,6 +38,25 @@ const Model = ({ formik, listOfCars, requestCars, isCarsFetching }) => {
       : `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/${car.thumbnail.path}`
   }
 
+  const setValue = (car) => {
+    formik.setValues({ ...formik.values, model: car.name })
+  }
+
+  const radioBtnsItems = [
+    {
+      value: "Все модели",
+      checked: formik.values.modelFilter === "Все модели",
+    },
+    {
+      value: "Эконом",
+      checked: formik.values.modelFilter === "Эконом",
+    },
+    {
+      value: "Премиум",
+      checked: formik.values.modelFilter === "Премиум",
+    },
+  ]
+
   return (
     <div className="model">
       {isCarsFetching ? (
@@ -44,29 +66,14 @@ const Model = ({ formik, listOfCars, requestCars, isCarsFetching }) => {
           <RadioBtns
             onChange={formik.handleChange}
             name="modelFilter"
-            items={[
-              {
-                value: "Все модели",
-                checked: formik.values.modelFilter === "Все модели",
-              },
-              {
-                value: "Эконом",
-                checked: formik.values.modelFilter === "Эконом",
-              },
-              {
-                value: "Премиум",
-                checked: formik.values.modelFilter === "Премиум",
-              },
-            ]}
+            items={radioBtnsItems}
           />
           <div className="catalog">
             {listOfFilteredCars.map((car) => (
               <div
                 className={cardClass(car.name)}
                 key={car.id}
-                onClick={() =>
-                  formik.setValues({ ...formik.values, model: car.name })
-                }
+                onClick={() => setValue(car)}
               >
                 <div className="catalog__car-title">
                   <div className="catalog__car-name">{car.name}</div>

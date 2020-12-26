@@ -1,9 +1,11 @@
 import React from "react"
 import "./Loader.css"
+import classnames from "classnames"
 
-const Loader = () => {
+const Loader = ({ admin }) => {
+  const loaderClass = classnames("lds-roller", { "lds-roller--admin": admin })
   return (
-    <div className="lds-roller">
+    <div className={loaderClass}>
       <div></div>
       <div></div>
       <div></div>

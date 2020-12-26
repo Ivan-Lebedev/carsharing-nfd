@@ -17,6 +17,8 @@ const initialState = {
   isCarsFetching: true,
   orderId: null,
   finishedOrderData: null,
+  isAuthInProgress: false,
+  isAuthFailed: false,
 }
 
 const orderReducer = (state = initialState, action) => {
@@ -159,7 +161,7 @@ export const submitOrder = (
   isFullTank,
   isNeedChildChair,
   isRightWheel,
-  setIsModal
+  setIsModal,
 ) => async (dispatch) => {
   try {
     const orderBody = {

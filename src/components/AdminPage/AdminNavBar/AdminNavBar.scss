@@ -1,0 +1,106 @@
+.nav-bar {
+  z-index: 3;
+  width: 290px;
+  background: #ffffff;
+  box-shadow: 0 1px 75px rgba(90, 97, 105, 0.11),
+    0 2px 4px rgba(90, 97, 105, 0.12), 0 7.5px 11px rgba(90, 97, 105, 0.1),
+    0 3.5px 17.5px rgba(165, 182, 201, 0.1);
+  @media (max-width: 1023px) {
+    width: 80px;
+  }
+  @media (max-width: 767px) {
+    position: fixed;
+    top: 50px;
+    width: 100%;
+  }
+}
+
+.nb-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 68px;
+  box-shadow: inset 0px -1px 0px #e1e5eb;
+  @media (max-width: 1023px) {
+    height: 60px;
+  }
+  @media (max-width: 767px) {
+    display: none;
+  }
+  &__img {
+    width: 21.5px;
+    height: 21.5px;
+    margin-right: 10px;
+    @media (max-width: 1023px) {
+      margin: 0 auto;
+    }
+  }
+  &__title {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 18px;
+    color: #3d5170;
+    @media (max-width: 1023px) {
+      display: none;
+    }
+  }
+}
+
+.menu {
+  @media (max-width: 767px) {
+    display: flex;
+    height: 50px;
+  }
+  &__item {
+    display: flex;
+    height: 60px;
+    align-items: center;
+    padding-left: 26px;
+    text-decoration: none;
+    background: #ffffff;
+    box-shadow: inset 0px -1px 0px #e1e5eb;
+    color: #3d5170;
+    &:hover {
+      background: #fbfbfb;
+    }
+    &--active {
+      color: #007bff;
+      background: #fbfbfb;
+      box-shadow: inset 0px -1px 0px #e1e5eb, inset 4px 0px 0px #007bff;
+      svg path {
+        fill: #007bff;
+      }
+    }
+    @media (max-width: 1023px) {
+      padding: 0;
+    }
+    @media (max-width: 767px) {
+      height: 50px;
+      flex-grow: 1;
+      box-shadow: none;
+      border-right: 0.5px solid #cacedb;
+      &:last-child {
+        border-right: none;
+      }
+      &--active {
+        box-shadow: none;
+      }
+    }
+  }
+  &__item-icon {
+    margin-right: 12px;
+    @media (max-width: 1023px) {
+      margin: 0 auto;
+    }
+  }
+  &__item-title {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 17px;
+    @media (max-width: 1023px) {
+      display: none;
+    }
+  }
+}
