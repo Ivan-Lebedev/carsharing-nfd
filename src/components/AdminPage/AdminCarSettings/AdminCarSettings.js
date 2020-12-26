@@ -6,18 +6,18 @@ import { Form, Formik } from "formik"
 import { CheckBoxes, TextField } from "../../common/AdminForms/AdminForms"
 import { Button } from "../../common/Button/Button"
 
-const AdminCarSettings = () => {
-  const initialValues = {
-    model: "Hyndai, i30 N",
-    modelType: "Компакт-кар",
-    modelColors: "Синий",
-  }
-  const colorOptions = [
-    { label: "Красный", value: "Красный" },
-    { label: "Белый", value: "Белый" },
-    { label: "Черный", value: "Черный" },
-  ]
+const initialValues = {
+  model: "Hyndai, i30 N",
+  modelType: "Компакт-кар",
+  modelColors: "Синий",
+}
+const colorOptions = [
+  { label: "Красный", value: "Красный" },
+  { label: "Белый", value: "Белый" },
+  { label: "Черный", value: "Черный" },
+]
 
+const AdminCarSettings = () => {
   return (
     <div className="admin__car-settings car-settings">
       <div className="content__title">Карточка автомобиля</div>

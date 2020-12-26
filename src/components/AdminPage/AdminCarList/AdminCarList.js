@@ -1,33 +1,56 @@
-import React from "react"
+import React, { useEffect } from "react"
 import "./AdminCarList.scss"
-import { Form, Formik } from "formik"
-import { AdminFilter } from "../../common/AdminForms/AdminForms"
-import { Button } from "../../common/Button/Button"
 import Paginator from "../../common/Paginator/Paginator"
+import { connect } from "react-redux"
+import {
+  requestCarsPage,
+  setCurrentPage,
+  requestCarsTotal,
+} from "../../../store/cars-table-reducer"
+import Loader from "../../common/Loader/Loader"
+import {
+  getAdminTableColors,
+  getAdminCarNames,
+  getAdminCarTypes,
+} from "../../common/helpers/Helpers"
+import AdminCarListFilter from "./AdminCarListFilter"
+import { useState } from "react"
 
-const AdminCarList = () => {
-  const firstOption = [
-    { key: "1", value: "1" },
-    { key: "2", value: "2" },
-  ]
-  const secondOption = [
-    { key: "1", value: "1" },
-    { key: "2", value: "2" },
-  ]
-  const thirdOption = [
-    { key: "1", value: "1" },
-    { key: "2", value: "2" },
-  ]
-  const fourthOption = [
-    { key: "1", value: "1" },
-    { key: "2", value: "2" },
-  ]
+let firstOption = []
+let secondOption = []
 
-  const initialValues = {
-    field1: "1",
-    field2: "2",
-    field3: "2",
-    field4: "1",
+const AdminCarList = ({
+  carsTotal,
+  carsPerPage,
+  isFetching,
+  pageSize,
+  currentPage,
+  carsCount,
+  requestCarsPage,
+  setCurrentPage,
+  requestCarsTotal,
+}) => {
+  const [filters, setFilters] = useState({ model: "", type: "" })
+  useEffect(() => {
+    requestCarsPage(currentPage, pageSize, filters)
+    requestCarsTotal()
+  }, [currentPage, pageSize, requestCarsPage, requestCarsTotal, filters])
+
+  firstOption = [
+    { key: "Все модели", value: "" },
+    ...getAdminCarNames(carsTotal),
+  ]
+  secondOption = [
+    { key: "Все типы", value: "" },
+    ...getAdminCarTypes(carsTotal),
+  ]
+  const onFiltersSubmit = ({ model, type }) => {
+    setFilters({ model, type })
+    setCurrentPage(0)
+  }
+  const clearFilters = () => {
+    setFilters({ model: "", type: "" })
+    setCurrentPage(0)
   }
 
   return (
@@ -35,66 +58,49 @@ const AdminCarList = () => {
       <div className="content__title">Список авто</div>
       <div className="car-list__content-wrapper">
         <div className="car-list__content">
-          <Formik initialValues={initialValues}>
-            <Form className="car-list__filter">
-              <div className="car-list__filter-items">
-                <AdminFilter name="field1" options={firstOption} />
-                <AdminFilter name="field2" options={secondOption} />
-                <AdminFilter name="field3" options={thirdOption} />
-                <AdminFilter name="field4" options={fourthOption} />
-              </div>
-              <div className="car-list__filter-btns">
-                <div className="car-list__filter-btn">
-                  <Button additionalStyles="button__admin button__admin--cancel">
-                    Сбросить
-                  </Button>
-                </div>
-                <div className="car-list__filter-btn">
-                  <Button additionalStyles="button__admin">Применить</Button>
-                </div>
-              </div>
-            </Form>
-          </Formik>
+          <AdminCarListFilter
+            filters={filters}
+            firstOption={firstOption}
+            secondOption={secondOption}
+            onSubmit={onFiltersSubmit}
+            clearFilters={clearFilters}
+          />
           <div className="car-list__table">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Модель</th>
-                  <th scope="col">Тип</th>
-                  <th scope="col">Цена</th>
-                  <th scope="col">Цвета</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td data-label="Модель">Hyndai, i30 N</td>
-                  <td data-label="Тип">Компакт-кар</td>
-                  <td data-label="Цена">10000 - 25000 ₽</td>
-                  <td data-label="Цвета">синий, красный</td>
-                </tr>
-                <tr>
-                  <td data-label="Модель">Hyndai, i30 N</td>
-                  <td data-label="Тип">Компакт-кар</td>
-                  <td data-label="Цена">12000 - 32000 ₽</td>
-                  <td data-label="Цвета">белый, черный</td>
-                </tr>
-                <tr>
-                  <td data-label="Модель">Hyndai, i30 N</td>
-                  <td data-label="Тип">Компакт-кар</td>
-                  <td data-label="Цена">12000 - 32000 ₽</td>
-                  <td data-label="Цвета">белый, черный</td>
-                </tr>
-                <tr>
-                  <td data-label="Модель">Hyndai, i30 N</td>
-                  <td data-label="Тип">Компакт-кар</td>
-                  <td data-label="Цена">12000 - 32000 ₽</td>
-                  <td data-label="Цвета">белый, черный</td>
-                </tr>
-              </tbody>
-            </table>
+            {isFetching ? (
+              <Loader admin={true} />
+            ) : carsPerPage.length ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Модель</th>
+                    <th scope="col">Тип</th>
+                    <th scope="col">Цена</th>
+                    <th scope="col">Цвета</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {carsPerPage.map((car) => (
+                    <tr key={car.id}>
+                      <td data-label="Модель">{car.name}</td>
+                      <td data-label="Тип">{car.categoryId.name}</td>
+                      <td data-label="Цена">{`${car.priceMin} - ${car.priceMax} ₽`}</td>
+                      <td data-label="Цвета">
+                        {getAdminTableColors(car.colors)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <div className="no-data-found">Ничего не найдено</div>
+            )}
           </div>
           <div className="car-list__footer">
-            <Paginator />
+            <Paginator
+              itemsCount={carsCount}
+              pageSize={pageSize}
+              onPageChange={({ selected }) => setCurrentPage(selected)}
+            />
           </div>
         </div>
       </div>
@@ -102,4 +108,16 @@ const AdminCarList = () => {
   )
 }
 
-export default AdminCarList
+const mapStateToProps = (state) => ({
+  carsTotal: state.carsTable.carsTotal,
+  carsPerPage: state.carsTable.carsPerPage,
+  isFetching: state.carsTable.isFetching,
+  pageSize: state.carsTable.pageSize,
+  currentPage: state.carsTable.currentPage,
+  carsCount: state.carsTable.carsCount,
+})
+export default connect(mapStateToProps, {
+  requestCarsPage,
+  setCurrentPage,
+  requestCarsTotal,
+})(AdminCarList)

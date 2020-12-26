@@ -36,7 +36,7 @@ export const AdminFilter = ({ name, options }) => {
   )
 }
 
-export const CheckBoxes = ({ direction, items, onChange }) => {
+export const CheckBoxes = ({ direction, items, onChange, isChangeable }) => {
   const inputClass = classNames("admin-checkbox-input", {
     "admin-checkbox-input--column": direction === "column",
   })
@@ -51,6 +51,7 @@ export const CheckBoxes = ({ direction, items, onChange }) => {
             id={item.value}
             checked={item.checked}
             value={item.value}
+            readOnly={!isChangeable}
             onChange={onChange}
           />
           <label className="admin-checkbox-item__label" htmlFor={item.value}>

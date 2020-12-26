@@ -6,9 +6,19 @@ import { TextField } from "../common/AdminForms/AdminForms"
 import { Form, Formik } from "formik"
 import { connect } from "react-redux"
 import { Redirect } from "react-router-dom"
-import { logIn } from "../../store/admin-reducer"
+import { logIn } from "../../store/auth-reducer"
 import * as Yup from "yup"
 import Cookies from "js-cookie"
+
+const initialValues = {
+  username: "",
+  password: "",
+}
+
+const validationSchema = Yup.object({
+  username: Yup.string().required("Введите логин"),
+  password: Yup.string().required("Введите пароль"),
+})
 
 const LoginPage = ({ logIn, isAuthInProgress, isAuthFailed }) => {
   const accessToken = Cookies.get("access_token")
@@ -19,15 +29,6 @@ const LoginPage = ({ logIn, isAuthInProgress, isAuthFailed }) => {
   const onLogInSubmit = (userData) => {
     logIn(userData)
   }
-  const initialValues = {
-    username: "",
-    password: "",
-  }
-
-  const validationSchema = Yup.object({
-    username: Yup.string().required("Введите логин"),
-    password: Yup.string().required("Введите пароль"),
-  })
 
   return (
     <div className="login__wrapper">
@@ -83,8 +84,8 @@ const LoginPage = ({ logIn, isAuthInProgress, isAuthFailed }) => {
 }
 
 const mapStateToProps = (state) => ({
-  isAuthInProgress: state.admin.isAuthInProgress,
-  isAuthFailed: state.admin.isAuthFailed,
+  isAuthInProgress: state.auth.isAuthInProgress,
+  isAuthFailed: state.auth.isAuthFailed,
 })
 
 export default connect(mapStateToProps, { logIn })(LoginPage)
