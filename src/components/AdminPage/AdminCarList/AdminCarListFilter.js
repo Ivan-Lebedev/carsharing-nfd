@@ -4,7 +4,8 @@ import { AdminFilter } from "../../common/AdminForms/AdminForms"
 import { Button } from "../../common/Button/Button"
 
 const initialValues = {
-  field1: "Все модели",
+  field1: "",
+  field2: "",
 }
 
 const AdminCarListFilter = ({ firstOption, onSubmit, clearFilters }) => {

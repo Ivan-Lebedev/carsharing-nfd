@@ -26,12 +26,19 @@ export const getAdminCarNames = (cars) => {
 }
 
 export const getAdminCarTypes = (cars) => {
-  return [...new Set(cars.map((car) => car.categoryId.name))].map((car) => {
-    const carItem = {}
-    carItem.key = car
-    carItem.value = car
-    return carItem
-  })
+  return cars
+    .map((car) => {
+      const carItem = {}
+      carItem.key = car.categoryId.name
+      carItem.value = car.categoryId.id
+      return carItem
+    })
+    .reduce((carTypes, carItem) => {
+      if (!carTypes.find((item) => item.value === carItem.value)) {
+        carTypes.push(carItem)
+      }
+      return carTypes
+    }, [])
 }
 
 export const getAdminCarImg = (order) => {

@@ -28,25 +28,26 @@ const AdminCarList = ({
   setCurrentPage,
   requestCarsTotal,
 }) => {
-  const [filters, setFilters] = useState([])
+  const [filters, setFilters] = useState({ model: "", categoryId: "" })
   useEffect(() => {
     requestCarsPage(currentPage, pageSize, filters)
     requestCarsTotal()
   }, [currentPage, pageSize, requestCarsPage, requestCarsTotal, filters])
 
-  firstOption = [{ key: "Все модели", value: "Все модели" }].concat(
+  firstOption = [{ key: "Все модели", value: "" }].concat(
     getAdminCarNames(carsTotal),
   )
-  const onFiltersSubmit = ({ field1 }) => {
-    if (field1 === "Все модели") {
-      setFilters([])
-      return
-    }
-    setFilters([field1])
+  secondOption = [{ key: "Все типы", value: "" }].concat(
+    getAdminCarTypes(carsTotal),
+  )
+  const onFiltersSubmit = ({ field1, field2 }) => {
+    setFilters({ model: field1, categoryId: field2 })
+    setCurrentPage(0)
   }
   const clearFilters = () => {
-    setFilters([])
+    setFilters({ model: "", categoryId: "" })
   }
+  console.log(carsPerPage)
 
   return (
     <div className="admin__car-list car-list">
@@ -72,16 +73,22 @@ const AdminCarList = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {carsPerPage.map((car) => (
-                    <tr key={car.id}>
-                      <td data-label="Модель">{car.name}</td>
-                      <td data-label="Тип">{car.categoryId.name}</td>
-                      <td data-label="Цена">{`${car.priceMin} - ${car.priceMax} ₽`}</td>
-                      <td data-label="Цвета">
-                        {getAdminTableColors(car.colors)}
-                      </td>
+                  {carsPerPage.length ? (
+                    carsPerPage.map((car) => (
+                      <tr key={car.id}>
+                        <td data-label="Модель">{car.name}</td>
+                        <td data-label="Тип">{car.categoryId.name}</td>
+                        <td data-label="Цена">{`${car.priceMin} - ${car.priceMax} ₽`}</td>
+                        <td data-label="Цвета">
+                          {getAdminTableColors(car.colors)}
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td>Ничего не найдено</td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             )}

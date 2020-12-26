@@ -33,15 +33,21 @@ const orderAPI = {
       },
     })
   },
-  getCarsPage(currentPage = 0, pageSize = 5, filters = []) {
+  getCarsPage(currentPage = 0, pageSize = 5, filters) {
+    const { model, categoryId } = filters
     let reqUrl = `db/car?page=${currentPage}&limit=${pageSize}`
-    if (filters.length !== 0) {
-      filters.forEach((filter) => {
-        reqUrl += `&name[$regex]=.*${filter}.*`
-      })
+    console.log(filters)
+
+    if (model) {
+      reqUrl += `&name[$regex]=.*${model}.*`
     }
+    if (categoryId) {
+      reqUrl += `&categoryId=${categoryId}`
+    }
+    console.log("reqUrl", reqUrl)
     return instance.get(reqUrl)
   },
+
   getAdminOrders(currentPage = 0, pageSize = 5, basicToken) {
     return instance.get(`db/order?page=${currentPage}&limit=${pageSize}`, {
       headers: {
