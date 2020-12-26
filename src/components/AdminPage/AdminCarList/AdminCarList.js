@@ -42,14 +42,13 @@ const AdminCarList = ({
   secondOption = [{ key: "Все типы", value: "" }].concat(
     getAdminCarTypes(carsTotal),
   )
-  const onFiltersSubmit = ({ field1, field2 }) => {
-    setFilters({ model: field1, categoryId: field2 })
+  const onFiltersSubmit = ({ model, type }) => {
+    setFilters({ model: model, categoryId: type })
     setCurrentPage(0)
   }
   const clearFilters = () => {
     setFilters({ model: "", categoryId: "" })
   }
-  console.log(carsPerPage)
 
   return (
     <div className="admin__car-list car-list">
@@ -89,6 +88,9 @@ const AdminCarList = ({
                     ))
                   ) : (
                     <tr>
+                      <td>Ничего не найдено</td>
+                      <td>Ничего не найдено</td>
+                      <td>Ничего не найдено</td>
                       <td>Ничего не найдено</td>
                     </tr>
                   )}

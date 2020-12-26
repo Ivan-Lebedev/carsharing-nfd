@@ -4,8 +4,8 @@ import { AdminFilter } from "../../common/AdminForms/AdminForms"
 import { Button } from "../../common/Button/Button"
 
 const initialValues = {
-  field1: "",
-  field2: "",
+  model: "",
+  type: "",
 }
 
 const AdminCarListFilter = ({
@@ -18,8 +18,8 @@ const AdminCarListFilter = ({
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
       <Form className="car-list__filter">
         <div className="car-list__filter-items">
-          <AdminFilter name="field1" options={firstOption} />
-          <AdminFilter name="field2" options={secondOption} />
+          <AdminFilter name="model" options={firstOption} />
+          <AdminFilter name="type" options={secondOption} />
         </div>
         <div className="car-list__filter-btns">
           <div className="car-list__filter-btn">

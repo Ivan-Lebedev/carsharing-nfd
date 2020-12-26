@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik"
-import React, { useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { AdminFilter } from "../../common/AdminForms/AdminForms"
 import "./AdminOrders.scss"
 import { Button } from "../../common/Button/Button"
@@ -13,41 +13,27 @@ import { connect } from "react-redux"
 import {
   requestOrdersPage,
   setCurrentOrdersPage,
+  requestCarsTotal,
+  requestCitiesTotal,
+  requestStatusesTotal,
 } from "../../../store/orders-table-reducer"
 import Loader from "../../common/Loader/Loader"
 import {
   getAdminCarImg,
   getAdminOrdersDate,
+  getAdminOrdersAllOptions,
 } from "../../common/helpers/Helpers"
 
 const periodOptions = [
+  { key: "За все время", value: "" },
   { key: "За год", value: "year" },
   { key: "За месяц", value: "month" },
   { key: "За неделю", value: "week" },
   { key: "За день", value: "day" },
 ]
-const modelOptions = [
-  { key: "Все модели", value: "all" },
-  { key: "Elantra", value: "Elantra" },
-  { key: "Tucson", value: "Tucson" },
-  { key: "Solaris", value: "Solaris" },
-]
-const cityOptions = [
-  { key: "Ульяновск", value: "Ульяновск" },
-  { key: "Саранск", value: "Саранск" },
-  { key: "Самара", value: "Самара" },
-  { key: "Краснодар", value: "Краснодар" },
-]
-const statusOptions = [
-  { key: "В процессе", value: "process" },
-  { key: "Завершенные", value: "finished" },
-]
-const initialValues = {
-  period: "week",
-  model: "all",
-  city: "Ульяновск",
-  status: "process",
-}
+let modelOptions = []
+let cityOptions = []
+let statusOptions = []
 
 const AdminOrders = ({
   ordersPerPage,
@@ -55,19 +41,57 @@ const AdminOrders = ({
   ordersPageSize,
   currentOrdersPage,
   ordersCount,
+  carsTotal,
+  citiesTotal,
+  statusesTotal,
   requestOrdersPage,
   setCurrentOrdersPage,
+  requestCarsTotal,
+  requestCitiesTotal,
+  requestStatusesTotal,
 }) => {
+  const [filters, setFilters] = useState({
+    period: "",
+    model: "",
+    city: "",
+    status: "",
+  })
   useEffect(() => {
-    requestOrdersPage(currentOrdersPage, ordersPageSize)
-  }, [currentOrdersPage, ordersPageSize, requestOrdersPage])
+    requestOrdersPage(currentOrdersPage, ordersPageSize, filters)
+  }, [currentOrdersPage, ordersPageSize, requestOrdersPage, filters])
+  useEffect(() => {
+    requestCarsTotal()
+    requestCitiesTotal()
+    requestStatusesTotal()
+  }, [requestCarsTotal, requestCitiesTotal, requestStatusesTotal])
+
+  modelOptions = [
+    { key: "Все модели", value: "" },
+    ...getAdminOrdersAllOptions(carsTotal),
+  ]
+  cityOptions = [
+    { key: "Все города", value: "" },
+    ...getAdminOrdersAllOptions(citiesTotal),
+  ]
+  statusOptions = [
+    { key: "Все статусы", value: "" },
+    ...getAdminOrdersAllOptions(statusesTotal),
+  ]
+
+  const onFiltersSubmit = ({ period, model, city, status }) => {
+    setFilters({ period, model, city, status })
+    setCurrentOrdersPage(0)
+  }
+  const clearFilters = () => {
+    setFilters({ period: "", model: "", city: "", status: "" })
+  }
 
   return (
     <div className="admin__orders">
       <div className="content__title">Заказы</div>
       <div className="content__card orders">
         <div className="orders__header">
-          <Formik initialValues={initialValues}>
+          <Formik initialValues={filters} onSubmit={onFiltersSubmit}>
             <Form className="orders__filter">
               <div className="orders__filter-items">
                 <div className="items-container">
@@ -79,8 +103,21 @@ const AdminOrders = ({
                   <AdminFilter name="status" options={statusOptions} />
                 </div>
               </div>
+
               <div className="orders__filter-button">
-                <Button additionalStyles="button__admin">Применить</Button>
+                <Button
+                  additionalStyles="button__admin button__admin--cancel orders__filter-btns"
+                  onClick={clearFilters}
+                >
+                  Сбросить
+                </Button>
+
+                <Button
+                  additionalStyles="button__admin orders__filter-btns"
+                  type="submit"
+                >
+                  Применить
+                </Button>
               </div>
             </Form>
           </Formik>
@@ -88,7 +125,7 @@ const AdminOrders = ({
         <div className="orders__content">
           {isOrdersFetching ? (
             <Loader admin={true} />
-          ) : (
+          ) : ordersPerPage.length ? (
             ordersPerPage.map((order) => {
               return (
                 <div className="orders__order" key={order.id}>
@@ -176,6 +213,10 @@ const AdminOrders = ({
                 </div>
               )
             })
+          ) : (
+            <div className="orders__content-container">
+              <div className="orders__no-data-found">Ничего не найдено</div>
+            </div>
           )}
         </div>
         <div className="orders__footer">
@@ -196,9 +237,15 @@ const mapStateToProps = (state) => ({
   ordersPageSize: state.ordersTable.ordersPageSize,
   currentOrdersPage: state.ordersTable.currentOrdersPage,
   ordersCount: state.ordersTable.ordersCount,
+  carsTotal: state.ordersTable.carsTotal,
+  citiesTotal: state.ordersTable.citiesTotal,
+  statusesTotal: state.ordersTable.statusesTotal,
 })
 
 export default connect(mapStateToProps, {
   requestOrdersPage,
   setCurrentOrdersPage,
+  requestCarsTotal,
+  requestCitiesTotal,
+  requestStatusesTotal,
 })(AdminOrders)

@@ -6,9 +6,14 @@ const SET_ORDERS_PER_PAGE = "SET_ORDERS_PER_PAGE"
 const SET_CURRENT_ORDERS_PAGE = "SET_CURRENT_ORDERS_PAGE"
 const SET_ORDERS_COUNT = "SET_ORDERS_COUNT"
 const SET_ORDERS_TOTAL = "SET_ORDERS_TOTAL"
+const SET_CARS_TOTAL = "SET_CARS_TOTAL"
+const SET_CITIES_TOTAL = "SET_CITIES_TOTAL"
+const SET_STATUSES_TOTAL = "SET_STATUSES_TOTAL"
 
 const initialState = {
-  ordersTotal: [],
+  statusesTotal: [],
+  citiesTotal: [],
+  carsTotal: [],
   ordersPerPage: [],
   ordersPageSize: 3,
   ordersCount: 0,
@@ -43,6 +48,21 @@ const ordersTableReducer = (state = initialState, action) => {
         ...state,
         ordersTotal: action.payload,
       }
+    case SET_CARS_TOTAL:
+      return {
+        ...state,
+        carsTotal: action.payload,
+      }
+    case SET_CITIES_TOTAL:
+      return {
+        ...state,
+        citiesTotal: action.payload,
+      }
+    case SET_STATUSES_TOTAL:
+      return {
+        ...state,
+        statusesTotal: action.payload,
+      }
     default:
       return state
   }
@@ -73,11 +93,26 @@ export const setOrdersTotal = (ordersTotal) => ({
   payload: ordersTotal,
 })
 
-export const requestOrdersPage = (page, pageSize) => async (dispatch) => {
+export const setCarsTotal = (carsTotal) => ({
+  type: SET_CARS_TOTAL,
+  payload: carsTotal,
+})
+
+export const setCitiesTotal = (citiesTotal) => ({
+  type: SET_CITIES_TOTAL,
+  payload: citiesTotal,
+})
+
+export const setStatusesTotal = (statusesTotal) => ({
+  type: SET_STATUSES_TOTAL,
+  payload: statusesTotal,
+})
+
+export const requestOrdersPage = (page, pageSize, filters) => async (dispatch) => {
   try {
     const basicToken = `${Cookies.get("access_token")}`
     dispatch(toggleIsOrdersFetching(true))
-    const result = await orderAPI.getAdminOrders(page, pageSize, basicToken)
+    const result = await orderAPI.getAdminOrders(page, pageSize, basicToken, filters)
     dispatch(toggleIsOrdersFetching(false))
     dispatch(setOrdersPerPage(result.data.data))
     dispatch(setOrdersCount(result.data.count))
@@ -87,15 +122,37 @@ export const requestOrdersPage = (page, pageSize) => async (dispatch) => {
   }
 }
 
-// export const requestCarsTotal = () => async (dispatch) => {
-//   try {
-//     dispatch(toggleIsFetching(true))
-//     const result = await orderAPI.getCar()
-//     dispatch(toggleIsFetching(false))
-//     dispatch(setCarsTotal(result.data.data))
-//   } catch (e) {
-//     console.log(e)
-//   }
-// }
+export const requestCarsTotal = () => async (dispatch) => {
+  try {
+    dispatch(toggleIsOrdersFetching(true))
+    const result = await orderAPI.getCar()
+    dispatch(toggleIsOrdersFetching(false))
+    dispatch(setCarsTotal(result.data.data))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const requestCitiesTotal = () => async (dispatch) => {
+  try {
+    dispatch(toggleIsOrdersFetching(true))
+    const result = await orderAPI.getCity()
+    dispatch(toggleIsOrdersFetching(false))
+    dispatch(setCitiesTotal(result.data.data))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const requestStatusesTotal = () => async (dispatch) => {
+  try {
+    dispatch(toggleIsOrdersFetching(true))
+    const result = await orderAPI.getOrderStatuses()
+    dispatch(toggleIsOrdersFetching(false))
+    dispatch(setStatusesTotal(result.data.data))
+  } catch (e) {
+    console.log(e)
+  }
+}
 
 export default ordersTableReducer

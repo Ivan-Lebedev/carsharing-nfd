@@ -55,3 +55,12 @@ export const getAdminOrdersDate = (date) => {
     newDate.getMonth() + 1,
   )}.${newDate.getFullYear()} ${getZeros(newDate.getHours())}:00`
 }
+
+export const getAdminOrdersAllOptions = (options) => {
+  return options.map((option) => {
+    const optionItem = {}
+    optionItem.key = option.name
+    optionItem.value = option.id
+    return optionItem
+  })
+}

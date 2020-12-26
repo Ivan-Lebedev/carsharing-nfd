@@ -3,7 +3,7 @@ import "./Paginator.scss"
 import ReactPaginate from "react-paginate"
 
 const Paginator = ({ itemsCount, pageSize, onPageChange }) => {
-  const pageCount = Math.ceil(itemsCount / pageSize) || 31
+  const pageCount = Math.ceil(itemsCount / pageSize) || 1
   return (
     <ReactPaginate
       pageCount={pageCount}

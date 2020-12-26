@@ -25,7 +25,14 @@
     flex-wrap: wrap;
   }
   &__filter-button {
+    display: flex;
+    flex-wrap: wrap;
     margin-bottom: 12px;
+  }
+  &__filter-btns {
+    &:last-child {
+      margin-left: 15px;
+    }
   }
   &__content {
     flex-grow: 1;
@@ -67,6 +74,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  &__no-data-found {
+    justify-content: center;
   }
 }
 .car-info-container {
