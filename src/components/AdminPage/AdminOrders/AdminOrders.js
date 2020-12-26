@@ -84,6 +84,7 @@ const AdminOrders = ({
   }
   const clearFilters = () => {
     setFilters({ period: "", model: "", city: "", status: "" })
+    setCurrentOrdersPage(0)
   }
 
   return (
@@ -215,7 +216,7 @@ const AdminOrders = ({
             })
           ) : (
             <div className="orders__content-container">
-              <div className="orders__no-data-found">Ничего не найдено</div>
+              <div className="no-data-found">Ничего не найдено</div>
             </div>
           )}
         </div>

@@ -37,14 +37,14 @@ const orderAPI = {
     })
   },
   getCarsPage(currentPage = 0, pageSize = 5, filters) {
-    const { model, categoryId } = filters
+    const { model, type } = filters
     let reqUrl = `db/car?page=${currentPage}&limit=${pageSize}`
 
     if (model) {
       reqUrl += `&name[$regex]=.*${model}.*`
     }
-    if (categoryId) {
-      reqUrl += `&categoryId=${categoryId}`
+    if (type) {
+      reqUrl += `&categoryId=${type}`
     }
     return instance.get(reqUrl)
   },

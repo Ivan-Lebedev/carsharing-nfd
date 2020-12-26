@@ -30,24 +30,27 @@ const AdminCarList = ({
   setCurrentPage,
   requestCarsTotal,
 }) => {
-  const [filters, setFilters] = useState({ model: "", categoryId: "" })
+  const [filters, setFilters] = useState({ model: "", type: "" })
   useEffect(() => {
     requestCarsPage(currentPage, pageSize, filters)
     requestCarsTotal()
   }, [currentPage, pageSize, requestCarsPage, requestCarsTotal, filters])
 
-  firstOption = [{ key: "Все модели", value: "" }].concat(
-    getAdminCarNames(carsTotal),
-  )
-  secondOption = [{ key: "Все типы", value: "" }].concat(
-    getAdminCarTypes(carsTotal),
-  )
+  firstOption = [
+    { key: "Все модели", value: "" },
+    ...getAdminCarNames(carsTotal),
+  ]
+  secondOption = [
+    { key: "Все типы", value: "" },
+    ...getAdminCarTypes(carsTotal),
+  ]
   const onFiltersSubmit = ({ model, type }) => {
-    setFilters({ model: model, categoryId: type })
+    setFilters({ model, type })
     setCurrentPage(0)
   }
   const clearFilters = () => {
-    setFilters({ model: "", categoryId: "" })
+    setFilters({ model: "", type: "" })
+    setCurrentPage(0)
   }
 
   return (
@@ -56,6 +59,7 @@ const AdminCarList = ({
       <div className="car-list__content-wrapper">
         <div className="car-list__content">
           <AdminCarListFilter
+            filters={filters}
             firstOption={firstOption}
             secondOption={secondOption}
             onSubmit={onFiltersSubmit}
@@ -64,7 +68,7 @@ const AdminCarList = ({
           <div className="car-list__table">
             {isFetching ? (
               <Loader admin={true} />
-            ) : (
+            ) : carsPerPage.length ? (
               <table>
                 <thead>
                   <tr>
@@ -75,27 +79,20 @@ const AdminCarList = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {carsPerPage.length ? (
-                    carsPerPage.map((car) => (
-                      <tr key={car.id}>
-                        <td data-label="Модель">{car.name}</td>
-                        <td data-label="Тип">{car.categoryId.name}</td>
-                        <td data-label="Цена">{`${car.priceMin} - ${car.priceMax} ₽`}</td>
-                        <td data-label="Цвета">
-                          {getAdminTableColors(car.colors)}
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td>Ничего не найдено</td>
-                      <td>Ничего не найдено</td>
-                      <td>Ничего не найдено</td>
-                      <td>Ничего не найдено</td>
+                  {carsPerPage.map((car) => (
+                    <tr key={car.id}>
+                      <td data-label="Модель">{car.name}</td>
+                      <td data-label="Тип">{car.categoryId.name}</td>
+                      <td data-label="Цена">{`${car.priceMin} - ${car.priceMax} ₽`}</td>
+                      <td data-label="Цвета">
+                        {getAdminTableColors(car.colors)}
+                      </td>
                     </tr>
-                  )}
+                  ))}
                 </tbody>
               </table>
+            ) : (
+              <div className="no-data-found">Ничего не найдено</div>
             )}
           </div>
           <div className="car-list__footer">

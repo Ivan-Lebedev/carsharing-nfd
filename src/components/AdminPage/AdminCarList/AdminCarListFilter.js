@@ -3,19 +3,15 @@ import { Form, Formik } from "formik"
 import { AdminFilter } from "../../common/AdminForms/AdminForms"
 import { Button } from "../../common/Button/Button"
 
-const initialValues = {
-  model: "",
-  type: "",
-}
-
 const AdminCarListFilter = ({
+  filters,
   firstOption,
   secondOption,
   onSubmit,
   clearFilters,
 }) => {
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik initialValues={filters} onSubmit={onSubmit}>
       <Form className="car-list__filter">
         <div className="car-list__filter-items">
           <AdminFilter name="model" options={firstOption} />
