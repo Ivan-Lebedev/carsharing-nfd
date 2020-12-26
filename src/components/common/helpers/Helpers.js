@@ -44,7 +44,7 @@ export const getAdminCarTypes = (cars) => {
 export const getAdminCarImg = (order) => {
   return order.carId?.thumbnail?.path.includes("base64")
     ? order.carId?.thumbnail?.path
-    : `http://api-factory.simbirsoft1.com/${order.carId?.thumbnail?.path}`
+    : `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/${order.carId?.thumbnail?.path}`
 }
 
 const getZeros = (number) => (number < 10 ? `0${number}` : number)

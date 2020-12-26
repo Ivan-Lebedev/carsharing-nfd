@@ -136,6 +136,8 @@ const AdminOrders = ({
                         src={order.carId ? getAdminCarImg(order) : CoveredCar}
                         alt="Car"
                         className="car-info__img"
+                        crossOrigin="anonymous"
+                        referrerPolicy="origin"
                       />
                       <div className="car-info__desc">
                         <div className="car-info__desc-item">
