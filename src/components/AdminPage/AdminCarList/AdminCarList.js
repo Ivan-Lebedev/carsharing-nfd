@@ -11,11 +11,13 @@ import Loader from "../../common/Loader/Loader"
 import {
   getAdminTableColors,
   getAdminCarNames,
+  getAdminCarTypes,
 } from "../../common/helpers/Helpers"
 import AdminCarListFilter from "./AdminCarListFilter"
 import { useState } from "react"
 
 let firstOption = []
+let secondOption = []
 
 const AdminCarList = ({
   carsTotal,
@@ -56,6 +58,7 @@ const AdminCarList = ({
         <div className="car-list__content">
           <AdminCarListFilter
             firstOption={firstOption}
+            secondOption={secondOption}
             onSubmit={onFiltersSubmit}
             clearFilters={clearFilters}
           />

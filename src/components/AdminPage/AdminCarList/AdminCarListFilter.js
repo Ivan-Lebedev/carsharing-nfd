@@ -8,12 +8,18 @@ const initialValues = {
   field2: "",
 }
 
-const AdminCarListFilter = ({ firstOption, onSubmit, clearFilters }) => {
+const AdminCarListFilter = ({
+  firstOption,
+  secondOption,
+  onSubmit,
+  clearFilters,
+}) => {
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
       <Form className="car-list__filter">
         <div className="car-list__filter-items">
           <AdminFilter name="field1" options={firstOption} />
+          <AdminFilter name="field2" options={secondOption} />
         </div>
         <div className="car-list__filter-btns">
           <div className="car-list__filter-btn">
