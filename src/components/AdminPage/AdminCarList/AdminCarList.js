@@ -53,6 +53,37 @@ const AdminCarList = ({
     setCurrentPage(0)
   }
 
+  const getTableData = () => {
+    if (isFetching) {
+      return <Loader admin={true} />
+    } else if (carsPerPage.length) {
+      return (
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Модель</th>
+              <th scope="col">Тип</th>
+              <th scope="col">Цена</th>
+              <th scope="col">Цвета</th>
+            </tr>
+          </thead>
+          <tbody>
+            {carsPerPage.map((car) => (
+              <tr key={car.id}>
+                <td data-label="Модель">{car.name}</td>
+                <td data-label="Тип">{car.categoryId.name}</td>
+                <td data-label="Цена">{`${car.priceMin} - ${car.priceMax} ₽`}</td>
+                <td data-label="Цвета">{getAdminTableColors(car.colors)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )
+    } else {
+      return <div className="no-data-found">Ничего не найдено</div>
+    }
+  }
+
   return (
     <div className="admin__car-list car-list">
       <div className="content__title">Список авто</div>
@@ -65,36 +96,7 @@ const AdminCarList = ({
             onSubmit={onFiltersSubmit}
             clearFilters={clearFilters}
           />
-          <div className="car-list__table">
-            {isFetching ? (
-              <Loader admin={true} />
-            ) : carsPerPage.length ? (
-              <table>
-                <thead>
-                  <tr>
-                    <th scope="col">Модель</th>
-                    <th scope="col">Тип</th>
-                    <th scope="col">Цена</th>
-                    <th scope="col">Цвета</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {carsPerPage.map((car) => (
-                    <tr key={car.id}>
-                      <td data-label="Модель">{car.name}</td>
-                      <td data-label="Тип">{car.categoryId.name}</td>
-                      <td data-label="Цена">{`${car.priceMin} - ${car.priceMax} ₽`}</td>
-                      <td data-label="Цвета">
-                        {getAdminTableColors(car.colors)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <div className="no-data-found">Ничего не найдено</div>
-            )}
-          </div>
+          <div className="car-list__table">{getTableData()}</div>
           <div className="car-list__footer">
             <Paginator
               itemsCount={carsCount}

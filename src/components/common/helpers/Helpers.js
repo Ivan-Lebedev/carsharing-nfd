@@ -1,10 +1,10 @@
 export const getColorItems = (formik, carColors) => {
   return carColors.map((color) => {
-    const colorItem = {}
-    colorItem.label = color.charAt(0).toUpperCase() + color.slice(1)
-    colorItem.value = color
-    colorItem.checked = formik.values.color === color
-    return colorItem
+    return {
+      label: color.charAt(0).toUpperCase() + color.slice(1),
+      value: color,
+      checked: formik.values.color === color,
+    }
   })
 }
 
@@ -18,20 +18,14 @@ export const getAdminCarNames = (cars) => {
   return [
     ...new Set(cars.map((car) => car.name.slice(0, car.name.search(/,|\s/)))),
   ].map((car) => {
-    const carItem = {}
-    carItem.key = car
-    carItem.value = car
-    return carItem
+    return { key: car, value: car }
   })
 }
 
 export const getAdminCarTypes = (cars) => {
   return cars
     .map((car) => {
-      const carItem = {}
-      carItem.key = car.categoryId.name
-      carItem.value = car.categoryId.id
-      return carItem
+      return { key: car.categoryId.name, value: car.categoryId.id }
     })
     .reduce((carTypes, carItem) => {
       if (!carTypes.find((item) => item.value === carItem.value)) {
@@ -58,9 +52,6 @@ export const getAdminOrdersDate = (date) => {
 
 export const getAdminOrdersAllOptions = (options) => {
   return options.map((option) => {
-    const optionItem = {}
-    optionItem.key = option.name
-    optionItem.value = option.id
-    return optionItem
+    return { key: option.name, value: option.id }
   })
 }

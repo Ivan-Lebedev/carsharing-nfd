@@ -9,7 +9,6 @@ const Paginator = ({ itemsCount, pageSize, onPageChange }) => {
       pageCount={pageCount}
       initialPage={0}
       onPageChange={onPageChange}
-      //   forcePage={0}
       marginPagesDisplayed={2}
       pageRangeDisplayed={2}
       previousLabel="<<"
