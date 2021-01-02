@@ -16,7 +16,7 @@ import {
 } from "../../../store/orders-table-reducer"
 import Loader from "../../common/Loader/Loader"
 import {
-  getAdminCarImg,
+  getAdminOrdersCarImg,
   getAdminOrdersDate,
   getAdminOrdersAllOptions,
 } from "../../common/helpers/Helpers"
@@ -95,7 +95,7 @@ const AdminOrders = ({
             <div className="orders__content-container car-info-container">
               <div className="orders__car-info car-info">
                 <img
-                  src={order.carId ? getAdminCarImg(order) : CoveredCar}
+                  src={order.carId ? getAdminOrdersCarImg(order) : CoveredCar}
                   alt="Car"
                   className="car-info__img"
                   crossOrigin="anonymous"

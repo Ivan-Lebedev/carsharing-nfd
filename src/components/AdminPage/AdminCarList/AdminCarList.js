@@ -15,6 +15,7 @@ import {
 } from "../../common/helpers/Helpers"
 import AdminCarListFilter from "./AdminCarListFilter"
 import { useState } from "react"
+import { LinkButton } from "../../common/Button/Button"
 
 let firstOption = []
 let secondOption = []
@@ -65,6 +66,7 @@ const AdminCarList = ({
               <th scope="col">Тип</th>
               <th scope="col">Цена</th>
               <th scope="col">Цвета</th>
+              <th scope="col">Редактировать</th>
             </tr>
           </thead>
           <tbody>
@@ -74,6 +76,16 @@ const AdminCarList = ({
                 <td data-label="Тип">{car.categoryId.name}</td>
                 <td data-label="Цена">{`${car.priceMin} - ${car.priceMax} ₽`}</td>
                 <td data-label="Цвета">{getAdminTableColors(car.colors)}</td>
+                <td data-label="Редактировать">
+                  {
+                    <LinkButton
+                      additionalStyles="button__admin button__table"
+                      to={`/admin/car-card/${car.id}`}
+                    >
+                      Редактировать
+                    </LinkButton>
+                  }
+                </td>
               </tr>
             ))}
           </tbody>

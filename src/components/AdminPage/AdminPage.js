@@ -35,6 +35,10 @@ const AdminPage = () => {
               path="/admin/car-card"
               render={() => <AdminCarSettings />}
             />
+            <Route
+              path="/admin/car-card/:carId?"
+              render={() => <AdminCarSettings />}
+            />
             <Route path="*" render={() => <AdminError />} />
           </Switch>
         </div>

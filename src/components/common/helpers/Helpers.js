@@ -35,7 +35,7 @@ export const getAdminCarTypes = (cars) => {
     }, [])
 }
 
-export const getAdminCarImg = (order) => {
+export const getAdminOrdersCarImg = (order) => {
   return order.carId?.thumbnail?.path.includes("base64")
     ? order.carId?.thumbnail?.path
     : `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/${order.carId?.thumbnail?.path}`
@@ -54,4 +54,10 @@ export const getAdminOrdersAllOptions = (options) => {
   return options.map((option) => {
     return { key: option.name, value: option.id }
   })
+}
+
+export const getAdminSettingsCarImg = (data) => {
+  return data.path?.includes("base64")
+    ? data.path
+    : `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/${data.path}`
 }
