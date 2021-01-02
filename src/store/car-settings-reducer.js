@@ -1,12 +1,14 @@
 import orderAPI from "../api/api"
-import Cookies from "js-cookie"
+// import Cookies from "js-cookie"
 
 const TOGGLE_IS_CARS_FETCHING = "TOGGLE_IS_CARS_FETCHING"
 const SET_CAR_DATA = "SET_CAR_DATA"
+const SET_CATEGORY_DATA = "SET_CATEGORY_DATA"
 
 const initialState = {
   isCarsFetching: false,
   carData: [],
+  categoryData: [],
 }
 
 const carSettingsReducer = (state = initialState, action) => {
@@ -20,6 +22,11 @@ const carSettingsReducer = (state = initialState, action) => {
       return {
         ...state,
         carData: action.payload,
+      }
+    case SET_CATEGORY_DATA:
+      return {
+        ...state,
+        categoryData: action.payload,
       }
     default:
       return state
@@ -36,12 +43,28 @@ export const setCarData = (carData) => ({
   payload: carData,
 })
 
+export const setCategoryData = (categoryData) => ({
+  type: SET_CATEGORY_DATA,
+  payload: categoryData,
+})
+
 export const requestCarData = (carId) => async (dispatch) => {
   try {
     dispatch(toggleIsCarsFetching(true))
     const result = await orderAPI.getCarById(carId)
     dispatch(toggleIsCarsFetching(false))
     dispatch(setCarData(result.data.data))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const requestCategoryData = () => async (dispatch) => {
+  try {
+    dispatch(toggleIsCarsFetching(true))
+    const result = await orderAPI.getCategory()
+    dispatch(toggleIsCarsFetching(false))
+    dispatch(setCategoryData(result.data.data))
   } catch (e) {
     console.log(e)
   }

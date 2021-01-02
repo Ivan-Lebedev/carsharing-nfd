@@ -62,3 +62,52 @@ export const CheckBoxes = ({ direction, items, onChange, isChangeable }) => {
     </div>
   )
 }
+
+export const CarSettingsField = ({
+  name,
+  title,
+  placeholder,
+  type,
+  onChange,
+}) => {
+  return (
+    <div className="text-field">
+      <div className="login-form__subtitle">{title}</div>
+      <input
+        id={name}
+        name={name}
+        className="login-form__input"
+        placeholder={placeholder}
+        type={type}
+        onChange={onChange}
+        autoComplete="off"
+        maxLength="20"
+      />
+      <div className="error-message">
+        <ErrorMessage name={name} />
+      </div>
+    </div>
+  )
+}
+
+export const CarSettingsFilter = ({ title, name, options, onChange }) => {
+  return (
+    <div className="car-settings-filter">
+      <div className="login-form__subtitle">{title}</div>
+      <select
+        className="admin-filter"
+        id={name}
+        name={name}
+        onChange={onChange}
+      >
+        {options.map((option) => {
+          return (
+            <option key={option.value} value={option.value}>
+              {option.key}
+            </option>
+          )
+        })}
+      </select>
+    </div>
+  )
+}

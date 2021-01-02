@@ -19,8 +19,11 @@ const orderAPI = {
   getCar() {
     return instance.get(`db/car/`)
   },
-  getCarById(carId) {    
+  getCarById(carId) {
     return instance.get(`db/car/${carId}`)
+  },
+  getCategory() {
+    return instance.get(`db/category`)
   },
   postOrder(orderBody) {
     return instance.post(`db/order/`, orderBody)
