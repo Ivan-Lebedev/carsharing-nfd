@@ -13,6 +13,10 @@ import { connect } from "react-redux"
 import {
   requestCarData,
   requestCategoryData,
+  sendNewCarData,
+  updateCarData,
+  deleteCarData,
+  clearCarData,
 } from "../../../store/car-settings-reducer"
 import { useLocation } from "react-router-dom"
 import Loader from "../../common/Loader/Loader"
@@ -27,6 +31,7 @@ const initialValues = {
   modelType: "",
   modelColors: "",
 }
+let categoryOptions = []
 
 const AdminCarSettings = ({
   carData,
@@ -34,36 +39,59 @@ const AdminCarSettings = ({
   requestCarData,
   categoryData,
   requestCategoryData,
+  sendNewCarData,
+  updateCarData,
+  deleteCarData,
+  clearCarData,
 }) => {
   const location = useLocation()
   const carId = location.pathname.split("/")[3]
+  categoryOptions = [
+    { key: "Выберите категорию", value: "" },
+    ...getAdminOrdersAllOptions(categoryData),
+  ]
+  const [newColor, setNewColor] = useState("")
   const [carSettings, setCarSettings] = useState({
-    priceMax: "priceMax",
-    priceMin: "priceMin",
-    name: "name",
+    priceMax: "",
+    priceMin: "",
+    name: "",
     thumbnail: CarImg,
-    description: "description",
+    description: "",
     categoryId: {},
     colors: [],
+    tank: 100,
   })
-  const [newColor, setNewColor] = useState("")
+  const discardChanges = () => {
+    setCarSettings({
+      priceMax: carData.priceMax ?? "",
+      priceMin: carData.priceMin ?? "",
+      name: carData.name ?? "Введите модель",
+      thumbnail: carData.thumbnail ?? CarImg,
+      description: carData.description ?? "",
+      categoryId: carData.categoryId ?? {},
+      colors: carData.colors ?? [],
+      tank: carData.tank ?? 100,
+    })
+  }
   useEffect(() => {
     if (carId) {
       requestCarData(carId)
     }
-  }, [requestCarData, carId])
+    if (!carId) {
+      clearCarData()
+    }
+  }, [requestCarData, carId, clearCarData])
   useEffect(() => {
-    // if (carId) {
     setCarSettings({
-      priceMax: carData.priceMax ?? "priceMax",
-      priceMin: carData.priceMin ?? "priceMin",
+      priceMax: carData.priceMax ?? "",
+      priceMin: carData.priceMin ?? "",
       name: carData.name ?? "Введите модель",
       thumbnail: carData.thumbnail ?? CarImg,
-      description: carData.description ?? "description",
+      description: carData.description ?? "",
       categoryId: carData.categoryId ?? {},
       colors: carData.colors ?? [],
+      tank: carData.tank ?? 100,
     })
-    // }
   }, [carData])
 
   useEffect(() => {
@@ -91,7 +119,7 @@ const AdminCarSettings = ({
       categoryId: categoryData.find((item) => item.id === value),
     })
   }
-  const colorsCheckBoxesHandeChange = (e) => {
+  const colorsCheckBoxesHandleChange = (e) => {
     const { value } = e.target
     carSettings.colors.splice(carSettings.colors.indexOf(value), 1)
     setCarSettings({
@@ -116,15 +144,31 @@ const AdminCarSettings = ({
     reader.onload = () => {
       setCarSettings({
         ...carSettings,
-        thumbnail: reader.result,
+        thumbnail: {
+          originalname: file.name,
+          mimetype: file.type,
+          size: file.size,
+          path: reader.result,
+        },
       })
     }
   }
+  const submitCarData = () => {
+    if (!carId) {
+      sendNewCarData(carSettings)
+    }
+    if (carId) {
+      updateCarData(carSettings, carId)
+    }
+  }
+  const deleteCar = () => {
+    if (carId) {
+      deleteCarData(carId)
+    }
+  }
 
-  // console.log(carId, carData)
+  // console.log("carId:", carId, carData)
   console.log(carSettings)
-  // console.log(categoryData)
-  // console.log(newColor)
 
   return (
     <div className="admin__car-settings car-settings">
@@ -140,12 +184,7 @@ const AdminCarSettings = ({
                   <div className="car-settings__car-container car-container">
                     <div className="car-container__car-details">
                       <img
-                        src={
-                          carData.thumbnail
-                            ? getAdminSettingsCarImg(carData.thumbnail)
-                            : carSettings.thumbnail
-                          // getAdminSettingsCarImg(carSettings.thumbnail)
-                        }
+                        src={getAdminSettingsCarImg(carSettings.thumbnail)}
                         alt="CarImg"
                         className="car-container__img"
                         crossOrigin="anonymous"
@@ -183,9 +222,8 @@ const AdminCarSettings = ({
                     <div className="car-container__desc">
                       <div className="car-container__desc-title">Описание</div>
                       <textarea
+                        placeholder="Введите описание"
                         name="description"
-                        cols="45"
-                        rows="5"
                         maxLength="200"
                         className="car-container__desc-text"
                         value={carSettings.description}
@@ -230,7 +268,7 @@ const AdminCarSettings = ({
                           <CarSettingsFilter
                             title="Тип авто"
                             name="categoryId"
-                            options={getAdminOrdersAllOptions(categoryData)}
+                            options={categoryOptions}
                             onChange={typeHandleChange}
                           />
                         </div>
@@ -252,7 +290,7 @@ const AdminCarSettings = ({
                       </div>
                       <div className="settings-container__checkboxes">
                         <CheckBoxes
-                          onChange={colorsCheckBoxesHandeChange}
+                          onChange={colorsCheckBoxesHandleChange}
                           isChangeable
                           direction="column"
                           items={getAdminCarSettingsColorItems(
@@ -262,18 +300,26 @@ const AdminCarSettings = ({
                       </div>
                       <div className="settings-container__buttons">
                         <div className="settings-container__buttons-edit">
-                          <Button additionalStyles="button__admin">
+                          <Button
+                            additionalStyles="button__admin"
+                            onClick={submitCarData}
+                          >
                             Сохранить
                           </Button>
                           <Button
                             additionalStyles="button__admin"
-                            disabled={true}
+                            // disabled={true}
+                            onClick={discardChanges}
                           >
                             Отменить
                           </Button>
                         </div>
                         <div className="settings-container__buttons-delete">
-                          <Button additionalStyles="button__admin button__admin--cancel">
+                          <Button
+                            additionalStyles="button__admin button__admin--cancel"
+                            disabled={!carId}
+                            onClick={deleteCar}
+                          >
                             Удалить
                           </Button>
                         </div>
@@ -300,4 +346,8 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   requestCarData,
   requestCategoryData,
+  sendNewCarData,
+  updateCarData,
+  deleteCarData,
+  clearCarData,
 })(AdminCarSettings)

@@ -1,5 +1,5 @@
 import orderAPI from "../api/api"
-// import Cookies from "js-cookie"
+import Cookies from "js-cookie"
 
 const TOGGLE_IS_CARS_FETCHING = "TOGGLE_IS_CARS_FETCHING"
 const SET_CAR_DATA = "SET_CAR_DATA"
@@ -48,6 +48,14 @@ export const setCategoryData = (categoryData) => ({
   payload: categoryData,
 })
 
+export const clearCarData = () => async (dispatch) => {
+  try {
+    dispatch(setCarData([]))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 export const requestCarData = (carId) => async (dispatch) => {
   try {
     dispatch(toggleIsCarsFetching(true))
@@ -65,6 +73,50 @@ export const requestCategoryData = () => async (dispatch) => {
     const result = await orderAPI.getCategory()
     dispatch(toggleIsCarsFetching(false))
     dispatch(setCategoryData(result.data.data))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const sendNewCarData = (carData) => async (dispatch) => {
+  try {
+    const basicToken = `${Cookies.get("access_token")}`
+    const carBody = JSON.stringify(carData)
+    dispatch(toggleIsCarsFetching(true))
+    const response = await orderAPI.postNewCar(carBody, basicToken)
+    dispatch(toggleIsCarsFetching(false))
+    if (response.statusText === "OK") {
+      console.log(response)
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const updateCarData = (carData, carId) => async (dispatch) => {
+  try {
+    const basicToken = `${Cookies.get("access_token")}`
+    const carBody = JSON.stringify(carData)
+    dispatch(toggleIsCarsFetching(true))
+    const response = await orderAPI.putNewCarData(carBody, basicToken, carId)
+    dispatch(toggleIsCarsFetching(false))
+    if (response.statusText === "OK") {
+      console.log(response)
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const deleteCarData = (carId) => async (dispatch) => {
+  try {
+    const basicToken = `${Cookies.get("access_token")}`
+    dispatch(toggleIsCarsFetching(true))
+    const response = await orderAPI.deleteCarData(basicToken, carId)
+    dispatch(toggleIsCarsFetching(false))
+    if (response.statusText === "OK") {
+      console.log(response)
+    }
   } catch (e) {
     console.log(e)
   }

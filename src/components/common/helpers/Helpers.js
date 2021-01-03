@@ -58,6 +58,9 @@ export const getAdminOrdersAllOptions = (options) => {
 }
 
 export const getAdminSettingsCarImg = (data) => {
+  if (!data.path) {
+    return data
+  }
   return data.path?.includes("base64")
     ? data.path
     : // `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/${data.path}`

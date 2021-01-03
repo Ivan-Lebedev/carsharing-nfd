@@ -94,6 +94,30 @@ const orderAPI = {
       },
     })
   },
+  postNewCar(carBody, basicToken) {
+    return instance.post(`db/car/`, carBody, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${basicToken}`,
+      },
+    })
+  },
+  putNewCarData(carBody, basicToken, carId) {
+    return instance.put(`db/car/${carId}`, carBody, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${basicToken}`,
+      },
+    })
+  },
+  deleteCarData(basicToken, carId) {
+    return instance.delete(`db/car/${carId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${basicToken}`,
+      },
+    })
+  },
 }
 
 export default orderAPI

@@ -95,7 +95,7 @@ export const CarSettingsFilter = ({ title, name, options, onChange }) => {
     <div className="car-settings-filter">
       <div className="login-form__subtitle">{title}</div>
       <select
-        className="admin-filter"
+        className="admin-filter car-settings-category"
         id={name}
         name={name}
         onChange={onChange}
