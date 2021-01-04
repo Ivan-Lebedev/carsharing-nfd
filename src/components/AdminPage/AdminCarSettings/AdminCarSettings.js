@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import "./AdminCarSettings.scss"
 import CarImg from "../../../assets/images/CoveredCar.png"
-import ProgressBar from "../../../assets/images/Progress Bar.png"
 import {
   CheckBoxes,
   CarSettingsField,
@@ -68,7 +67,7 @@ const AdminCarSettings = ({
   const initialSettings = {
     priceMax: carData.priceMax ?? "",
     priceMin: carData.priceMin ?? "",
-    name: carData.name ?? "Введите модель",
+    name: carData.name ?? "",
     thumbnail: carData.thumbnail ?? CarImg,
     description: carData.description ?? "",
     categoryId: carData.categoryId ?? {},
@@ -85,8 +84,33 @@ const AdminCarSettings = ({
     requestCategoryData()
   }, [requestCategoryData])
 
+  const initialCompletedFields = {
+    priceMax: !!initialSettings.priceMax,
+    priceMin: !!initialSettings.priceMin,
+    name: !!initialSettings.name,
+    thumbnail: initialSettings.thumbnail !== CarImg,
+    description: !!initialSettings.description,
+    categoryId: !!initialSettings.categoryId.id,
+    colors: !!initialSettings.colors.length,
+  }
+  const [completedFields, setCompletedFields] = useState(initialCompletedFields)
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    let currentProgress = 0
+    const fields = Object.values(completedFields)
+    fields.forEach((field) => {
+      if (field) {
+        currentProgress += 100 / fields.length
+      }
+    })
+    setProgress(Math.trunc(currentProgress))
+  }, [completedFields])
+
   const discardChanges = () => {
     setCarSettings(initialSettings)
+    setCompletedFields(initialCompletedFields)
+    setNewColor("")
   }
   const inputHandleChange = (e) => {
     const { name, value } = e.target
@@ -101,6 +125,18 @@ const AdminCarSettings = ({
         [name]: value,
       })
     }
+    if (value) {
+      setCompletedFields({
+        ...completedFields,
+        [name]: true,
+      })
+    }
+    if (!value) {
+      setCompletedFields({
+        ...completedFields,
+        [name]: false,
+      })
+    }
   }
   const typeHandleChange = (e) => {
     const { value } = e.target
@@ -108,6 +144,18 @@ const AdminCarSettings = ({
       ...carSettings,
       categoryId: categoryData.find((item) => item.id === value),
     })
+    if (value) {
+      setCompletedFields({
+        ...completedFields,
+        categoryId: true,
+      })
+    }
+    if (!value) {
+      setCompletedFields({
+        ...completedFields,
+        categoryId: false,
+      })
+    }
   }
   const colorsCheckBoxesHandleChange = (e) => {
     const { value } = e.target
@@ -116,15 +164,25 @@ const AdminCarSettings = ({
       ...carSettings,
       colors: carSettings.colors,
     })
+    if (!carSettings.colors.length) {
+      setCompletedFields({
+        ...completedFields,
+        colors: false,
+      })
+    }
   }
   const addNewColor = () => {
     if (!carSettings.colors.includes(newColor.trim()) && newColor.trim()) {
       carSettings.colors.push(newColor.trim())
-      console.log("inside")
       setCarSettings({
         ...carSettings,
         colors: carSettings.colors,
       })
+      setCompletedFields({
+        ...completedFields,
+        colors: true,
+      })
+      setNewColor("")
     }
   }
   const fileHandler = (e) => {
@@ -142,6 +200,10 @@ const AdminCarSettings = ({
         },
       })
     }
+    setCompletedFields({
+      ...completedFields,
+      thumbnail: true,
+    })
   }
   const submitCarData = () => {
     if (!carId) {
@@ -154,11 +216,14 @@ const AdminCarSettings = ({
   const deleteCar = () => {
     if (carId) {
       deleteCarData(carId)
+      discardChanges()
     }
   }
 
   // console.log("carId:", carId, carData)
-  console.log(carSettings)
+  // console.log(carSettings)
+  // console.log(progress)
+  // console.log(completedFields)
 
   return (
     <div className="admin__car-settings car-settings">
@@ -196,13 +261,17 @@ const AdminCarSettings = ({
               <div className="car-container__progress-bar progress-bar">
                 <div className="progress-bar__desc">
                   <div className="progress-bar__title">Заполнено</div>
-                  <span className="progress-bar__progress">74 %</span>
+                  <span className="progress-bar__progress">{progress} %</span>
                 </div>
-                <img
-                  src={ProgressBar}
-                  alt="loader"
-                  className="progress-bar__loader"
-                />
+                <div className="progress-bar__loader">
+                  <div
+                    className="progress-bar__loader-line"
+                    style={{
+                      opacity: `${progress ? 1 : 0}`,
+                      width: `${progress}%`,
+                    }}
+                  />
+                </div>
               </div>
               <div className="car-container__desc">
                 <div className="car-container__desc-title">Описание</div>
@@ -228,6 +297,7 @@ const AdminCarSettings = ({
                       title="Модель автомобиля"
                       placeholder="Введите модель"
                       type="text"
+                      value={carSettings.name}
                       onChange={inputHandleChange}
                     />
                   </div>
@@ -237,6 +307,7 @@ const AdminCarSettings = ({
                       title="Минимальная цена"
                       placeholder="Введите цену"
                       type="number"
+                      value={carSettings.priceMin}
                       onChange={inputHandleChange}
                     />
                   </div>
@@ -246,6 +317,7 @@ const AdminCarSettings = ({
                       title="Максимальная цена"
                       placeholder="Введите цену"
                       type="number"
+                      value={carSettings.priceMax}
                       onChange={inputHandleChange}
                     />
                   </div>
@@ -286,12 +358,13 @@ const AdminCarSettings = ({
                     <Button
                       additionalStyles="button__admin"
                       onClick={submitCarData}
+                      disabled={!(progress === 100)}
                     >
                       Сохранить
                     </Button>
                     <Button
                       additionalStyles="button__admin"
-                      // disabled={true}
+                      disabled={progress === 0}
                       onClick={discardChanges}
                     >
                       Отменить

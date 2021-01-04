@@ -69,6 +69,7 @@ export const CarSettingsField = ({
   placeholder,
   type,
   onChange,
+  value,
 }) => {
   return (
     <div className="text-field">
@@ -82,6 +83,7 @@ export const CarSettingsField = ({
         onChange={onChange}
         autoComplete="off"
         maxLength="20"
+        value={value}
       />
       <div className="error-message">
         <div name={name} />
