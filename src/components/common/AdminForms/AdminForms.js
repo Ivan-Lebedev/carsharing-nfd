@@ -84,7 +84,7 @@ export const CarSettingsField = ({
         maxLength="20"
       />
       <div className="error-message">
-        <ErrorMessage name={name} />
+        <div name={name} />
       </div>
     </div>
   )
