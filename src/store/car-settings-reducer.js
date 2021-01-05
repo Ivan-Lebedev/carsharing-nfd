@@ -4,11 +4,13 @@ import Cookies from "js-cookie"
 const TOGGLE_IS_CARS_FETCHING = "TOGGLE_IS_CARS_FETCHING"
 const SET_CAR_DATA = "SET_CAR_DATA"
 const SET_CATEGORY_DATA = "SET_CATEGORY_DATA"
+const SET_NEW_CAR_ID = "SET_NEW_CAR_ID"
 
 const initialState = {
   isCarsFetching: false,
   carData: [],
   categoryData: [],
+  newCarId: null,
 }
 
 const carSettingsReducer = (state = initialState, action) => {
@@ -28,6 +30,11 @@ const carSettingsReducer = (state = initialState, action) => {
         ...state,
         categoryData: action.payload,
       }
+    case SET_NEW_CAR_ID:
+      return {
+        ...state,
+        newCarId: action.payload,
+      }
     default:
       return state
   }
@@ -46,6 +53,11 @@ export const setCarData = (carData) => ({
 export const setCategoryData = (categoryData) => ({
   type: SET_CATEGORY_DATA,
   payload: categoryData,
+})
+
+export const setNewCarId = (newCarId) => ({
+  type: SET_NEW_CAR_ID,
+  payload: newCarId,
 })
 
 export const clearCarData = () => async (dispatch) => {
@@ -87,6 +99,7 @@ export const sendNewCarData = (carData) => async (dispatch) => {
     dispatch(toggleIsCarsFetching(false))
     if (response.statusText === "OK") {
       console.log(response)
+      dispatch(setNewCarId(response.data.data.id))
     }
   } catch (e) {
     console.log(e)
@@ -116,6 +129,7 @@ export const deleteCarData = (carId) => async (dispatch) => {
     dispatch(toggleIsCarsFetching(false))
     if (response.statusText === "OK") {
       console.log(response)
+      dispatch(setNewCarId(null))
     }
   } catch (e) {
     console.log(e)

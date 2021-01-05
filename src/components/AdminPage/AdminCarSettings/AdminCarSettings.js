@@ -16,7 +16,7 @@ import {
   deleteCarData,
   clearCarData,
 } from "../../../store/car-settings-reducer"
-import { useLocation } from "react-router-dom"
+import { useLocation, useHistory } from "react-router-dom"
 import Loader from "../../common/Loader/Loader"
 import {
   getAdminSettingsCarImg,
@@ -31,6 +31,7 @@ const AdminCarSettings = ({
   isCarsFetching,
   requestCarData,
   categoryData,
+  newCarId,
   requestCategoryData,
   sendNewCarData,
   updateCarData,
@@ -38,6 +39,7 @@ const AdminCarSettings = ({
   clearCarData,
 }) => {
   const location = useLocation()
+  const history = useHistory()
   const carId = location.pathname.split("/")[3]
   categoryOptions = [
     { key: "Выберите категорию", value: "" },
@@ -108,6 +110,12 @@ const AdminCarSettings = ({
     })
     setProgress(Math.trunc(currentProgress))
   }, [completedFields])
+
+  useEffect(() => {
+    if (newCarId) {
+      history.push(`/admin/car-card/${newCarId}`)
+    }
+  }, [newCarId, history])
 
   const discardChanges = () => {
     setCarSettings(initialSettings)
@@ -219,6 +227,7 @@ const AdminCarSettings = ({
     if (carId) {
       deleteCarData(carId)
       discardChanges()
+      history.push(`/admin/car-card/`)
     }
   }
 
@@ -226,6 +235,8 @@ const AdminCarSettings = ({
   // console.log(carSettings)
   // console.log(progress)
   // console.log(completedFields)
+  // console.log(history)
+  // console.log(newCarId)
 
   return (
     <div className="admin__car-settings car-settings">
@@ -396,6 +407,7 @@ const mapStateToProps = (state) => ({
   isCarsFetching: state.carSettings.isCarsFetching,
   carData: state.carSettings.carData,
   categoryData: state.carSettings.categoryData,
+  newCarId: state.carSettings.newCarId,
 })
 
 export default connect(mapStateToProps, {
