@@ -75,15 +75,6 @@ const AdminCarSettings = ({
     tank: carData.tank ?? 100,
   }
 
-  useEffect(() => {
-    setCarSettings(initialSettings)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [carData])
-
-  useEffect(() => {
-    requestCategoryData()
-  }, [requestCategoryData])
-
   const initialCompletedFields = {
     priceMax: !!initialSettings.priceMax,
     priceMin: !!initialSettings.priceMin,
@@ -93,6 +84,17 @@ const AdminCarSettings = ({
     categoryId: !!initialSettings.categoryId.id,
     colors: !!initialSettings.colors.length,
   }
+
+  useEffect(() => {
+    setCarSettings(initialSettings)
+    setCompletedFields(initialCompletedFields)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [carData])
+
+  useEffect(() => {
+    requestCategoryData()
+  }, [requestCategoryData])
+
   const [completedFields, setCompletedFields] = useState(initialCompletedFields)
   const [progress, setProgress] = useState(0)
 
@@ -357,8 +359,8 @@ const AdminCarSettings = ({
                   <div className="settings-container__buttons-edit">
                     <Button
                       additionalStyles="button__admin"
-                      onClick={submitCarData}
                       disabled={!(progress === 100)}
+                      onClick={submitCarData}
                     >
                       Сохранить
                     </Button>
