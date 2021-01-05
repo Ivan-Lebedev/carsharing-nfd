@@ -1,0 +1,35 @@
+.admin-alert {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #0ec261;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 15px;
+  color: #ffffff;
+  right: -32px;
+  left: -32px;
+  top: -32px;
+  @media (max-width: 1023px) {
+    right: -16px;
+    left: -16px;
+    top: -16px;
+  }
+  @media (max-width: 767px) {
+    right: -8px;
+    left: -8px;
+    top: -10px;
+  }
+  &__close {
+    cursor: pointer;
+    background: transparent;
+    color: #ffffff;
+    border: none;
+    &:focus {
+      outline: none;
+    }
+  }
+}

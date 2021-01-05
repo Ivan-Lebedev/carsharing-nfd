@@ -23,6 +23,7 @@ import {
   getAdminCarSettingsColorItems,
   getAdminOrdersAllOptions,
 } from "../../common/helpers/Helpers"
+import AdminAlert from "../AdminAlert/AdminAlert"
 
 let categoryOptions = []
 
@@ -116,6 +117,14 @@ const AdminCarSettings = ({
       history.push(`/admin/car-card/${newCarId}`)
     }
   }, [newCarId, history])
+
+  const [alertData, setAlertData] = useState({
+    isVisible: false,
+    text: "",
+  })
+  const alertOnClose = () => {
+    setAlertData({ isVisible: false, text: "" })
+  }
 
   const discardChanges = () => {
     setCarSettings(initialSettings)
@@ -218,9 +227,11 @@ const AdminCarSettings = ({
   const submitCarData = () => {
     if (!carId) {
       sendNewCarData(carSettings)
+      setAlertData({ isVisible: true, text: "Успех! Машина сохранена" })
     }
     if (carId) {
       updateCarData(carSettings, carId)
+      setAlertData({ isVisible: true, text: "Успех! Параметры обновлены" })
     }
   }
   const deleteCar = () => {
@@ -228,6 +239,7 @@ const AdminCarSettings = ({
       deleteCarData(carId)
       discardChanges()
       history.push(`/admin/car-card/`)
+      setAlertData({ isVisible: true, text: "Успех! Машина удалена" })
     }
   }
 
@@ -237,9 +249,11 @@ const AdminCarSettings = ({
   // console.log(completedFields)
   // console.log(history)
   // console.log(newCarId)
+  // console.log(alertOnClose)
 
   return (
     <div className="admin__car-settings car-settings">
+      <AdminAlert alertData={alertData} alertOnClose={alertOnClose} />
       <div className="content__title">Карточка автомобиля</div>
       <div className="car-settings__content">
         {isCarsFetching ? (
