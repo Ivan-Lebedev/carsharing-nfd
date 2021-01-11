@@ -243,14 +243,6 @@ const AdminCarSettings = ({
     }
   }
 
-  // console.log("carId:", carId, carData)
-  // console.log(carSettings)
-  // console.log(progress)
-  // console.log(completedFields)
-  // console.log(history)
-  // console.log(newCarId)
-  // console.log(alertOnClose)
-
   return (
     <div className="admin__car-settings car-settings">
       <AdminAlert alertData={alertData} alertOnClose={alertOnClose} />
