@@ -6,6 +6,7 @@ import { getCars, isCarsFetching } from "../../../store/order-selectors"
 import { requestCars } from "../../../store/order-reducer"
 import { RadioBtns } from "../../common/Forms/Forms"
 import Loader from "../../common/Loader/Loader"
+import { thumbnailURL } from "../../../constants/urls"
 
 const Model = ({ formik, listOfCars, requestCars, isCarsFetching }) => {
   const [listOfFilteredCars, setListOfFilteredCars] = useState(listOfCars)
@@ -19,8 +20,8 @@ const Model = ({ formik, listOfCars, requestCars, isCarsFetching }) => {
       } else {
         return setListOfFilteredCars(
           listOfCars.filter(
-            (car) => car.categoryId.name === formik.values.modelFilter
-          )
+            (car) => car.categoryId.name === formik.values.modelFilter,
+          ),
         )
       }
     }
@@ -35,7 +36,7 @@ const Model = ({ formik, listOfCars, requestCars, isCarsFetching }) => {
   const getCarImg = (car) => {
     return car.thumbnail.path.includes("base64")
       ? car.thumbnail.path
-      : `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/${car.thumbnail.path}`
+      : `${thumbnailURL}${car.thumbnail.path}`
   }
 
   const setValue = (car) => {

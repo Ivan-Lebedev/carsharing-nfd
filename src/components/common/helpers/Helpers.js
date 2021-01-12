@@ -1,3 +1,5 @@
+import { thumbnailURL } from "../../../constants/urls"
+
 export const getColorItems = (formik, carColors) => {
   return carColors.map((color) => {
     return {
@@ -38,7 +40,7 @@ export const getAdminCarTypes = (cars) => {
 export const getAdminOrdersCarImg = (order) => {
   return order.carId?.thumbnail?.path.includes("base64")
     ? order.carId?.thumbnail?.path
-    : `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/${order.carId?.thumbnail?.path}`
+    : `${thumbnailURL}${order.carId?.thumbnail?.path}`
 }
 
 const getZeros = (number) => (number < 10 ? `0${number}` : number)
@@ -62,7 +64,7 @@ export const getAdminSettingsCarImg = (data) => {
   }
   return data.path?.includes("base64")
     ? data.path
-    : `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/${data.path}`
+    : `${thumbnailURL}${data.path}`
 }
 
 export const getAdminCarSettingsColorItems = (carColors) => {

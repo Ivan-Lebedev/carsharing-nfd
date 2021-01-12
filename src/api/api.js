@@ -1,12 +1,15 @@
 import axios from "axios"
+import {
+  actionsHeaders,
+  defaultHeaders,
+  getHeaders,
+  authHeaders,
+} from "../constants/apiHeaders"
+import { baseURL } from "../constants/urls"
 
 const instance = axios.create({
-  baseURL:
-    "https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/",
-  headers: {
-    "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b",
-    Authorization: "Bearer 4cbcea96de",
-  },
+  baseURL,
+  headers: defaultHeaders,
 })
 
 const orderAPI = {
@@ -35,12 +38,7 @@ const orderAPI = {
     return instance.get(`db/orderStatus/`)
   },
   postLogIn(orderBody, basicToken) {
-    return instance.post(`auth/login`, orderBody, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Basic ${basicToken}`,
-      },
-    })
+    return instance.post(`auth/login`, orderBody, authHeaders(basicToken))
   },
   getCarsPage(currentPage = 0, pageSize = 5, filters) {
     const { model, type } = filters
@@ -88,35 +86,16 @@ const orderAPI = {
     if (status) {
       reqUrl += `&orderStatusId=${status}`
     }
-    return instance.get(reqUrl, {
-      headers: {
-        Authorization: `Bearer ${basicToken}`,
-      },
-    })
+    return instance.get(reqUrl, getHeaders(basicToken))
   },
   postNewCar(carBody, basicToken) {
-    return instance.post(`db/car/`, carBody, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${basicToken}`,
-      },
-    })
+    return instance.post(`db/car/`, carBody, actionsHeaders(basicToken))
   },
   putNewCarData(carBody, basicToken, carId) {
-    return instance.put(`db/car/${carId}`, carBody, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${basicToken}`,
-      },
-    })
+    return instance.put(`db/car/${carId}`, carBody, actionsHeaders(basicToken))
   },
   deleteCarData(basicToken, carId) {
-    return instance.delete(`db/car/${carId}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${basicToken}`,
-      },
-    })
+    return instance.delete(`db/car/${carId}`, actionsHeaders(basicToken))
   },
 }
 

@@ -2,6 +2,7 @@ import React from "react"
 import Total from "./Total"
 import { connect } from "react-redux"
 import { getCars } from "../../../store/order-selectors"
+import { thumbnailURL } from "../../../constants/urls"
 
 const TotalContainer = ({ orderData, formData, cars }) => {
   let carName
@@ -13,7 +14,7 @@ const TotalContainer = ({ orderData, formData, cars }) => {
   const getCarImg = (car) => {
     return car?.thumbnail?.path.includes("base64")
       ? car?.thumbnail?.path
-      : `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/${car?.thumbnail?.path}`
+      : `${thumbnailURL}${car?.thumbnail?.path}`
   }
 
   if (orderData) {

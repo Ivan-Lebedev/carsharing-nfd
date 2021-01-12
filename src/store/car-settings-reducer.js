@@ -98,7 +98,6 @@ export const sendNewCarData = (carData) => async (dispatch) => {
     const response = await orderAPI.postNewCar(carBody, basicToken)
     dispatch(toggleIsCarsFetching(false))
     if (response.statusText === "OK") {
-      console.log(response)
       dispatch(setNewCarId(response.data.data.id))
     }
   } catch (e) {
@@ -114,7 +113,6 @@ export const updateCarData = (carData, carId) => async (dispatch) => {
     const response = await orderAPI.putNewCarData(carBody, basicToken, carId)
     dispatch(toggleIsCarsFetching(false))
     if (response.statusText === "OK") {
-      console.log(response)
     }
   } catch (e) {
     console.log(e)
@@ -128,7 +126,6 @@ export const deleteCarData = (carId) => async (dispatch) => {
     const response = await orderAPI.deleteCarData(basicToken, carId)
     dispatch(toggleIsCarsFetching(false))
     if (response.statusText === "OK") {
-      console.log(response)
       dispatch(setNewCarId(null))
     }
   } catch (e) {

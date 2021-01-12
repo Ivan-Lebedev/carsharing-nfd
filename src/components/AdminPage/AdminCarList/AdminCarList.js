@@ -77,14 +77,12 @@ const AdminCarList = ({
                 <td data-label="Цена">{`${car.priceMin} - ${car.priceMax} ₽`}</td>
                 <td data-label="Цвета">{getAdminTableColors(car.colors)}</td>
                 <td data-label="Редактировать">
-                  {
-                    <LinkButton
-                      additionalStyles="button__admin button__table"
-                      to={`/admin/car-card/${car.id}`}
-                    >
-                      Редактировать
-                    </LinkButton>
-                  }
+                  <LinkButton
+                    additionalStyles="button__admin button__table"
+                    to={`/admin/car-card/${car.id}`}
+                  >
+                    Редактировать
+                  </LinkButton>
                 </td>
               </tr>
             ))}
