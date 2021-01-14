@@ -108,11 +108,18 @@ export const setStatusesTotal = (statusesTotal) => ({
   payload: statusesTotal,
 })
 
-export const requestOrdersPage = (page, pageSize, filters) => async (dispatch) => {
+export const requestOrdersPage = (page, pageSize, filters) => async (
+  dispatch,
+) => {
   try {
     const basicToken = `${Cookies.get("access_token")}`
     dispatch(toggleIsOrdersFetching(true))
-    const result = await orderAPI.getAdminOrders(page, pageSize, basicToken, filters)
+    const result = await orderAPI.getAdminOrders(
+      page,
+      pageSize,
+      basicToken,
+      filters,
+    )
     dispatch(toggleIsOrdersFetching(false))
     dispatch(setOrdersPerPage(result.data.data))
     dispatch(setOrdersCount(result.data.count))
@@ -150,6 +157,25 @@ export const requestStatusesTotal = () => async (dispatch) => {
     const result = await orderAPI.getOrderStatuses()
     dispatch(toggleIsOrdersFetching(false))
     dispatch(setStatusesTotal(result.data.data))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const updateOrderData = (orderData, orderId) => async (dispatch) => {
+  try {
+    const basicToken = `${Cookies.get("access_token")}`
+    const orderBody = JSON.stringify(orderData)
+    dispatch(toggleIsOrdersFetching(true))
+    const response = await orderAPI.putNewOrderData(
+      orderBody,
+      basicToken,
+      orderId,
+    )
+    dispatch(toggleIsOrdersFetching(false))
+    if (response.statusText === "OK") {
+      console.log(response)
+    }
   } catch (e) {
     console.log(e)
   }

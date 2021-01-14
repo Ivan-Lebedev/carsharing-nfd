@@ -76,3 +76,10 @@ export const getAdminCarSettingsColorItems = (carColors) => {
     }
   })
 }
+
+// export const getAdminOrdersStatuses = (status) => {
+//   if (status === "new") return "Новый"
+//   if (status === "issued") return "В процессе"
+//   if (status === "confirmed") return "Подтвержден"
+//   if (status === "cancelled") return "Отменен"
+// }

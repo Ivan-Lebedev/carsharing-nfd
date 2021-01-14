@@ -5,6 +5,7 @@ import authReducer from "./auth-reducer"
 import carsTableReducer from "./cars-table-reducer"
 import ordersTableReducer from "./orders-table-reducer"
 import carSettingsReducer from "./car-settings-reducer"
+import adminOrderSettingsReducer from "./admin-order-settings-reducer"
 
 const reducers = combineReducers({
   order: orderReducer,
@@ -12,6 +13,7 @@ const reducers = combineReducers({
   carsTable: carsTableReducer,
   ordersTable: ordersTableReducer,
   carSettings: carSettingsReducer,
+  orderSettings: adminOrderSettingsReducer,
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

@@ -13,6 +13,7 @@ import {
   requestCarsTotal,
   requestCitiesTotal,
   requestStatusesTotal,
+  updateOrderData,
 } from "../../../store/orders-table-reducer"
 import Loader from "../../common/Loader/Loader"
 import {
@@ -21,6 +22,7 @@ import {
   getAdminOrdersAllOptions,
 } from "../../common/helpers/Helpers"
 import AdminOrdersFilter from "./AdminOrdersFilter"
+import { Button, LinkButton } from "../../common/Button/Button"
 
 const periodOptions = [
   { key: "За все время", value: "" },
@@ -47,6 +49,7 @@ const AdminOrders = ({
   requestCarsTotal,
   requestCitiesTotal,
   requestStatusesTotal,
+  updateOrderData,
 }) => {
   const [filters, setFilters] = useState({
     period: "",
@@ -83,6 +86,22 @@ const AdminOrders = ({
   const clearFilters = () => {
     setFilters({ period: "", model: "", city: "", status: "" })
     setCurrentOrdersPage(0)
+  }
+
+  const onConfirmHandler = (order) => {
+    order.orderStatusId = statusesTotal[2]
+    updateOrderData(order, order.id)
+  }
+
+  const onCancelHandler = (order) => {
+    order.orderStatusId = statusesTotal[3]
+    updateOrderData(order, order.id)
+  }
+
+  const checkBoxesHandleChange = (e, order) => {
+    const { value } = e.target
+    order[value] = !order[value]
+    updateOrderData(order, order.id)
   }
 
   const getAdminOrdersContent = () => {
@@ -131,7 +150,7 @@ const AdminOrders = ({
             </div>
             <div className="orders__content-container">
               <CheckBoxes
-                isChangeable={false}
+                onChange={(e) => checkBoxesHandleChange(e, order)}
                 direction="column"
                 items={[
                   {
@@ -152,22 +171,34 @@ const AdminOrders = ({
                 ]}
               />
             </div>
-            <div className="orders__content-container">
+            <div className="orders__content-container status-price-container">
+              <div className="order-status">
+                {order.orderStatusId.name || "НЕТ ДАННЫХ"}
+              </div>
               <div className="order-price">{order.price || "НЕТ ДАННЫХ"} ₽</div>
             </div>
             <div className="orders__content-container">
-              <button className="order__approve order-btn">
+              <Button
+                additionalStyles="order__approve order-btn"
+                onClick={() => onConfirmHandler(order)}
+              >
                 <img className="order-btn__img" src={Approve} alt="Approve" />
                 <div className="order-btn__text">Готово</div>
-              </button>
-              <button className="order__reject order-btn">
+              </Button>
+              <Button
+                additionalStyles="order__reject order-btn"
+                onClick={() => onCancelHandler(order)}
+              >
                 <img src={Reject} alt="Reject" />
                 <div className="order-btn__text">Отмена</div>
-              </button>
-              <button className="order__edit order-btn">
+              </Button>
+              <LinkButton
+                additionalStyles="order__edit order-btn"
+                to={`/admin/orders/${order.id}`}
+              >
                 <img src={Edit} alt="Edit" />
                 <div className="order-btn__text">Изменить</div>
-              </button>
+              </LinkButton>
             </div>
           </div>
         )
@@ -226,4 +257,5 @@ export default connect(mapStateToProps, {
   requestCarsTotal,
   requestCitiesTotal,
   requestStatusesTotal,
+  updateOrderData,
 })(AdminOrders)

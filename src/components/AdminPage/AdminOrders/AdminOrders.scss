@@ -85,6 +85,9 @@
 .items-container {
   display: flex;
 }
+.status-price-container {
+  flex-direction: column;
+}
 
 .car-info {
   display: flex;
@@ -115,6 +118,9 @@
   line-height: 28px;
   color: #121212;
 }
+.order-status {
+  font-size: 20px;
+}
 .order-btn {
   height: 24px;
   width: 75px;
@@ -137,9 +143,13 @@
 .order__reject {
   background: #ffffff;
   border: 0.5px solid #becad6;
+  border-radius: 0;
 }
 .order__edit {
   background: #ffffff;
   border: 0.5px solid #becad6;
   border-radius: 0px 4px 4px 0px;
+}
+.order-settings {
+  flex-direction: row;
 }

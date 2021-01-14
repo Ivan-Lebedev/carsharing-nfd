@@ -88,6 +88,13 @@ const orderAPI = {
     }
     return instance.get(reqUrl, getHeaders(basicToken))
   },
+  putNewOrderData(orderBody, basicToken, orderId) {
+    return instance.put(
+      `db/order/${orderId}`,
+      orderBody,
+      actionsHeaders(basicToken),
+    )
+  },
   postNewCar(carBody, basicToken) {
     return instance.post(`db/car/`, carBody, actionsHeaders(basicToken))
   },
