@@ -1,0 +1,132 @@
+.admin-header {
+  display: flex;
+  height: 68px;
+  background: #ffffff;
+  box-shadow: 0px 2.5px 9.5px rgba(90, 97, 105, 0.12);
+  align-items: center;
+  padding: 0 32px;
+  width: 100%;
+  z-index: 3;
+  @media (max-width: 1023px) {
+    padding: 0 16px;
+    height: 60px;
+  }
+  @media (max-width: 767px) {
+    position: fixed;
+    padding: 0 8px;
+    height: 50px;
+  }
+  &__search {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  &__search-input {
+    border: none;
+    margin-left: 10px;
+    @media (max-width: 767px) {
+      width: 100px;
+    }
+    &::placeholder {
+      color: #767f9d;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  &__notifications {
+    width: 70px;
+    height: 100%;
+    border-right: 0.5px solid #cacedb;
+    border-left: 0.5px solid #cacedb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .notifications {
+    &__icon {
+      cursor: pointer;
+    }
+
+    &__number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 14px;
+      width: 14px;
+      position: relative;
+      right: 6px;
+      top: 8px;
+      background: #c4183c;
+      border-radius: 50%;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 9px;
+      line-height: 13px;
+      color: #ffffff;
+      cursor: pointer;
+    }
+  }
+  &__user-details {
+    display: flex;
+    align-items: center;
+  }
+  .user-details {
+    &__img {
+      height: 40px;
+      width: 40px;
+      margin-left: 25px;
+      margin-right: 15px;
+      cursor: pointer;
+      @media (max-width: 767px) {
+        margin-left: 10px;
+        margin-right: 8px;
+      }
+    }
+    &__name {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 15px;
+      line-height: 17px;
+      color: #5a6169;
+      margin-right: 25px;
+      cursor: pointer;
+      @media (max-width: 767px) {
+        margin-right: 8px;
+      }
+    }
+    &__dropdown {
+      position: absolute;
+      top: 46px;
+      right: 5px;
+      width: 105px;
+      height: 36px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      box-shadow: 0px 1px 0px rgba(90, 97, 105, 0.11),
+        0px 2px 4px rgba(90, 97, 105, 0.12), 0px 5px 5px rgba(90, 97, 105, 0.06),
+        0px 3.5px 35px rgba(90, 97, 105, 0.1);
+      border-radius: 3px;
+      z-index: 5;
+    }
+    &__dropdown-btn {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 15px;
+      line-height: 17px;
+      color: #5a6169;
+      background-color: #fff;
+      border: none;
+      cursor: pointer;
+      &:focus {
+        outline: none;
+      }
+    }
+    &__dropdown-icon {
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,107 @@
+.text-field {
+  width: 100%;
+}
+.error-message {
+  margin-top: -13px;
+  margin-left: 11px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #c4183c;
+}
+
+.admin-filter {
+  border: 0.5px solid #becad6;
+  border-radius: 4px;
+  height: 29px;
+  width: 110px;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 13px;
+  color: #868e96;
+  margin-bottom: 12px;
+  margin-right: 15px;
+  &:focus {
+    outline: none;
+  }
+  &__arrows {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    right: 30px;
+  }
+}
+
+.admin-input__checkbox-item {
+  display: flex;
+  align-items: center;
+}
+.admin-input__checkbox-item:not(:last-child) {
+  margin-bottom: 8px;
+}
+.admin-checkbox-input {
+  display: flex;
+  color: #999999;
+}
+.admin-checkbox-input--column {
+  flex-direction: column;
+}
+.admin-checkbox-item__input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+.admin-checkbox-item__label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: #999999;
+}
+.admin-checkbox-item__label::before {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #999999;
+  margin-right: 6px;
+  cursor: pointer;
+}
+.admin-checkbox-item__label::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  left: 8px;
+  height: 5px;
+  border-bottom: 2px solid black;
+  border-left: 2px solid black;
+  transform-origin: bottom left;
+  transform: rotate(-45deg);
+  opacity: 0;
+  transition: all ease-out 200ms;
+}
+.admin-checkbox-item__input:checked + .admin-checkbox-item__label {
+  color: #121212;
+}
+.admin-checkbox-item__input:checked + .admin-checkbox-item__label::before {
+  border: 1px solid #0ec261;
+}
+.admin-checkbox-item__input:checked + .admin-checkbox-item__label::after {
+  opacity: 1;
+  width: 10px;
+}
+
+.car-settings-filter {
+  display: flex;
+  flex-direction: column;
+}
+.car-settings-category {
+  width: 100%;
+}

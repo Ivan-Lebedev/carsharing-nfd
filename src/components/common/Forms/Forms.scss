@@ -31,7 +31,7 @@
   color: #999999;
 }
 .radio-item__label::before {
-  content: '';
+  content: "";
   display: inline-block;
   width: 12px;
   height: 12px;
@@ -69,12 +69,14 @@
   outline: none;
   border: none;
   border-bottom: 1px solid #999999;
-
   font-style: normal;
   font-weight: 300;
   font-size: 14px;
   line-height: 16px;
   color: #121212;
+}
+.text__input-value::-webkit-calendar-picker-indicator {
+  display: none;
 }
 .text__input-type {
   margin-right: 8px;
@@ -116,7 +118,7 @@
   color: #999999;
 }
 .checkbox-item__label::before {
-  content: '';
+  content: "";
   display: inline-block;
   width: 12px;
   height: 12px;
@@ -125,7 +127,7 @@
   cursor: pointer;
 }
 .checkbox-item__label::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 0;
   left: 8px;
@@ -147,7 +149,9 @@
   opacity: 1;
   width: 10px;
 }
-
+.react-datepicker {
+  display: flex !important;
+}
 @media screen and (max-width: 767px) {
   .text__input {
     width: 269px;
@@ -162,5 +166,27 @@
   }
   .input__radio-item:not(:last-child) {
     margin-bottom: 8px;
+  }
+}
+
+.login-form {
+  &__subtitle {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 12px;
+    color: #495057;
+    align-self: start;
+    margin-bottom: 8px;
+  }
+  &__input {
+    width: 100%;
+    margin-bottom: 16px;
+    background: #ffffff;
+    border: 0.5px solid #becad6;
+    box-sizing: border-box;
+    border-radius: 3px;
+    height: 30px;
+    padding: 12px;
   }
 }

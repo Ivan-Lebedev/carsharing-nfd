@@ -1,31 +1,29 @@
-import React from 'react'
-import './Forms.css'
-import classNames from 'classnames'
-import CrossIcon from '../../common/icons/CrossIcon'
+import React from "react"
+import "./Forms.scss"
+import classNames from "classnames"
+import CrossIcon from "../../common/icons/CrossIcon"
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
 
-export const InputItem = ({ name, direction, items, onChange }) => {
-  const inputClass = classNames('input', {
-    'input--column': direction === 'column',
+export const RadioBtns = ({ name, direction, items, onChange }) => {
+  const inputClass = classNames("input", {
+    "input--column": direction === "column",
   })
-  //item.inputItemClass: 'input__radio-item' / 'input__checkbox-item'
-  //item.inputStyle: 'radio-item__input' / 'checkbox-item__input'
-  //item.inputItemStyle: 'radio' / 'checkbox'
-  //item.inputItemLabelClass: 'radio-item__label' / 'checkbox-item__label'
   return (
     <div className={inputClass}>
       {items.map((item) => (
-        <div className={item.inputItemClass} key={item.value}>
+        <div className="input__radio-item" key={item.value}>
           <input
-            className={item.inputStyle}
-            type={item.inputItemStyle}
-            name={name ? name : item.value}
+            className="radio-item__input"
+            type="radio"
+            name={name}
             id={item.value}
             checked={item.checked}
             value={item.value}
             onChange={onChange}
           />
-          <label className={item.inputItemLabelClass} htmlFor={item.value}>
-            {item.label}
+          <label className="radio-item__label" htmlFor={item.value}>
+            {item.label ? item.label : item.value}
           </label>
         </div>
       ))}
@@ -33,70 +31,174 @@ export const InputItem = ({ name, direction, items, onChange }) => {
   )
 }
 
-export const InputText = ({ items, onChange }) => {
+export const CheckBoxes = ({ direction, items, onChange }) => {
+  const inputClass = classNames("input", {
+    "input--column": direction === "column",
+  })
   return (
-    <div className='text'>
+    <div className={inputClass}>
       {items.map((item) => (
-        <label className='text__input' key={item.label}>
-          <div className='text__input-type'>{item.label}</div>
+        <div className="input__checkbox-item" key={item.value}>
           <input
-            type='text'
-            id={item.name}
-            name={item.name}
-            className='text__input-value'
+            className="checkbox-item__input"
+            type="checkbox"
+            name={item.value}
+            id={item.value}
+            checked={item.checked}
             value={item.value}
             onChange={onChange}
-            placeholder={item.placeholder}
           />
-          <button className='text__input-cancel'>
-            <CrossIcon />
-          </button>
-        </label>
+          <label className="checkbox-item__label" htmlFor={item.value}>
+            {item.label ? item.label : item.value}
+          </label>
+        </div>
       ))}
     </div>
   )
 }
 
-// export const InputText = ({ item }) => {
-//   const [text1, setText1] = useState(item.value1)
-//   const [text2, setText2] = useState(item.value2)
+export const DateFrom = ({ formik }) => {
+  const clearInput = classNames("text__input-cancel", {
+    "text__input-cancel--hidden": formik.values.dateFrom.length === 0,
+  })
+  const setValue = (date) =>
+    formik.setValues({ ...formik.values, dateFrom: date })
+  const clearValue = () => formik.setValues({ ...formik.values, dateFrom: "" })
+  const dateNow = new Date()
+  return (
+    <div className="text">
+      <div className="text__input">
+        <div className="text__input-type">С</div>
+        <DatePicker
+          selectsStart
+          selected={formik.values.dateFrom}
+          onChange={(date) => setValue(date)}
+          startDate={formik.values.dateFrom}
+          endDate={formik.values.dateTo}
+          maxDate={formik.values.dateTo}
+          className="text__input-value"
+          placeholderText={"Введите дату и время"}
+          showTimeSelect
+          timeFormat="HH:mm"
+          timeIntervals={60}
+          dateFormat="dd.MM.yyyy HH:mm"
+          minDate={dateNow}
+        />
+        <button className={clearInput} onClick={clearValue}>
+          <CrossIcon />
+        </button>
+      </div>
+    </div>
+  )
+}
 
-//   const clearText1 = classNames('text__input-cancel', {
-//     'text__input-cancel--hidden': text1.length === 0,
-//   })
+export const DateTo = ({ formik }) => {
+  const clearInput = classNames("text__input-cancel", {
+    "text__input-cancel--hidden": formik.values.dateTo.length === 0,
+  })
+  const setValue = (date) =>
+    formik.setValues({ ...formik.values, dateTo: date })
+  const clearValue = () => formik.setValues({ ...formik.values, dateTo: "" })
+  return (
+    <div className="text">
+      <div className="text__input">
+        <div className="text__input-type">По</div>
+        <DatePicker
+          selectsEnd
+          selected={formik.values.dateTo}
+          onChange={(date) => setValue(date)}
+          startDate={formik.values.dateFrom}
+          endDate={formik.values.dateTo}
+          minDate={formik.values.dateFrom}
+          className="text__input-value"
+          placeholderText={"Введите дату и время"}
+          showTimeSelect
+          timeFormat="HH:mm"
+          timeIntervals={60}
+          dateFormat="dd.MM.yyyy HH:mm"
+        />
+        <button className={clearInput} onClick={clearValue}>
+          <CrossIcon />
+        </button>
+      </div>
+    </div>
+  )
+}
 
-//   const clearText2 = classNames('text__input-cancel', {
-//     'text__input-cancel--hidden': text2.length === 0,
-//   })
+export const SearchCity = ({ item, onChange, formik }) => {
+  const clearInput = classNames("text__input-cancel", {
+    "text__input-cancel--hidden": item.value.length === 0,
+  })
+  const clearValue = () =>
+    formik.setValues({ ...formik.values, locationCity: "" })
+  return (
+    <div className="text">
+      <label className="text__input" key={item.label}>
+        <div className="text__input-type">{item.label}</div>
+        <input
+          maxLength="20"
+          type="text"
+          id={item.name}
+          name={item.name}
+          className="text__input-value"
+          value={item.value}
+          onChange={onChange}
+          placeholder={item.placeholder}
+          list={item.placeholder}
+          autoComplete="off"
+        />
+        {item.options && item.value.length > 1 && (
+          <datalist id={item.placeholder}>
+            {item.options.map((city, index) => (
+              <option key={index}>{city}</option>
+            ))}
+          </datalist>
+        )}
+        <button className={clearInput} onClick={clearValue}>
+          <CrossIcon />
+        </button>
+      </label>
+    </div>
+  )
+}
 
-//   return (
-//     <div className='text'>
-//       <label className='text__input'>
-//         <div className='text__input-type'>{item.label1}</div>
-//         <input
-//           type='text'
-//           className='text__input-value'
-//           value={text1}
-//           onChange={(e) => setText1(e.target.value)}
-//           placeholder={item.placeholder1}
-//         />
-//         <button className={clearText1} onClick={() => setText1('')}>
-//           <CrossIcon />
-//         </button>
-//       </label>
-//       <label className='text__input'>
-//         <div className='text__input-type'>{item.label2}</div>
-//         <input
-//           type='text'
-//           className='text__input-value'
-//           value={text2}
-//           onChange={(e) => setText2(e.target.value)}
-//           placeholder={item.placeholder2}
-//         />
-//         <button className={clearText2} onClick={() => setText2('')}>
-//           <CrossIcon />
-//         </button>
-//       </label>
-//     </div>
-//   )
-// }
+export const SearchPoint = ({ item, onChange, formik }) => {
+  const clearInput = classNames("text__input-cancel", {
+    "text__input-cancel--hidden": item.value.length === 0,
+  })
+  const clearValue = () =>
+    formik.setValues({ ...formik.values, locationPoint: "" })
+  return (
+    <div className="text">
+      <label className="text__input" key={item.label}>
+        <div className="text__input-type">{item.label}</div>
+        <input
+          maxLength="20"
+          type="text"
+          id={item.name}
+          name={item.name}
+          className="text__input-value"
+          value={item.value}
+          onChange={onChange}
+          placeholder={item.placeholder}
+          list={item.placeholder}
+          autoComplete="off"
+        />
+        {item.options && (
+          <datalist id={item.placeholder}>
+            {item.options.length ? (
+              item.options.map((point, index) => (
+                <option key={index}>{point}</option>
+              ))
+            ) : (
+              <option>В городе нет точек</option>
+            )}
+          </datalist>
+        )}
+        <button className={clearInput} onClick={clearValue}>
+          <CrossIcon />
+        </button>
+      </label>
+    </div>
+  )
+}

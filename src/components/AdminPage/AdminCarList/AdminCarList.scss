@@ -1,0 +1,141 @@
+.car-list {
+  height: 100%;
+  &__content-wrapper {
+    padding-top: 32px;
+    @media (max-width: 1023px) {
+      padding-top: 16px;
+    }
+    @media (max-width: 767px) {
+      padding-top: 8px;
+    }
+  }
+  &__content {
+    display: flex;
+    height: fit-content;
+    padding: 16px 20px 0 20px;
+    padding-bottom: 0;
+    background: #ffffff;
+    flex-direction: column;
+    box-shadow: 0px 1px 0px rgba(90, 97, 105, 0.11),
+      0px 2px 4px rgba(90, 97, 105, 0.12), 0px 5px 5px rgba(90, 97, 105, 0.06),
+      0px 3.5px 35px rgba(90, 97, 105, 0.1);
+    border-radius: 9px;
+    @media (max-width: 1023px) {
+      padding: 16px;
+      padding-bottom: 0;
+    }
+    @media (max-width: 767px) {
+      padding: 8px;
+      padding-bottom: 0;
+    }
+  }
+  &__filter {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    @media (max-width: 767px) {
+      justify-content: center;
+    }
+  }
+  &__filter-items {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-right: -15px;
+  }
+  &__filter-btns {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  &__filter-btn {
+    &:last-child {
+      margin-left: 15px;
+    }
+  }
+  &__footer {
+    display: flex;
+    justify-content: center;
+    height: 60px;
+  }
+}
+
+table {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+  margin-bottom: 32px;
+  border-collapse: collapse;
+  @media (max-width: 1023px) {
+    margin-bottom: 16px;
+  }
+  @media (max-width: 767px) {
+    margin-bottom: 8px;
+  }
+}
+table th,
+table td {
+  padding: 0.625em;
+  text-align: center;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  color: #3d5170;
+}
+table th {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  color: #3d5170;
+}
+table tr {
+  border-bottom: 1px solid #ddd;
+}
+@media screen and (max-width: 767px) {
+  table {
+    border: 0;
+  }
+  table caption {
+    font-size: 1.3em;
+  }
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    background-color: #000;
+  }
+  table tr {
+    display: block;
+    margin-bottom: 0.625em;
+    border-bottom: 1px solid #ddd;
+  }
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 0.8em;
+    text-align: right;
+  }
+  table td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  table td:last-child {
+    border-bottom: 0;
+  }
+  table td:first-child {
+    color: white;
+    background: #007bff;
+    border-radius: 4px;
+  }
+}

@@ -1,130 +1,86 @@
-import React from 'react'
-import './Addition.css'
-import { InputItem, InputText } from '../../common/Forms/Forms'
+import React from "react"
+import "./Addition.css"
+import { connect } from "react-redux"
+import { getCars } from "../../../store/order-selectors"
+import {
+  RadioBtns,
+  CheckBoxes,
+  DateFrom,
+  DateTo,
+} from "../../common/Forms/Forms"
+import { getColorItems } from "../../common/helpers/Helpers"
 
-const Addition = ({ formik }) => {
+const Addition = ({ formik, cars }) => {
+  const modelData = cars.find((car) => car.name === formik.values.model)
+  const carColors = ["любой", ...modelData.colors]
+
+  const сolorItems = getColorItems(formik, carColors)
+
+  const RadioBtnsItems = [
+    {
+      label: `Поминутно, ${Math.ceil(
+        (1.5 * modelData.priceMin) / (60 * 24)
+      )} ₽/мин`,
+      value: "minute",
+      checked: formik.values.rate === "minute",
+    },
+    {
+      label: `На сутки, ${Math.ceil(modelData.priceMin)} ₽/сутки`,
+      value: "day",
+      checked: formik.values.rate === "day",
+    },
+  ]
+
+  const CheckBoxesItems = [
+    {
+      label: "Полный бак, 500р",
+      value: "isFullTank",
+      checked: formik.values.isFullTank === true,
+    },
+    {
+      label: "Детское кресло, 200р",
+      value: "isNeedChildChair",
+      checked: formik.values.isNeedChildChair === true,
+    },
+    {
+      label: "Правый руль, 1600р",
+      value: "isRightWheel",
+      checked: formik.values.isRightWheel === true,
+    },
+  ]
+
   return (
-    <div className='addition'>
-      <div className='addition__option'>
-        <div className='addition__title'>Цвет</div>
-        <InputItem
-          name='color'
-          items={[
-            {
-              inputItemLabelClass: 'radio-item__label',
-              inputItemStyle: 'radio',
-              inputStyle: 'radio-item__input',
-              inputItemClass: 'input__radio-item',
-              label: 'Любой',
-              value: 'Любой',
-              checked: formik.values.color === 'Любой',
-            },
-            {
-              inputItemLabelClass: 'radio-item__label',
-              inputItemStyle: 'radio',
-              inputStyle: 'radio-item__input',
-              inputItemClass: 'input__radio-item',
-              label: 'Красный',
-              value: 'Красный',
-              checked: formik.values.color === 'Красный',
-            },
-            {
-              inputItemLabelClass: 'radio-item__label',
-              inputItemStyle: 'radio',
-              inputStyle: 'radio-item__input',
-              inputItemClass: 'input__radio-item',
-              label: 'Голубой',
-              value: 'Голубой',
-              checked: formik.values.color === 'Голубой',
-            },
-          ]}
+    <div className="addition">
+      <div className="addition__option">
+        <div className="addition__title">Цвет</div>
+        <RadioBtns
+          name="color"
+          items={сolorItems}
           onChange={formik.handleChange}
         />
       </div>
 
-      <div className='addition__option'>
-        <div className='addition__title'>Дата аренды</div>
-        <InputText
-          items={[
-            {
-              name: 'dateFrom',
-              label: 'C',
-              placeholder: 'Введите дату и время',
-              value: formik.values.dateFrom,
-            },
-            {
-              name: 'dateTo',
-              label: 'По',
-              placeholder: 'Введите дату и время',
-              value: formik.values.dateTo,
-            },
-          ]}
+      <div className="addition__option">
+        <div className="addition__title">Дата аренды</div>
+        <DateFrom formik={formik} />
+        <DateTo formik={formik} />
+      </div>
+
+      <div className="addition__option">
+        <div className="addition__title">Тариф</div>
+        <RadioBtns
+          name="rate"
+          direction="column"
+          items={RadioBtnsItems}
           onChange={formik.handleChange}
         />
       </div>
 
-      <div className='addition__option'>
-        <div className='addition__title'>Тариф</div>
-        <InputItem
-          name='plan'
-          direction='column'
-          items={[
-            {
-              inputItemLabelClass: 'radio-item__label',
-              inputItemStyle: 'radio',
-              inputStyle: 'radio-item__input',
-              inputItemClass: 'input__radio-item',
-              label: 'Поминутно, 7₽/мин',
-              value: 'minute',
-              checked: formik.values.plan === 'minute',
-            },
-            {
-              inputItemLabelClass: 'radio-item__label',
-              inputItemStyle: 'radio',
-              inputStyle: 'radio-item__input',
-              inputItemClass: 'input__radio-item',
-              label: 'На сутки, 1999 ₽/сутки',
-              value: 'day',
-              checked: formik.values.plan === 'day',
-            },
-          ]}
-          onChange={formik.handleChange}
-        />
-      </div>
-
-      <div className='addition__option'>
-        <div className='addition__title'>Доп услуги</div>
-        <InputItem
-          direction='column'
-          items={[
-            {
-              inputItemLabelClass: 'checkbox-item__label',
-              inputItemStyle: 'checkbox',
-              inputStyle: 'checkbox-item__input',
-              inputItemClass: 'input__checkbox-item',
-              label: 'Полный бак, 500р',
-              value: 'fullFuel',
-              checked: formik.values.fullFuel === true,
-            },
-            {
-              inputItemLabelClass: 'checkbox-item__label',
-              inputItemStyle: 'checkbox',
-              inputStyle: 'checkbox-item__input',
-              inputItemClass: 'input__checkbox-item',
-              label: 'Детское кресло, 200р',
-              value: 'childSeat',
-              checked: formik.values.childSeat === true,
-            },
-            {
-              inputItemLabelClass: 'checkbox-item__label',
-              inputItemStyle: 'checkbox',
-              inputStyle: 'checkbox-item__input',
-              inputItemClass: 'input__checkbox-item',
-              label: 'Правый руль, 1600р',
-              value: 'rightHand',
-              checked: formik.values.rightHand === true,
-            },
-          ]}
+      <div className="addition__option">
+        <div className="addition__title">Доп услуги</div>
+        <CheckBoxes
+          direction="column"
+          items={CheckBoxesItems}
           onChange={formik.handleChange}
         />
       </div>
@@ -132,4 +88,8 @@ const Addition = ({ formik }) => {
   )
 }
 
-export default Addition
+const mapStateToProps = (state) => ({
+  cars: getCars(state),
+})
+
+export default connect(mapStateToProps)(Addition)
