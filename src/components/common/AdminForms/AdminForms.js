@@ -1,103 +1,12 @@
-import { Field, ErrorMessage } from "formik"
-import React from "react"
 import "./AdminForms.scss"
-import classNames from "classnames"
+import TextField from "./TextField"
+import AdminFilter from "./AdminFilter"
+import CheckBoxes from "./CheckBoxes"
+import CarSettingsField from "./CarSettingsField"
+import CarSettingsFilter from "./CarSettingsFilter"
 
-export const TextField = ({ name, title, placeholder, type }) => (
-  <div className="text-field">
-    <div className="login-form__subtitle">{title}</div>
-    <Field
-      as="input"
-      id={name}
-      name={name}
-      className="login-form__input"
-      placeholder={placeholder}
-      type={type}
-    />
-    <div className="error-message">
-      <ErrorMessage name={name} />
-    </div>
-  </div>
-)
-
-export const AdminFilter = ({ name, options }) => (
-  <Field className="admin-filter" as="select" id={name} name={name}>
-    {options.map((option) => (
-      <option key={option.value} value={option.value}>
-        {option.key}
-      </option>
-    ))}
-  </Field>
-)
-
-export const CheckBoxes = ({ direction, items, onChange, isChangeable }) => {
-  const inputClass = classNames("admin-checkbox-input", {
-    "admin-checkbox-input--column": direction === "column",
-  })
-  return (
-    <div className={inputClass}>
-      {items.map((item) => (
-        <div className="admin-input__checkbox-item" key={item.value}>
-          <input
-            className="admin-checkbox-item__input"
-            type="checkbox"
-            name={item.value}
-            id={item.value}
-            checked={item.checked}
-            value={item.value}
-            readOnly={!isChangeable}
-            onChange={onChange}
-          />
-          <label className="admin-checkbox-item__label" htmlFor={item.value}>
-            {item.label ? item.label : item.value}
-          </label>
-        </div>
-      ))}
-    </div>
-  )
-}
-
-export const CarSettingsField = ({
-  name,
-  title,
-  placeholder,
-  type,
-  onChange,
-  value,
-}) => (
-  <div className="text-field">
-    <div className="login-form__subtitle">{title}</div>
-    <input
-      id={name}
-      name={name}
-      className="login-form__input"
-      placeholder={placeholder}
-      type={type}
-      onChange={onChange}
-      autoComplete="off"
-      maxLength="20"
-      value={value}
-    />
-    <div className="error-message">
-      <div name={name} />
-    </div>
-  </div>
-)
-
-export const CarSettingsFilter = ({ title, name, options, onChange }) => (
-  <div className="car-settings-filter">
-    <div className="login-form__subtitle">{title}</div>
-    <select
-      className="admin-filter car-settings-category"
-      id={name}
-      name={name}
-      onChange={onChange}
-    >
-      {options.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.key}
-        </option>
-      ))}
-    </select>
-  </div>
-)
+export { TextField }
+export { AdminFilter }
+export { CheckBoxes }
+export { CarSettingsField }
+export { CarSettingsFilter }

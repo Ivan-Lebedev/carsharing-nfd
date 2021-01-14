@@ -10,14 +10,14 @@ function App() {
   return (
     <div className="app-wrapper">
       <Switch>
-        <Route exact path="/" render={() => <MainPage />} />
-        <Route exact path="/order" render={() => <OrderPage />} />
+        <Route exact path="/" component={MainPage} />
+        <Route exact path="/order" component={OrderPage} />
         <Route
           path="/order/finished/:orderId?"
           render={() => <OrderPage isFinished />}
         />
-        <Route exact path="/login" render={() => <LoginPage />} />
-        <Route path="/admin" render={() => <AdminPage />} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route path="/admin" component={AdminPage} />
       </Switch>
     </div>
   )

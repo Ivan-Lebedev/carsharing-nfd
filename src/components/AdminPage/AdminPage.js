@@ -24,22 +24,14 @@ const AdminPage = () => {
         <AdminHeader setIsTokenValid={setIsTokenValid} />
         <div className="admin__content content">
           <Switch>
-            <Route exact path="/admin/orders" render={() => <AdminOrders />} />
-            <Route
-              exact
-              path="/admin/car-list"
-              render={() => <AdminCarList />}
-            />
-            <Route
-              exact
-              path="/admin/car-card"
-              render={() => <AdminCarSettings />}
-            />
+            <Route exact path="/admin/orders" component={AdminOrders} />
+            <Route exact path="/admin/car-list" component={AdminCarList} />
+            <Route exact path="/admin/car-card" component={AdminCarSettings} />
             <Route
               path="/admin/car-card/:carId?"
-              render={() => <AdminCarSettings />}
+              component={AdminCarSettings}
             />
-            <Route path="*" render={() => <AdminError />} />
+            <Route path="*" component={AdminError} />
           </Switch>
         </div>
         <AdminFooter />
