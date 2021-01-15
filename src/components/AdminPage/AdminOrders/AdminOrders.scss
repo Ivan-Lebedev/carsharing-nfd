@@ -152,4 +152,15 @@
 }
 .order-settings {
   flex-direction: row;
+  padding: 20px 18px;
+  @media (max-width: 1023px) {
+    flex-direction: column;
+    padding: 16px;
+  }
+  @media (max-width: 767px) {
+    padding: 8px;
+  }
+  &__options {
+    flex-grow: 1;
+  }
 }

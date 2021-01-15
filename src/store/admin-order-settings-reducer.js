@@ -3,13 +3,15 @@ import Cookies from "js-cookie"
 
 const TOGGLE_IS_ORDER_FETCHING = "TOGGLE_IS_ORDER_FETCHING"
 const SET_ORDER_DATA = "SET_ORDER_DATA"
-const SET_POINTS_DATA = "SET_CATEGORY_DATA"
+const SET_POINTS_DATA = "SET_POINTS_DATA"
+const SET_CITIES_DATA = "SET_CITIES_DATA"
 const SET_CARS_DATA = "SET_CARS_DATA"
 
 const initialState = {
   isOrderFetching: false,
   orderData: null,
   pointsData: [],
+  citiesData: null,
   carsData: [],
 }
 
@@ -29,6 +31,11 @@ const adminOrderSettingsReducer = (state = initialState, action) => {
       return {
         ...state,
         pointsData: action.payload,
+      }
+    case SET_CITIES_DATA:
+      return {
+        ...state,
+        citiesData: action.payload,
       }
     case SET_CARS_DATA:
       return {
@@ -55,6 +62,11 @@ export const setPointsData = (pointsData) => ({
   payload: pointsData,
 })
 
+export const setCitiesData = (citiesData) => ({
+  type: SET_CITIES_DATA,
+  payload: citiesData,
+})
+
 export const setCarsData = (carsData) => ({
   type: SET_CARS_DATA,
   payload: carsData,
@@ -66,6 +78,28 @@ export const requestOrderData = (orderId) => async (dispatch) => {
     const result = await orderAPI.getOrder(orderId)
     dispatch(toggleIsOrderFetching(false))
     dispatch(setOrderData(result.data.data))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const requestCarsData = () => async (dispatch) => {
+  try {
+    dispatch(toggleIsOrderFetching(true))
+    const result = await orderAPI.getCar()
+    dispatch(toggleIsOrderFetching(false))
+    dispatch(setCarsData(result.data.data))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const requestCitiesData = () => async (dispatch) => {
+  try {
+    dispatch(toggleIsOrderFetching(true))
+    const result = await orderAPI.getCity()
+    dispatch(toggleIsOrderFetching(false))
+    dispatch(setCitiesData(result.data.data))
   } catch (e) {
     console.log(e)
   }

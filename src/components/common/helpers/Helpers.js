@@ -58,6 +58,11 @@ export const getAdminOrdersAllOptions = (options) => {
   })
 }
 
+export const getAdminOrderCurrentModel = (carData) => ({
+  key: carData.name,
+  value: carData.id,
+})
+
 export const getAdminSettingsCarImg = (data) => {
   if (!data.path) {
     return data
@@ -74,6 +79,12 @@ export const getAdminCarSettingsColorItems = (carColors) => {
       value: color,
       checked: true,
     }
+  })
+}
+
+export const getAdminOrderColors = (colors) => {
+  return colors.map((color) => {
+    return { key: color.charAt(0).toUpperCase() + color.slice(1), value: color }
   })
 }
 
