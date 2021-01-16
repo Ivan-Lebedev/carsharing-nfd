@@ -2,12 +2,12 @@ import React from "react"
 import "./Paginator.scss"
 import ReactPaginate from "react-paginate"
 
-const Paginator = ({ itemsCount, pageSize, onPageChange }) => {
+const Paginator = ({ itemsCount, pageSize, onPageChange, currentPage }) => {
   const pageCount = Math.ceil(itemsCount / pageSize) || 1
   return (
     <ReactPaginate
       pageCount={pageCount}
-      initialPage={0}
+      initialPage={currentPage}
       onPageChange={onPageChange}
       marginPagesDisplayed={2}
       pageRangeDisplayed={2}

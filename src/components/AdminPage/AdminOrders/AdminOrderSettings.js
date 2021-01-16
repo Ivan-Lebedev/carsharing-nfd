@@ -69,9 +69,38 @@ const AdminOrderSettings = ({
 
   useEffect(() => {
     if (orderSettings && carsData.length && citiesData && pointsData) {
+      if (!orderSettings.carId) {
+        setCarImg(CarImg)
+        setCurrentModel({
+          key: "НЕТ ДАННЫХ",
+          value: "НЕТ ДАННЫХ",
+        })
+        setCarColors(["НЕТ ДАННЫХ"])
+        setCurrentColor({
+          key: "НЕТ ДАННЫХ",
+          value: "НЕТ ДАННЫХ",
+        })
+      }
+      if (orderSettings.carId) {
+        setCarImg(getAdminOrdersCarImg(orderSettings))
+        setCurrentModel(getAdminOrderCurrentModel(orderSettings.carId))
+        setCarColors(
+          getAdminOrderColors(
+            orderSettings.carId.colors.length
+              ? orderSettings.carId.colors
+              : ["НЕТ ДАННЫХ"],
+          ),
+        )
+        setCurrentColor(
+          getAdminOrderColors(orderSettings.carId.colors).find(
+            (item) => item.value === orderSettings.color,
+          ) ?? {
+            key: "НЕТ ДАННЫХ",
+            value: "НЕТ ДАННЫХ",
+          },
+        )
+      }
       setIsDataReady(true)
-      setCarImg(getAdminOrdersCarImg(orderSettings))
-      setCurrentModel(getAdminOrderCurrentModel(orderSettings.carId))
       setCities(getAdminOrdersAllOptions(citiesData))
       setCurrentCity(
         getAdminOrdersAllOptions(citiesData).find(
@@ -94,21 +123,6 @@ const AdminOrderSettings = ({
             key: "НЕТ ДАННЫХ",
             value: "НЕТ ДАННЫХ",
           },
-      )
-      setCarColors(
-        getAdminOrderColors(
-          orderSettings.carId.colors.length
-            ? orderSettings.carId.colors
-            : ["НЕТ ДАННЫХ"],
-        ),
-      )
-      setCurrentColor(
-        getAdminOrderColors(orderSettings.carId.colors).find(
-          (item) => item.value === orderSettings.color,
-        ) ?? {
-          key: "НЕТ ДАННЫХ",
-          value: "НЕТ ДАННЫХ",
-        },
       )
     }
   }, [orderSettings, carsData.length, citiesData, pointsData])
@@ -167,18 +181,6 @@ const AdminOrderSettings = ({
     discardChanges()
     history.push(`/admin/orders/`)
   }
-
-  console.log(orderSettings)
-  // console.log(carsData)
-  // console.log(currentModel)
-  // console.log(carModels)
-  // console.log(currentColor)
-  // console.log(carColors)
-  // console.log(currentCity)
-  // console.log(cities)
-  // console.log(citiesData)
-  // console.log(pointsData)
-  // console.log(currentPoint)
 
   return (
     <div className="admin__orders">

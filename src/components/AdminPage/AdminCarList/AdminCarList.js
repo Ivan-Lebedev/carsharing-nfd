@@ -109,6 +109,7 @@ const AdminCarList = ({
           <div className="car-list__table">{getTableData()}</div>
           <div className="car-list__footer">
             <Paginator
+              currentPage={currentPage}
               itemsCount={carsCount}
               pageSize={pageSize}
               onPageChange={({ selected }) => setCurrentPage(selected)}

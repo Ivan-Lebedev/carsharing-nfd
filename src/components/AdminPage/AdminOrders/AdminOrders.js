@@ -230,6 +230,7 @@ const AdminOrders = ({
         <div className="orders__content">{getAdminOrdersContent()}</div>
         <div className="orders__footer">
           <Paginator
+            currentPage={currentOrdersPage}
             itemsCount={ordersCount}
             pageSize={ordersPageSize}
             onPageChange={({ selected }) => setCurrentOrdersPage(selected)}
