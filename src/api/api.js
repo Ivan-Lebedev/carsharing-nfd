@@ -95,6 +95,9 @@ const orderAPI = {
       actionsHeaders(basicToken),
     )
   },
+  deleteOrderData(basicToken, orderId) {
+    return instance.delete(`db/order/${orderId}`, actionsHeaders(basicToken))
+  },
   postNewCar(carBody, basicToken) {
     return instance.post(`db/car/`, carBody, actionsHeaders(basicToken))
   },

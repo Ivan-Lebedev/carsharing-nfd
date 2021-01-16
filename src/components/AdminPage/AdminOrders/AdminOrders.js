@@ -173,7 +173,7 @@ const AdminOrders = ({
             </div>
             <div className="orders__content-container status-price-container">
               <div className="order-status">
-                {order.orderStatusId.name || "НЕТ ДАННЫХ"}
+                {order.orderStatusId?.name || "НЕТ ДАННЫХ"}
               </div>
               <div className="order-price">{order.price || "НЕТ ДАННЫХ"} ₽</div>
             </div>

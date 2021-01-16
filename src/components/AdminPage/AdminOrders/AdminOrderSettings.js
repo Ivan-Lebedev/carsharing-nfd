@@ -5,22 +5,21 @@ import {
   requestOrderData,
   requestCarsData,
   requestCitiesData,
+  requestPointsData,
+  updateOrderData,
+  deleteOrderData,
 } from "../../../store/admin-order-settings-reducer"
 import {
   getAdminOrdersCarImg,
   getAdminOrdersAllOptions,
   getAdminOrderCurrentModel,
   getAdminOrderColors,
+  getAdminOrderSettingsPoints,
 } from "../../common/helpers/Helpers"
 import CarImg from "../../../assets/images/CoveredCar.png"
 import Loader from "../../common/Loader/Loader"
 import { CarSettingsFilter } from "../../common/AdminForms/AdminForms"
 import { Button } from "../../common/Button/Button"
-
-const colors = [
-  { key: "Тускло-серый", value: "Тускло-серый" },
-  { key: "Тускло-зеленый", value: "Тускло-зеленый" },
-]
 
 const AdminOrderSettings = ({
   isOrderFetching,
@@ -31,6 +30,9 @@ const AdminOrderSettings = ({
   requestOrderData,
   requestCarsData,
   requestCitiesData,
+  requestPointsData,
+  updateOrderData,
+  deleteOrderData,
 }) => {
   const location = useLocation()
   const history = useHistory()
@@ -45,19 +47,28 @@ const AdminOrderSettings = ({
   const [currentColor, setCurrentColor] = useState(null)
   const [cities, setCities] = useState(null)
   const [currentCity, setCurrentCity] = useState(null)
+  const [points, setPoints] = useState(null)
+  const [currentPoint, setCurrentPoint] = useState(null)
 
   useEffect(() => {
     requestOrderData(orderId)
     requestCarsData()
     requestCitiesData()
-  }, [requestOrderData, orderId, requestCarsData, requestCitiesData])
+    requestPointsData()
+  }, [
+    requestOrderData,
+    orderId,
+    requestCarsData,
+    requestCitiesData,
+    requestPointsData,
+  ])
 
   useEffect(() => {
     setOrderSettings(orderData)
   }, [orderData])
 
   useEffect(() => {
-    if (orderSettings && carsData.length && citiesData) {
+    if (orderSettings && carsData.length && citiesData && pointsData) {
       setIsDataReady(true)
       setCarImg(getAdminOrdersCarImg(orderSettings))
       setCurrentModel(getAdminOrderCurrentModel(orderSettings.carId))
@@ -67,11 +78,28 @@ const AdminOrderSettings = ({
           (item) => item.value === orderSettings.cityId.id,
         ),
       )
+      const currentPoints = getAdminOrderSettingsPoints(
+        pointsData.filter(
+          (item) =>
+            item.cityId.id ===
+            getAdminOrdersAllOptions(citiesData).find(
+              (item) => item.value === orderSettings.cityId.id,
+            ).value,
+        ),
+      )
+      setPoints(currentPoints)
+      setCurrentPoint(
+        currentPoints.find((item) => item.value === orderSettings.pointId.id) ??
+          currentPoints[0] ?? {
+            key: "НЕТ ДАННЫХ",
+            value: "НЕТ ДАННЫХ",
+          },
+      )
       setCarColors(
         getAdminOrderColors(
           orderSettings.carId.colors.length
             ? orderSettings.carId.colors
-            : ["НЕТ ДАННЫХ"], // из-за того, что кто-то добавил машину без цветов пришлось написать проверки для этого случая
+            : ["НЕТ ДАННЫХ"],
         ),
       )
       setCurrentColor(
@@ -83,7 +111,7 @@ const AdminOrderSettings = ({
         },
       )
     }
-  }, [orderSettings, carsData.length, citiesData])
+  }, [orderSettings, carsData.length, citiesData, pointsData])
 
   const currentModelHandleChange = (e) => {
     const { value } = e.target
@@ -114,6 +142,32 @@ const AdminOrderSettings = ({
     })
   }
 
+  const currentPointHandleChange = (e) => {
+    const { value } = e.target
+    const currentPointData = pointsData.find((item) => item.id === value)
+    const copyCurrentPointData = { ...currentPointData }
+    delete copyCurrentPointData.cityId
+    setCurrentPoint(points.find((item) => item.value === value))
+    setOrderSettings({
+      ...orderSettings,
+      pointId: copyCurrentPointData,
+    })
+  }
+
+  const discardChanges = () => {
+    requestOrderData(orderId)
+  }
+
+  const submitOrderData = () => {
+    updateOrderData(orderSettings, orderId)
+  }
+
+  const deleteOrder = () => {
+    deleteOrderData(orderId)
+    discardChanges()
+    history.push(`/admin/orders/`)
+  }
+
   console.log(orderSettings)
   // console.log(carsData)
   // console.log(currentModel)
@@ -123,10 +177,12 @@ const AdminOrderSettings = ({
   // console.log(currentCity)
   // console.log(cities)
   // console.log(citiesData)
+  // console.log(pointsData)
+  // console.log(currentPoint)
 
   return (
     <div className="admin__orders">
-      {!isDataReady ? (
+      {!isDataReady || isOrderFetching ? (
         <Loader admin />
       ) : (
         <>
@@ -143,10 +199,10 @@ const AdminOrderSettings = ({
                   referrerPolicy="origin"
                 />
                 <div className="car-container__title">
-                  {orderSettings.carId.name}
+                  {orderSettings.carId?.name || "НЕТ ДАННЫХ"}
                 </div>
                 <div className="car-container__car-desc">
-                  {orderSettings.carId.categoryId?.description}
+                  {orderSettings.carId?.categoryId?.description || "НЕТ ДАННЫХ"}
                 </div>
               </div>
 
@@ -185,23 +241,22 @@ const AdminOrderSettings = ({
                   <CarSettingsFilter
                     title="Адрес выдачи"
                     name="categoryId"
-                    options={colors}
-                    // onChange={typeHandleChange}
+                    options={points}
+                    value={currentPoint.value}
+                    onChange={currentPointHandleChange}
                   />
                 </div>
                 <div className="settings-container__buttons">
                   <div className="settings-container__buttons-edit">
                     <Button
                       additionalStyles="button__admin"
-                      // disabled={!(progress === 100)}
-                      // onClick={submitCarData}
+                      onClick={submitOrderData}
                     >
                       Сохранить
                     </Button>
                     <Button
                       additionalStyles="button__admin"
-                      // disabled={progress === 0}
-                      // onClick={discardChanges}
+                      onClick={discardChanges}
                     >
                       Отменить
                     </Button>
@@ -209,8 +264,7 @@ const AdminOrderSettings = ({
                   <div className="settings-container__buttons-delete">
                     <Button
                       additionalStyles="button__admin button__admin--cancel"
-                      // disabled={!carId}
-                      // onClick={deleteCar}
+                      onClick={deleteOrder}
                     >
                       Удалить
                     </Button>
@@ -235,4 +289,7 @@ export default connect(mapStateToProps, {
   requestOrderData,
   requestCarsData,
   requestCitiesData,
+  requestPointsData,
+  updateOrderData,
+  deleteOrderData,
 })(AdminOrderSettings)

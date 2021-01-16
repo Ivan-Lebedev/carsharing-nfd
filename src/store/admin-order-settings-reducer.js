@@ -10,7 +10,7 @@ const SET_CARS_DATA = "SET_CARS_DATA"
 const initialState = {
   isOrderFetching: false,
   orderData: null,
-  pointsData: [],
+  pointsData: null,
   citiesData: null,
   carsData: [],
 }
@@ -105,58 +105,46 @@ export const requestCitiesData = () => async (dispatch) => {
   }
 }
 
-// export const requestCategoryData = () => async (dispatch) => {
-//   try {
-//     dispatch(toggleIsCarsFetching(true))
-//     const result = await orderAPI.getCategory()
-//     dispatch(toggleIsCarsFetching(false))
-//     dispatch(setCategoryData(result.data.data))
-//   } catch (e) {
-//     console.log(e)
-//   }
-// }
+export const requestPointsData = () => async (dispatch) => {
+  try {
+    dispatch(toggleIsOrderFetching(true))
+    const result = await orderAPI.getPoint()
+    dispatch(toggleIsOrderFetching(false))
+    dispatch(setPointsData(result.data.data))
+  } catch (e) {
+    console.log(e)
+  }
+}
 
-// export const sendNewCarData = (carData) => async (dispatch) => {
-//   try {
-//     const basicToken = `${Cookies.get("access_token")}`
-//     const carBody = JSON.stringify(carData)
-//     dispatch(toggleIsCarsFetching(true))
-//     const response = await orderAPI.postNewCar(carBody, basicToken)
-//     dispatch(toggleIsCarsFetching(false))
-//     if (response.statusText === "OK") {
-//       dispatch(setNewCarId(response.data.data.id))
-//     }
-//   } catch (e) {
-//     console.log(e)
-//   }
-// }
+export const updateOrderData = (orderData, orderId) => async (dispatch) => {
+  try {
+    const basicToken = `${Cookies.get("access_token")}`
+    const orderBody = JSON.stringify(orderData)
+    dispatch(toggleIsOrderFetching(true))
+    const response = await orderAPI.putNewOrderData(
+      orderBody,
+      basicToken,
+      orderId,
+    )
+    dispatch(toggleIsOrderFetching(false))
+    if (response.statusText === "OK") {
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
 
-// export const updateCarData = (carData, carId) => async (dispatch) => {
-//   try {
-//     const basicToken = `${Cookies.get("access_token")}`
-//     const carBody = JSON.stringify(carData)
-//     dispatch(toggleIsCarsFetching(true))
-//     const response = await orderAPI.putNewCarData(carBody, basicToken, carId)
-//     dispatch(toggleIsCarsFetching(false))
-//     if (response.statusText === "OK") {
-//     }
-//   } catch (e) {
-//     console.log(e)
-//   }
-// }
-
-// export const deleteCarData = (carId) => async (dispatch) => {
-//   try {
-//     const basicToken = `${Cookies.get("access_token")}`
-//     dispatch(toggleIsCarsFetching(true))
-//     const response = await orderAPI.deleteCarData(basicToken, carId)
-//     dispatch(toggleIsCarsFetching(false))
-//     if (response.statusText === "OK") {
-//       dispatch(setNewCarId(null))
-//     }
-//   } catch (e) {
-//     console.log(e)
-//   }
-// }
+export const deleteOrderData = (orderId) => async (dispatch) => {
+  try {
+    const basicToken = `${Cookies.get("access_token")}`
+    dispatch(toggleIsOrderFetching(true))
+    const response = await orderAPI.deleteOrderData(basicToken, orderId)
+    dispatch(toggleIsOrderFetching(false))
+    if (response.statusText === "OK") {
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
 
 export default adminOrderSettingsReducer
