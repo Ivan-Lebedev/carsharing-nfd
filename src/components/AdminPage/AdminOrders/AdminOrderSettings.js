@@ -189,7 +189,7 @@ const AdminOrderSettings = ({
       ) : (
         <>
           <div className="content__title">Заказ № {orderId}</div>
-          <div className="content__card orders">
+          <div className="small-content-card orders">
             <div className="orders__content order-settings">
               <div className="car-container__car-details">
                 <div className="settings-container__title">Выбранное авто</div>

@@ -35,6 +35,16 @@ const AdminNavBar = () => {
           <span className="menu__item-title">Список авто</span>
         </NavLink>
         <NavLink
+          to="/admin/car-category"
+          className="menu__item"
+          activeClassName="menu__item--active"
+        >
+          <div className="menu__item-icon">
+            <CarList />
+          </div>
+          <span className="menu__item-title">Категории авто</span>
+        </NavLink>
+        <NavLink
           to="/admin/orders"
           className="menu__item"
           activeClassName="menu__item--active"
