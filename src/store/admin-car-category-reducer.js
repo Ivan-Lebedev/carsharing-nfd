@@ -3,7 +3,7 @@ import Cookies from "js-cookie"
 
 const TOGGLE_IS_DATA_FETCHING = "TOGGLE_IS_DATA_FETCHING"
 const SET_CATEGORIES_DATA = "SET_CATEGORIES_DATA"
-const SET_CATEGORY_DATA = "SET_CATEGORY_DATA"
+const SET_CATEGORY_SETTINGS_DATA = "SET_CATEGORY_SETTINGS_DATA"
 const SET_NEW_CATEGORY_ID = "SET_NEW_CATEGORY_ID"
 
 const initialState = {
@@ -25,7 +25,7 @@ const adminCategoriesDataReducer = (state = initialState, action) => {
         ...state,
         categoriesData: action.payload,
       }
-    case SET_CATEGORY_DATA:
+    case SET_CATEGORY_SETTINGS_DATA:
       return {
         ...state,
         carsCategoryData: action.payload,
@@ -51,7 +51,7 @@ export const setCategoriesData = (categoriesData) => ({
 })
 
 export const setCategoryData = (carsCategoryData) => ({
-  type: SET_CATEGORY_DATA,
+  type: SET_CATEGORY_SETTINGS_DATA,
   payload: carsCategoryData,
 })
 

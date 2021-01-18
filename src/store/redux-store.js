@@ -15,7 +15,7 @@ const reducers = combineReducers({
   ordersTable: ordersTableReducer,
   carSettings: carSettingsReducer,
   orderSettings: adminOrderSettingsReducer,
-  categoryData: adminCategoriesDataReducer,
+  carCategoryData: adminCategoriesDataReducer,
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

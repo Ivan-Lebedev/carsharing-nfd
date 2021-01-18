@@ -148,9 +148,9 @@ const AdminCarCategorySettings = ({
 }
 
 const mapStateToProps = (state) => ({
-  isDataFetching: state.categoryData.isDataFetching,
-  carsCategoryData: state.categoryData.carsCategoryData,
-  newCategoryId: state.categoryData.newCategoryId,
+  isDataFetching: state.carCategoryData.isDataFetching,
+  carsCategoryData: state.carCategoryData.carsCategoryData,
+  newCategoryId: state.carCategoryData.newCategoryId,
 })
 
 export default connect(mapStateToProps, {

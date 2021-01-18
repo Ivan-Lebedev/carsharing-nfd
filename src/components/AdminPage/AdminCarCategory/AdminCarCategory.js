@@ -74,8 +74,8 @@ const AdminCarCategory = ({
 }
 
 const mapStateToProps = (state) => ({
-  isDataFetching: state.categoryData.isDataFetching,
-  categoriesData: state.categoryData.categoriesData,
+  isDataFetching: state.carCategoryData.isDataFetching,
+  categoriesData: state.carCategoryData.categoriesData,
 })
 
 export default connect(mapStateToProps, { requestCategoriesData })(
