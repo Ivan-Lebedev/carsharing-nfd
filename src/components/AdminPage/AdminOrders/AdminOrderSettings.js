@@ -130,21 +130,22 @@ const AdminOrderSettings = ({
 
   const currentModelHandleChange = (e) => {
     const { value } = e.target
+    const currentCarData = carsData.find((item) => item.id === value)
     setCurrentModel(carModels.find((item) => item.value === value))
     setOrderSettings({
       ...orderSettings,
-      carId: carsData.find((item) => item.id === value),
-      color:
-        carsData.find((item) => item.id === value).colors[0] ?? dataIsNotFound,
+      carId: currentCarData,
+      color: currentCarData.colors[0] ?? dataIsNotFound,
     })
   }
 
   const currentColorHandleChange = (e) => {
     const { value } = e.target
-    setCurrentColor(carColors.find((item) => item.value === value))
+    const currentColorData = carColors.find((item) => item.value === value)
+    setCurrentColor(currentColorData)
     setOrderSettings({
       ...orderSettings,
-      color: carColors.find((item) => item.value === value).value,
+      color: currentColorData.value,
     })
   }
 
