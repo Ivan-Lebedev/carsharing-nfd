@@ -10,7 +10,7 @@ import {
 import { CarSettingsField } from "../../common/AdminForms/AdminForms"
 import { Button } from "../../common/Button/Button"
 import Loader from "../../common/Loader/Loader"
-import { useLocation, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import "./AdminCarCategory.scss"
 import { newCategory } from "../../../constants/strings"
 
@@ -23,10 +23,10 @@ const AdminCarCategorySettings = ({
   deleteCategoryData,
   sendNewCategoryData,
   clearCategoryId,
+  match,
 }) => {
-  const location = useLocation()
   const history = useHistory()
-  const categoryId = location.pathname.split("/")[3]
+  const categoryId = match.params.categoryId
 
   const [category, setCategory] = useState(carsCategoryData)
   const [isDataReady, setIsDataReady] = useState(false)

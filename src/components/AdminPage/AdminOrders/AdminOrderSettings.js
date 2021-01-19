@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { connect } from "react-redux"
-import { useLocation, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import {
   requestOrderData,
   requestCarsData,
@@ -34,10 +34,10 @@ const AdminOrderSettings = ({
   requestPointsData,
   updateOrderData,
   deleteOrderData,
+  match,
 }) => {
-  const location = useLocation()
   const history = useHistory()
-  const orderId = location.pathname.split("/")[3]
+  const orderId = match.params.orderId
 
   const carModels = [...getAdminOrdersAllOptions(carsData)]
   const [orderSettings, setOrderSettings] = useState(orderData)
