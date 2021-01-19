@@ -67,6 +67,8 @@ const AdminOrders = ({
     requestStatusesTotal()
   }, [requestCarsTotal, requestCitiesTotal, requestStatusesTotal])
 
+  useEffect(() => () => setCurrentOrdersPage(0), [setCurrentOrdersPage])
+
   modelOptions = [
     { key: "Все модели", value: "" },
     ...getAdminOrdersAllOptions(carsTotal),
@@ -176,7 +178,9 @@ const AdminOrders = ({
               <div className="order-status">
                 {order.orderStatusId?.name || dataIsNotFound}
               </div>
-              <div className="order-price">{order.price || dataIsNotFound} ₽</div>
+              <div className="order-price">
+                {order.price || dataIsNotFound} ₽
+              </div>
             </div>
             <div className="orders__content-container">
               <Button

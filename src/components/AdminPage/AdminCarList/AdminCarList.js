@@ -37,6 +37,8 @@ const AdminCarList = ({
     requestCarsTotal()
   }, [currentPage, pageSize, requestCarsPage, requestCarsTotal, filters])
 
+  useEffect(() => () => setCurrentPage(0), [setCurrentPage])
+
   firstOption = [
     { key: "Все модели", value: "" },
     ...getAdminCarNames(carsTotal),
