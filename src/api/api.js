@@ -25,8 +25,11 @@ const orderAPI = {
   getCarById(carId) {
     return instance.get(`db/car/${carId}`)
   },
-  getCategory() {
-    return instance.get(`db/category`)
+  getCategory(categoryId) {
+    if (!categoryId) {
+      categoryId = ""
+    }
+    return instance.get(`db/category/${categoryId}`)
   },
   postOrder(orderBody) {
     return instance.post(`db/order/`, orderBody)
@@ -88,6 +91,16 @@ const orderAPI = {
     }
     return instance.get(reqUrl, getHeaders(basicToken))
   },
+  putNewOrderData(orderBody, basicToken, orderId) {
+    return instance.put(
+      `db/order/${orderId}`,
+      orderBody,
+      actionsHeaders(basicToken),
+    )
+  },
+  deleteOrderData(basicToken, orderId) {
+    return instance.delete(`db/order/${orderId}`, actionsHeaders(basicToken))
+  },
   postNewCar(carBody, basicToken) {
     return instance.post(`db/car/`, carBody, actionsHeaders(basicToken))
   },
@@ -96,6 +109,26 @@ const orderAPI = {
   },
   deleteCarData(basicToken, carId) {
     return instance.delete(`db/car/${carId}`, actionsHeaders(basicToken))
+  },
+  putNewCategoryData(categoryBody, basicToken, categoryId) {
+    return instance.put(
+      `db/category/${categoryId}`,
+      categoryBody,
+      actionsHeaders(basicToken),
+    )
+  },
+  deleteCategoryData(basicToken, categoryId) {
+    return instance.delete(
+      `db/category/${categoryId}`,
+      actionsHeaders(basicToken),
+    )
+  },
+  postNewCategory(categoryBody, basicToken) {
+    return instance.post(
+      `db/category/`,
+      categoryBody,
+      actionsHeaders(basicToken),
+    )
   },
 }
 

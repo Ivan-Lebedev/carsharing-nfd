@@ -203,9 +203,12 @@
   &__item {
     position: relative;
     display: flex;
-    width: 320px;
+    width: fit-content;
     margin-right: 20px;
     align-items: center;
+  }
+  &__wrapper {
+    display: flex;
   }
   &__item-btn {
     background: #fff;

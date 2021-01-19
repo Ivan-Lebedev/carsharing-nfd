@@ -10,6 +10,9 @@ import AdminCarSettings from "./AdminCarSettings/AdminCarSettings"
 import AdminCarList from "./AdminCarList/AdminCarList"
 import Cookies from "js-cookie"
 import { useState } from "react"
+import AdminOrderSettings from "./AdminOrders/AdminOrderSettings"
+import AdminCarCategory from "./AdminCarCategory/AdminCarCategory"
+import AdminCarCategorySettings from "./AdminCarCategory/AdmonCarCategorySettings"
 
 const AdminPage = () => {
   const [isTokenValid, setIsTokenValid] = useState(Cookies.get("access_token"))
@@ -25,11 +28,24 @@ const AdminPage = () => {
         <div className="admin__content content">
           <Switch>
             <Route exact path="/admin/orders" component={AdminOrders} />
+            <Route
+              path="/admin/orders/:orderId?"
+              component={AdminOrderSettings}
+            />
             <Route exact path="/admin/car-list" component={AdminCarList} />
             <Route exact path="/admin/car-card" component={AdminCarSettings} />
             <Route
               path="/admin/car-card/:carId?"
               component={AdminCarSettings}
+            />
+            <Route
+              exact
+              path="/admin/car-category"
+              component={AdminCarCategory}
+            />
+            <Route
+              path="/admin/car-category/:categoryId?"
+              component={AdminCarCategorySettings}
             />
             <Route path="*" component={AdminError} />
           </Switch>

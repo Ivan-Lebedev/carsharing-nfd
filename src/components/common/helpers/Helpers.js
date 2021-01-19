@@ -1,9 +1,11 @@
 import { thumbnailURL } from "../../../constants/urls"
 
+const getColorText = (color) => color.charAt(0).toUpperCase() + color.slice(1)
+
 export const getColorItems = (formik, carColors) => {
   return carColors.map((color) => {
     return {
-      label: color.charAt(0).toUpperCase() + color.slice(1),
+      label: getColorText(color),
       value: color,
       checked: formik.values.color === color,
     }
@@ -11,9 +13,7 @@ export const getColorItems = (formik, carColors) => {
 }
 
 export const getAdminTableColors = (colors) => {
-  return colors
-    .map((color) => color.charAt(0).toUpperCase() + color.slice(1))
-    .join(", ")
+  return colors.map((color) => getColorText(color)).join(", ")
 }
 
 export const getAdminCarNames = (cars) => {
@@ -58,6 +58,11 @@ export const getAdminOrdersAllOptions = (options) => {
   })
 }
 
+export const getAdminOrderCurrentModel = (carData) => ({
+  key: carData.name,
+  value: carData.id,
+})
+
 export const getAdminSettingsCarImg = (data) => {
   if (!data.path) {
     return data
@@ -70,9 +75,18 @@ export const getAdminSettingsCarImg = (data) => {
 export const getAdminCarSettingsColorItems = (carColors) => {
   return carColors.map((color) => {
     return {
-      label: color.charAt(0).toUpperCase() + color.slice(1),
+      label: getColorText(color),
       value: color,
       checked: true,
     }
   })
 }
+
+export const getAdminOrderColors = (colors) => {
+  return colors.map((color) => {
+    return { key: getColorText(color), value: color }
+  })
+}
+
+export const getAdminOrderSettingsPoints = (points) =>
+  points.map((item) => ({ key: item.address, value: item.id }))

@@ -16,7 +16,7 @@ import {
   deleteCarData,
   clearCarData,
 } from "../../../store/car-settings-reducer"
-import { useLocation, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import Loader from "../../common/Loader/Loader"
 import {
   getAdminSettingsCarImg,
@@ -38,10 +38,10 @@ const AdminCarSettings = ({
   updateCarData,
   deleteCarData,
   clearCarData,
+  match,
 }) => {
-  const location = useLocation()
   const history = useHistory()
-  const carId = location.pathname.split("/")[3]
+  const carId = match.params.carId
   categoryOptions = [
     { key: "Выберите категорию", value: "" },
     ...getAdminOrdersAllOptions(categoryData),
