@@ -20,6 +20,7 @@ import CarImg from "../../../assets/images/CoveredCar.png"
 import Loader from "../../common/Loader/Loader"
 import { CarSettingsFilter } from "../../common/AdminForms/AdminForms"
 import { Button } from "../../common/Button/Button"
+import { dataIsNotFound } from "../../../constants/strings"
 
 const AdminOrderSettings = ({
   isOrderFetching,
@@ -72,13 +73,13 @@ const AdminOrderSettings = ({
       if (!orderSettings.carId) {
         setCarImg(CarImg)
         setCurrentModel({
-          key: "НЕТ ДАННЫХ",
-          value: "НЕТ ДАННЫХ",
+          key: dataIsNotFound,
+          value: dataIsNotFound,
         })
-        setCarColors(["НЕТ ДАННЫХ"])
+        setCarColors([dataIsNotFound])
         setCurrentColor({
-          key: "НЕТ ДАННЫХ",
-          value: "НЕТ ДАННЫХ",
+          key: dataIsNotFound,
+          value: dataIsNotFound,
         })
       }
       if (orderSettings.carId) {
@@ -88,15 +89,15 @@ const AdminOrderSettings = ({
           getAdminOrderColors(
             orderSettings.carId.colors.length
               ? orderSettings.carId.colors
-              : ["НЕТ ДАННЫХ"],
+              : [dataIsNotFound],
           ),
         )
         setCurrentColor(
           getAdminOrderColors(orderSettings.carId.colors).find(
             (item) => item.value === orderSettings.color,
           ) ?? {
-            key: "НЕТ ДАННЫХ",
-            value: "НЕТ ДАННЫХ",
+            key: dataIsNotFound,
+            value: dataIsNotFound,
           },
         )
       }
@@ -120,8 +121,8 @@ const AdminOrderSettings = ({
       setCurrentPoint(
         currentPoints.find((item) => item.value === orderSettings.pointId.id) ??
           currentPoints[0] ?? {
-            key: "НЕТ ДАННЫХ",
-            value: "НЕТ ДАННЫХ",
+            key: dataIsNotFound,
+            value: dataIsNotFound,
           },
       )
     }
@@ -134,7 +135,7 @@ const AdminOrderSettings = ({
       ...orderSettings,
       carId: carsData.find((item) => item.id === value),
       color:
-        carsData.find((item) => item.id === value).colors[0] ?? "НЕТ ДАННЫХ",
+        carsData.find((item) => item.id === value).colors[0] ?? dataIsNotFound,
     })
   }
 
@@ -182,11 +183,11 @@ const AdminOrderSettings = ({
     history.push(`/admin/orders/`)
   }
 
-  return (
-    <div className="admin__orders">
-      {!isDataReady || isOrderFetching ? (
-        <Loader admin />
-      ) : (
+  const getContent = () => {
+    if (!isDataReady || isOrderFetching) {
+      return <Loader admin />
+    } else {
+      return (
         <>
           <div className="content__title">Заказ № {orderId}</div>
           <div className="small-content-card orders">
@@ -201,10 +202,11 @@ const AdminOrderSettings = ({
                   referrerPolicy="origin"
                 />
                 <div className="car-container__title">
-                  {orderSettings.carId?.name || "НЕТ ДАННЫХ"}
+                  {orderSettings.carId?.name || dataIsNotFound}
                 </div>
                 <div className="car-container__car-desc">
-                  {orderSettings.carId?.categoryId?.description || "НЕТ ДАННЫХ"}
+                  {orderSettings.carId?.categoryId?.description ||
+                    dataIsNotFound}
                 </div>
               </div>
 
@@ -276,9 +278,11 @@ const AdminOrderSettings = ({
             </div>
           </div>
         </>
-      )}
-    </div>
-  )
+      )
+    }
+  }
+
+  return <div className="admin__orders">{getContent()}</div>
 }
 const mapStateToProps = (state) => ({
   isOrderFetching: state.orderSettings.isOrderFetching,

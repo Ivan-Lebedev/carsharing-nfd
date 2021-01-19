@@ -23,6 +23,7 @@ import {
 } from "../../common/helpers/Helpers"
 import AdminOrdersFilter from "./AdminOrdersFilter"
 import { Button, LinkButton } from "../../common/Button/Button"
+import { dataIsNotFound } from "../../../constants/strings"
 
 const periodOptions = [
   { key: "За все время", value: "" },
@@ -123,16 +124,16 @@ const AdminOrders = ({
                 <div className="car-info__desc">
                   <div className="car-info__desc-item">
                     <span className="car-info__accent">
-                      {order.carId?.name || "НЕТ ДАННЫХ"}
+                      {order.carId?.name || dataIsNotFound}
                     </span>{" "}
                     в
                     <span className="car-info__accent">
                       {" "}
-                      {order.cityId?.name || "НЕТ ДАННЫХ"},
+                      {order.cityId?.name || dataIsNotFound},
                     </span>
                     <span className="car-info__accent">
                       {" "}
-                      {order.pointId?.address || "НЕТ ДАННЫХ"}
+                      {order.pointId?.address || dataIsNotFound}
                     </span>
                   </div>
                   <div className="car-info__desc-item">
@@ -142,7 +143,7 @@ const AdminOrders = ({
                   <div className="car-info__desc-item">
                     Цвет:{" "}
                     <span className="car-info__accent">
-                      {order.color || "НЕТ ДАННЫХ"}
+                      {order.color || dataIsNotFound}
                     </span>
                   </div>
                 </div>
@@ -173,9 +174,9 @@ const AdminOrders = ({
             </div>
             <div className="orders__content-container status-price-container">
               <div className="order-status">
-                {order.orderStatusId?.name || "НЕТ ДАННЫХ"}
+                {order.orderStatusId?.name || dataIsNotFound}
               </div>
-              <div className="order-price">{order.price || "НЕТ ДАННЫХ"} ₽</div>
+              <div className="order-price">{order.price || dataIsNotFound} ₽</div>
             </div>
             <div className="orders__content-container">
               <Button

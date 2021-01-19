@@ -39,7 +39,6 @@ const AdminCarSettings = ({
   deleteCarData,
   clearCarData,
 }) => {
-  // console.log(categoryData)
   const location = useLocation()
   const history = useHistory()
   const carId = location.pathname.split("/")[3]

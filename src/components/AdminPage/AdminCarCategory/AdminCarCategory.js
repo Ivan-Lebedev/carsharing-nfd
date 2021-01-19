@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { connect } from "react-redux"
+import { newCategory } from "../../../constants/strings"
 import { requestCategoriesData } from "../../../store/admin-car-category-reducer"
 import { LinkButton } from "../../common/Button/Button"
 import Loader from "../../common/Loader/Loader"
@@ -23,11 +24,11 @@ const AdminCarCategory = ({
     }
   }, [categoriesData])
 
-  return (
-    <div className="admin__orders">
-      {!isDataReady || isDataFetching ? (
-        <Loader admin />
-      ) : (
+  const getContent = () => {
+    if (!isDataReady || isDataFetching) {
+      return <Loader admin />
+    } else {
+      return (
         <>
           <div className="content__title">Список категорий авто</div>
           <div className="content__card orders">
@@ -60,7 +61,7 @@ const AdminCarCategory = ({
               <div className="orders__content-container">
                 <LinkButton
                   additionalStyles="button__admin button__table"
-                  to={`/admin/car-category/${"new-category"}`}
+                  to={`/admin/car-category/${newCategory}`}
                 >
                   Добавить новую
                 </LinkButton>
@@ -68,9 +69,11 @@ const AdminCarCategory = ({
             </div>
           </div>
         </>
-      )}
-    </div>
-  )
+      )
+    }
+  }
+
+  return <div className="admin__orders">{getContent()}</div>
 }
 
 const mapStateToProps = (state) => ({

@@ -12,6 +12,7 @@ import { Button } from "../../common/Button/Button"
 import Loader from "../../common/Loader/Loader"
 import { useLocation, useHistory } from "react-router-dom"
 import "./AdminCarCategory.scss"
+import { newCategory } from "../../../constants/strings"
 
 const AdminCarCategorySettings = ({
   isDataFetching,
@@ -31,7 +32,7 @@ const AdminCarCategorySettings = ({
   const [isDataReady, setIsDataReady] = useState(false)
 
   useEffect(() => {
-    if (categoryId && categoryId !== "new-category") {
+    if (categoryId && categoryId !== newCategory) {
       requestCategoriesData(categoryId)
     }
   }, [requestCategoriesData, categoryId])
@@ -41,7 +42,7 @@ const AdminCarCategorySettings = ({
       setCategory(carsCategoryData)
       setIsDataReady(true)
     }
-    if (categoryId === "new-category") {
+    if (categoryId === newCategory) {
       setCategory({
         description: "",
         name: "",
@@ -61,33 +62,33 @@ const AdminCarCategorySettings = ({
     setCategory({ ...category, [name]: value })
   }
   const submitCategoryData = () => {
-    if (categoryId && categoryId !== "new-category") {
+    if (categoryId && categoryId !== newCategory) {
       updateCategoryData(category, categoryId)
     }
-    if (categoryId === "new-category") {
+    if (categoryId === newCategory) {
       sendNewCategoryData(category)
     }
   }
 
   const discardChanges = () => {
-    if (categoryId && categoryId !== "new-category") {
+    if (categoryId && categoryId !== newCategory) {
       requestCategoriesData(categoryId)
     }
   }
 
   const deleteCategory = () => {
-    if (categoryId && categoryId !== "new-category") {
+    if (categoryId && categoryId !== newCategory) {
       deleteCategoryData(categoryId)
       clearCategoryId()
       history.push(`/admin/car-category/`)
     }
   }
 
-  return (
-    <div className="admin__orders">
-      {!isDataReady || isDataFetching ? (
-        <Loader admin />
-      ) : (
+  const getContent = () => {
+    if (!isDataReady || isDataFetching) {
+      return <Loader admin />
+    } else {
+      return (
         <>
           <div className="content__title">Параметры категории</div>
           <div className="small-content-card orders">
@@ -142,9 +143,11 @@ const AdminCarCategorySettings = ({
             </div>
           </div>
         </>
-      )}
-    </div>
-  )
+      )
+    }
+  }
+
+  return <div className="admin__orders">{getContent}</div>
 }
 
 const mapStateToProps = (state) => ({
