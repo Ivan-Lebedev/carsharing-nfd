@@ -147,7 +147,7 @@ const AdminCarCategorySettings = ({
     }
   }
 
-  return <div className="admin__orders">{getContent}</div>
+  return <div className="admin__orders">{getContent()}</div>
 }
 
 const mapStateToProps = (state) => ({
